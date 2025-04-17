@@ -1,0 +1,53 @@
+<div class="p-6 bg-white">
+    <!-- Título -->
+    <h2 class="text-2xl font-bold mb-6">Mis facturas</h2>
+    <!-- Buscador y botón -->
+    <div class="flex justify-between items-center mb-4">
+      <!-- Buscador -->
+      <div class="relative w-full max-w-xs">
+        <!-- Icono -->
+        <img 
+          src="assets/img/lupa.svg" 
+          alt="Buscar" 
+          class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 opacity-60"
+        />
+        <!-- Input -->
+        <input 
+          type="text" 
+          placeholder="Buscar factura..." 
+          class="pl-10 border border-gray-300 rounded-md p-1 w-full focus:outline-none focus:ring-2 focus:ring-green-500" 
+        />
+      </div>
+      <!-- Botón crear factura -->
+      <a routerLink="/facturas/crear" class="ml-4 bg-green-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-green-700 transition">
+        <img src="assets/img/mas.svg" alt="Crear" class="w-4 h-4 mr-2" />
+        Crear factura
+      </a>
+    </div>
+    <!-- Tabla de facturas -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border border-gray-300 rounded-md">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="text-left px-4 py-2 border-b">Estado</th>
+            <th class="text-left px-4 py-2 border-b">Nº Factura</th>
+            <th class="text-left px-4 py-2 border-b">Cliente</th>
+            <th class="text-left px-4 py-2 border-b">Emisión</th>
+            <th class="text-left px-4 py-2 border-b">Pago</th>
+            <th class="text-left px-4 py-2 border-b">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="px-4 py-2 border-b">Pendiente</td>
+            <td class="px-4 py-2 border-b">F001</td>
+            <td class="px-4 py-2 border-b">Cliente Ejemplo</td>
+            <td class="px-4 py-2 border-b">2025-04-15</td>
+            <td class="px-4 py-2 border-b">2025-05-01</td>
+            <td class="px-4 py-2 border-b">150.00€</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
