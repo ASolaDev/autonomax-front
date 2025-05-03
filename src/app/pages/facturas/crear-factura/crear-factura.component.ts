@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
+import { DetallesComponent } from './detalles/detalles.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-crear-factura',
+  standalone: true,
+  imports: [DetallesComponent,CommonModule],
   templateUrl: './crear-factura.component.html',
   styleUrls: ['./crear-factura.component.css']
 })
 export class CrearFacturaComponent {
-  modalVisible: boolean = false;
+  mostrarModalDetalle: boolean = false;
 
-  mostrarModal() {
-    this.modalVisible = true;
+  abrirModalDetalle() {
+    this.mostrarModalDetalle = true;
   }
 
-  ocultarModal() {
-    this.modalVisible = false;
+  cerrarModalDetalle() {
+    this.mostrarModalDetalle = false;
   }
+
 }

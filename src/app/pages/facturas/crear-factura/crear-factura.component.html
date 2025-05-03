@@ -87,14 +87,16 @@
     </div>
   </div>
 
-
   <hr class="border-gray-300" />
 
   <!-- Detalles -->
   <div class="space-y-4">
     <div class="flex items-center gap-2">
       <h2 class="text-xl font-semibold">Detalles</h2>
-      <button class="bg-green-600 hover:bg-green-700 text-white rounded-full p-1">
+      <button 
+        class="bg-green-600 hover:bg-green-700 text-white rounded-full p-1"
+        (click)="abrirModalDetalle()"
+      >
         <img src="/assets/img/mas.svg" alt="detalles" class="w-4 h-4" />
       </button>
     </div>
@@ -122,6 +124,8 @@
       </table>
     </div>
   </div>
+
+  <app-detalles *ngIf="mostrarModalDetalle" (cerrar)="cerrarModalDetalle()"></app-detalles>
 
   <hr class="border-gray-300" />
 

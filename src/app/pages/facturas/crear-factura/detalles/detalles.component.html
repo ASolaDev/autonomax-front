@@ -1,43 +1,16 @@
-<!-- Modal visual estático -->
 <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
-      <h3 class="text-xl font-semibold mb-4 text-center">Añadir detalle</h3>
-  
-      <form class="space-y-4">
-        <div>
-          <label class="block mb-1 font-medium">Descripción</label>
-          <input type="text" class="w-full border border-gray-300 p-2 rounded-md" placeholder="Ej. Producto A" />
-        </div>
-  
-        <div>
-          <label class="block mb-1 font-medium">Cantidad</label>
-          <input type="number" class="w-full border border-gray-300 p-2 rounded-md" placeholder="Ej. 2" />
-        </div>
-  
-        <div>
-          <label class="block mb-1 font-medium">Precio unitario</label>
-          <input type="number" class="w-full border border-gray-300 p-2 rounded-md" placeholder="Ej. 50.00" />
-        </div>
-  
-        <div>
-          <label class="block mb-1 font-medium">Tipo IVA</label>
-          <select class="w-full border border-gray-300 p-2 rounded-md">
-            <option>0%</option>
-            <option>10%</option>
-            <option>21%</option>
-          </select>
-        </div>
-  
-        <div>
-          <label class="block mb-1 font-medium">Subtotal</label>
-          <input type="text" class="w-full border border-gray-300 p-2 rounded-md bg-gray-100" placeholder="Ej. 100.00" disabled />
-        </div>
-  
-        <div class="mt-6 flex justify-end gap-2">
-          <button type="button" class="bg-gray-300 px-4 py-2 rounded-md">Cancelar</button>
-          <button type="button" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Guardar</button>
-        </div>
-      </form>
+  <div class="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
+    <h2 class="text-xl font-semibold mb-4">Añadir detalle</h2>
+
+    <div class="space-y-2">
+      <input type="text" placeholder="Descripción" class="w-full border p-2 rounded" />
+      <input type="number" placeholder="Cantidad" class="w-full border p-2 rounded" />
+      <input type="number" placeholder="Precio unitario" class="w-full border p-2 rounded" />
+    </div>
+
+    <div class="mt-4 flex justify-end gap-2">
+      <button (click)="cerrarModal()" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Cancelar</button>
+      <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Guardar</button>
     </div>
   </div>
-  
+</div>

@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-detalles',
-  imports: [],
+  standalone: true,
   templateUrl: './detalles.component.html',
-  styleUrl: './detalles.component.css'
+  styleUrls: ['./detalles.component.css']
 })
 export class DetallesComponent {
+  @Output() cerrar = new EventEmitter<void>();
 
+  cerrarModal() {
+    this.cerrar.emit();
+  }
 }
