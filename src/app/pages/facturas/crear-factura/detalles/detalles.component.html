@@ -1,16 +1,43 @@
 <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
-    <h2 class="text-xl font-semibold mb-4">Añadir detalle</h2>
+  <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md relative">
+    <h2 class="text-2xl font-bold mb-6 text-center">Añadir detalle</h2>
 
-    <div class="space-y-2">
-      <input type="text" placeholder="Descripción" class="w-full border p-2 rounded" />
-      <input type="number" placeholder="Cantidad" class="w-full border p-2 rounded" />
-      <input type="number" placeholder="Precio unitario" class="w-full border p-2 rounded" />
+    <div class="space-y-4">
+      <div>
+        <label class="block font-semibold mb-1">Descripción</label>
+        <input type="text" class="w-full border p-2 rounded" />
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Cantidad</label>
+        <input type="number" class="w-full border p-2 rounded" />
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Precio unitario</label>
+        <div class="relative">
+          <input type="number" class="w-full border pr-8 p-2 rounded" />
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500">€</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Tipo de IVA</label>
+        <div class="relative">
+          <input type="number" class="w-full border pr-8 p-2 rounded" />
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500">%</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Subtotal</label>
+        <input type="number" class="w-full border p-2 rounded bg-gray-100" readonly />
+      </div>
     </div>
 
-    <div class="mt-4 flex justify-end gap-2">
-      <button (click)="cerrarModal()" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Cancelar</button>
-      <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Guardar</button>
+    <div class="mt-6 flex justify-center gap-4">
+      <button (click)="cerrarModal()" class="bg-gray-300 px-5 py-2 rounded hover:bg-gray-400">Cancelar</button>
+      <button class="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700">Guardar</button>
     </div>
   </div>
 </div>
