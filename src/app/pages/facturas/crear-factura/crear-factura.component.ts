@@ -15,36 +15,67 @@ export class CrearFacturaComponent {
   detalleEditando: any = null;
   indiceEditando: number | null = null;
 
+  //propiedades
+  baseImponible: number = 0;
+  totalIva: number = 0;
+  totalFactura: number = 0;
+
+  //metodo abrir modal
   abrirModalDetalle() {
-    this.mostrarModalDetalle = true; 
+    this.mostrarModalDetalle = true;
   }
 
+  //metodo cerrar modal
   cerrarModalDetalle() {
     this.mostrarModalDetalle = false;
     this.detalleEditando = null;
     this.indiceEditando = null;
   }
 
+  //metodo calcular totales
+  calcularTotales() {
+    this.baseImponible = 0;
+    this.totalIva = 0;
+    this.totalFactura = 0;
+
+    this.detallesFactura.forEach(detalle => {
+      const subtotal = detalle.cantidad * detalle.precioUnitario * (1 + detalle.tipoIva / 100);
+      this.baseImponible += detalle.cantidad * detalle.precioUnitario;
+      this.totalIva += detalle.cantidad * detalle.precioUnitario * (detalle.tipoIva / 100);
+      this.totalFactura += subtotal;
+    });
+  }
+
+  //metodo mostrar detalles
   agregarDetalle(detalle: any) {
     const subtotal = detalle.cantidad * detalle.precioUnitario * (1 + detalle.tipoIva / 100);
     const detalleConSubtotal = { ...detalle, subtotal };
-  
+
     if (this.indiceEditando !== null) {
       this.detallesFactura[this.indiceEditando] = detalleConSubtotal;
     } else {
       this.detallesFactura.push(detalleConSubtotal);
     }
-  
-    this.cerrarModalDetalle();
-  }  
 
+    this.calcularTotales(); //actualizar
+    this.cerrarModalDetalle();
+  }
+
+  //metodo editar detalles
   editarDetalle(index: number) {
     this.detalleEditando = { ...this.detallesFactura[index] };
     this.indiceEditando = index;
     this.abrirModalDetalle();
   }
 
+  //metodo eliminar detalles
   eliminarDetalle(index: number) {
     this.detallesFactura.splice(index, 1);
+    this.calcularTotales(); //actualizar
+  }
+
+  //calcularTotales al inicio
+  ngOnInit() {
+    this.calcularTotales();
   }
 }

@@ -154,11 +154,15 @@
     <div class="w-full md:w-1/4 space-y-2">
       <div class="flex justify-between border-b pb-1">
         <span class="font-medium">Subtotal:</span>
-        <span>€0.00</span>
+        <span>€{{ baseImponible.toFixed(2) }}</span>
+      </div>
+      <div class="flex justify-between border-b pb-1">
+        <span class="font-medium">IVA:</span>
+        <span>€{{ totalIva.toFixed(2) }}</span>
       </div>
       <div class="flex justify-between font-semibold text-lg">
         <span>Total a pagar:</span>
-        <span>€0.00</span>
+        <span>€{{ totalFactura.toFixed(2) }}</span>
       </div>
     </div>
   </div>

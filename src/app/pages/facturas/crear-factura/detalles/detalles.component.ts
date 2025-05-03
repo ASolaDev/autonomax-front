@@ -43,7 +43,6 @@ export class DetallesComponent implements OnChanges {
     }
   }
   
-
   guardar(): void {
     this.calcularSubtotal();
     const detalle = {
