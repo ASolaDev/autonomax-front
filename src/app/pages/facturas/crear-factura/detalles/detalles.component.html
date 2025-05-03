@@ -3,41 +3,46 @@
     <h2 class="text-2xl font-bold mb-6 text-center">Añadir detalle</h2>
 
     <div class="space-y-4">
+      <!-- Descripción -->
       <div>
         <label class="block font-semibold mb-1">Descripción</label>
-        <input type="text" class="w-full border p-2 rounded" />
+        <input type="text" [(ngModel)]="descripcion" class="w-full border p-2 rounded" />
       </div>
 
+      <!-- Cantidad -->
       <div>
         <label class="block font-semibold mb-1">Cantidad</label>
-        <input type="number" class="w-full border p-2 rounded" />
+        <input type="number" [(ngModel)]="cantidad" (input)="calcularSubtotal()" class="w-full border p-2 rounded" />
       </div>
 
+      <!-- Precio unitario -->
       <div>
         <label class="block font-semibold mb-1">Precio unitario</label>
         <div class="relative">
-          <input type="number" class="w-full border pr-8 p-2 rounded" />
+          <input type="number" [(ngModel)]="precioUnitario" (input)="calcularSubtotal()" class="w-full border pr-8 p-2 rounded" />
           <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500">€</span>
         </div>
       </div>
 
+      <!-- Tipo de IVA -->
       <div>
         <label class="block font-semibold mb-1">Tipo de IVA</label>
         <div class="relative">
-          <input type="number" class="w-full border pr-8 p-2 rounded" />
+          <input type="number" [(ngModel)]="tipoIva" (input)="calcularSubtotal()" class="w-full border pr-8 p-2 rounded" />
           <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500">%</span>
         </div>
       </div>
 
+      <!-- Subtotal -->
       <div>
         <label class="block font-semibold mb-1">Subtotal</label>
-        <input type="number" class="w-full border p-2 rounded bg-gray-100" readonly />
+        <input type="number" [value]="subtotal" class="w-full border p-2 rounded bg-gray-100" readonly />
       </div>
     </div>
 
     <div class="mt-6 flex justify-center gap-4">
       <button (click)="cerrarModal()" class="bg-gray-300 px-5 py-2 rounded hover:bg-gray-400">Cancelar</button>
-      <button class="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700">Guardar</button>
+      <button (click)="guardar()" class="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700">Guardar</button>
     </div>
   </div>
 </div>

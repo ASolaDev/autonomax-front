@@ -97,35 +97,55 @@
         class="bg-green-600 hover:bg-green-700 text-white rounded-full p-1"
         (click)="abrirModalDetalle()"
       >
-        <img src="/assets/img/mas.svg" alt="detalles" class="w-4 h-4" />
+        <img src="/assets/img/mas.svg" alt="Agregar detalle" class="w-4 h-4" />
       </button>
     </div>
 
     <div class="overflow-x-auto">
-      <table class="min-w-full text-sm border border-black rounded-md overflow-hidden">
-        <thead class="bg-gray-100 text-left">
-          <tr>
-            <th class="p-3 border border-black">Descripción</th>
-            <th class="p-3 border border-black">Cantidad</th>
-            <th class="p-3 border border-black">Precio Unitario</th>
-            <th class="p-3 border border-black">IVA</th>
-            <th class="p-3 border border-black">Subtotal</th>
+      <table class="min-w-full border border-gray-300 rounded-xl overflow-hidden shadow-sm">
+        <thead class="bg-gray-200">
+          <tr class="text-center text-base font-medium text-black">
+            <th class="p-4 border border-gray-300 bg-gray-100">Descripción</th>
+            <th class="p-4 border border-gray-300 bg-gray-100">Cantidad</th>
+            <th class="p-4 border border-gray-300 bg-gray-100">Precio Unitario</th>
+            <th class="p-4 border border-gray-300 bg-gray-100">IVA</th>
+            <th class="p-4 border border-gray-300 bg-gray-100">Subtotal</th>
+            <th class="p-4 border border-gray-300 bg-gray-100"></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="p-3 border border-black">-</td>
-            <td class="p-3 border border-black">-</td>
-            <td class="p-3 border border-black">-</td>
-            <td class="p-3 border border-black">-</td>
-            <td class="p-3 border border-black">-</td>
+          <tr 
+            *ngFor="let detalle of detallesFactura; let i = index"
+            class="text-center hover:bg-gray-50 transition"
+          >
+            <td class="p-4 border border-gray-300">{{ detalle.descripcion }}</td>
+            <td class="p-4 border border-gray-300">{{ detalle.cantidad }}</td>
+            <td class="p-4 border border-gray-300">{{ detalle.precioUnitario }}</td>
+            <td class="p-4 border border-gray-300">{{ detalle.tipoIva }}%</td>
+            <td class="p-4 border border-gray-300">{{ detalle.subtotal }}</td>
+            <td class="p-4 border border-gray-300">
+              <div class="flex justify-center gap-3">
+                <button (click)="editarDetalle(i)">
+                  <img src="assets/img/editar.svg" alt="Editar" class="w-8 h-8" />
+                </button>
+                <button (click)="eliminarDetalle(i)">
+                  <img src="assets/img/eliminar.svg" alt="Eliminar" class="w-8 h-8" />
+                </button>
+              </div>
+            </td>
           </tr>
-        </tbody>
+        </tbody>        
       </table>
     </div>
   </div>
 
-  <app-detalles *ngIf="mostrarModalDetalle" (cerrar)="cerrarModalDetalle()"></app-detalles>
+  <!-- Modal de detalles -->
+  <app-detalles
+    *ngIf="mostrarModalDetalle"
+    [detalle]="detalleEditando"
+    (cerrar)="cerrarModalDetalle()"
+    (guardarDetalles)="agregarDetalle($event)">
+  </app-detalles>
 
   <hr class="border-gray-300" />
 
