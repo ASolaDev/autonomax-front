@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { DetallesComponent } from './detalles/detalles.component';
 import { CommonModule } from '@angular/common';
+import { ClientesComponent } from './clientes/clientes.component';
 
 @Component({
   selector: 'app-crear-factura',
   standalone: true,
-  imports: [DetallesComponent, CommonModule],
+  imports: [DetallesComponent, CommonModule, ClientesComponent],
   templateUrl: './crear-factura.component.html',
   styleUrls: ['./crear-factura.component.css']
 })
 export class CrearFacturaComponent {
   mostrarModalDetalle = false;
+  mostrarModalClientes = false;
   detallesFactura: any[] = [];
   detalleEditando: any = null;
   indiceEditando: number | null = null;
@@ -20,9 +22,14 @@ export class CrearFacturaComponent {
   totalIva: number = 0;
   totalFactura: number = 0;
 
+  
   //metodo abrir modal
   abrirModalDetalle() {
     this.mostrarModalDetalle = true;
+  }
+
+  abrirModalClientes() {
+    this.mostrarModalClientes = true;
   }
 
   //metodo cerrar modal
