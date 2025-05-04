@@ -168,12 +168,14 @@
   </div>
 
   <!-- Botón Generar Factura -->
-  <div class="text-center">
-    <button 
-      class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
-      >
-      Generar factura
-    </button>
+  <div class="">
+    <form (ngSubmit)="generarFactura()">
+      <!-- Campos para numero, cliente, etc. -->
+      <input [(ngModel)]="factura.numero" name="numero" required />
+      <input [(ngModel)]="factura.cliente" name="cliente" required />
+    
+      <button (click)="generarFactura()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Generar factura</button>
+    </form>
 
   </div>
 </div>
