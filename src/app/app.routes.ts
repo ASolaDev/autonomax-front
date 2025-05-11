@@ -5,6 +5,8 @@ import { MenuComponent } from './layout/menu.component';
 import { FacturasComponent } from './pages/facturas/facturas.component';
 import { CrearFacturaComponent } from './pages/facturas/crear-factura/crear-factura.component';
 import { Page404Component } from './pages/page404/page404.component';
+import { GastosComponent } from './pages/gastos/gastos.component';
+import { CrearGastoComponent } from './pages/gastos/crear-gasto/crear-gasto.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,6 +19,8 @@ export const routes: Routes = [
       { path: 'inicio', component: DashboardComponent },
       { path: 'facturas', component: FacturasComponent },
       { path: 'facturas/crear', component: CrearFacturaComponent },
+      { path: 'gastos', component: GastosComponent },
+      { path: 'gastos/crear', component: CrearGastoComponent },
       { path: '**', component: Page404Component },
       //   { path: 'gastos', component: GastosComponent },
       //   { path: 'estadisticas', component: EstadisticasComponent },

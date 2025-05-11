@@ -1,16 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FacturaService } from '../../services/factura.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-facturas',
+  imports: [CommonModule],
   templateUrl: './facturas.component.html',
   styleUrls: ['./facturas.component.css']
 })
-export class FacturasComponent {
-//sustituir por api
-  facturas = [
-    { estado: 'Pagado', numero: 'F001', cliente: 'Cliente A', emision: '2025-04-01', pago: '2025-04-10', total: '150€' },
-    { estado: 'Pendiente', numero: 'F002', cliente: 'Cliente B', emision: '2025-04-05', pago: '-', total: '200€' },
-  ];
+export class FacturasComponent implements OnInit {
+  constructor(private router: Router, private facturaService: FacturaService) {}
 
-  buscar = '';
+  facturas: any[] = [];
+
+  ngOnInit() {
+    this.facturas = this.facturaService.getFacturas();
+  }
+
+  onCrearFactura() {
+    console.log('Redirigiendo a /crear');
+    this.router.navigate(['facturas/crear']);
+  }
+
+
 }

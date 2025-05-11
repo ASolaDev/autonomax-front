@@ -1,9 +1,6 @@
 <div class="p-6 bg-white">
-    <!-- Título -->
     <h2 class="text-2xl font-bold mb-6">Mis facturas</h2>
-    <!-- Buscador y botón -->
     <div class="flex justify-between items-center mb-4">
-      <!-- Buscador -->
       <div class="relative w-full max-w-xs">
         <!-- Icono -->
         <img 
@@ -19,10 +16,11 @@
         />
       </div>
       <!-- Botón crear factura -->
-      <a routerLink="/facturas/crear" class="ml-4 bg-green-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-green-700 transition">
+      <button class="ml-4 bg-green-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-green-700 transition" (click)="onCrearFactura()">
         <img src="assets/img/mas.svg" alt="Crear" class="w-4 h-4 mr-2" />
         Crear factura
-      </a>
+      </button>      
+
     </div>
     <!-- Tabla de facturas -->
     <div class="overflow-x-auto">
@@ -33,20 +31,31 @@
             <th class="text-left px-4 py-2 border-b">Nº Factura</th>
             <th class="text-left px-4 py-2 border-b">Cliente</th>
             <th class="text-left px-4 py-2 border-b">Emisión</th>
-            <th class="text-left px-4 py-2 border-b">Pago</th>
             <th class="text-left px-4 py-2 border-b">Total</th>
+            <th class="text-left px-4 py-2 border-b"></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="px-4 py-2 border-b">Pendiente</td>
-            <td class="px-4 py-2 border-b">F001</td>
-            <td class="px-4 py-2 border-b">Cliente Ejemplo</td>
-            <td class="px-4 py-2 border-b">2025-04-15</td>
-            <td class="px-4 py-2 border-b">2025-05-01</td>
-            <td class="px-4 py-2 border-b">150.00€</td>
+          <tr *ngFor="let factura of facturas">
+            <td class="px-4 py-2 border-b">{{ factura.estado }}</td>
+            <td class="px-4 py-2 border-b">{{ factura.numero }}</td>
+            <td class="px-4 py-2 border-b">{{ factura.cliente }}</td>
+            <td class="px-4 py-2 border-b">{{ factura.emision }}</td>
+            <td class="px-4 py-2 border-b">{{ factura.total }}</td>
+            <div class="flex justify-center gap-3">
+              <button>
+                <img src="assets/img/editar.svg" alt="Editar" class="w-8 h-8" />
+              </button>
+              <button>
+                <img src="assets/img/eliminar.svg" alt="Eliminar" class="w-8 h-8" />
+              </button>
+              <button>
+                <img src="assets/img/descargar.svg" alt="Descargar" class="w-8 h-8" />
+              </button>
+            </div>
           </tr>
         </tbody>
+        
       </table>
     </div>
   </div>
