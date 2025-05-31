@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginRequest } from '../interfaces/loginRequest';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,27 @@ export class AuthService {
 
   constructor(private http:HttpClient) {}
 
-
-  login(email:string,password:string)
+  ngOnInit()
   {
-      // Para que SpringBoot reciba bien el email y contraseña
-      const body:LoginRequest = {email,password};
+     
+  }
+
+  login(nombre_usuario:string,password:string)
+  {
+      // Para que SpringBoot reciba bien el nombre de usuario y contraseña
+      const body:LoginRequest = {nombre_usuario,password};
       return this.http.post(this.urlBase + "/login",body, {withCredentials:true});
   }
+
+  logout()
+  {
+    return this.http.post(this.urlBase + "/logout",{}, {withCredentials:true}).pipe(tap(() => {sessionStorage.removeItem("usuarioActual")}))
+  }
+
+
+  estaLogueado()
+  {
+    return !!sessionStorage.getItem("usuarioActual");
+  }
+
 }

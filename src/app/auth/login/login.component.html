@@ -1,6 +1,6 @@
 <!-- Franja superior -->
 <div class="w-full bg-black text-white p-4 flex items-center justify-center">
-  <h1 class="text-xl font-semibold">NombreEmpresa</h1>
+  <h1 class="text-xl font-semibold"><img src="assets/img/autonomax-logo2.jpg" alt=""></h1>
 </div>
 
 <!-- Contenido principal -->
@@ -8,10 +8,15 @@
   <!-- Formulario -->
   <div class="w-full max-w-sm bg-white p-6 shadow-md rounded-md border border-gray-300">
     <!-- Logo -->
-    <!-- <img src="" alt="Logo" class="w-24 h-24 mb-6 mx-auto" /> -->
-    <p class="text-center text-lg font-semibold mb-4">logo</p>
+    <img src="assets/img/autonomax-logo1.jpg" alt="Logo" class="w-24 h-24 mb-6 mx-auto" />
+    <!-- <p class="text-center text-lg font-semibold mb-4">logo</p> -->
 
     <form (ngSubmit)="onLogin()">
+
+      @if (generalError) 
+      {
+         <p class="text-red-500">{{generalError}}</p>
+      }
       <!-- Usuario -->
       <div class="mb-4">
         <label for="username" class="block text-gray-700">Nombre de usuario</label>
@@ -19,10 +24,14 @@
           type="text"
           id="username"
           name="username"
-          [(ngModel)]="email"
+          [(ngModel)]="nombre_usuario"
           required
           class="mt-1 w-full border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
         />
+        @if (nombreUsuarioError) 
+        {
+           <p class="text-red-500">{{nombreUsuarioError}}</p>
+        }
       </div>
 
       <!-- Contraseña -->
@@ -36,6 +45,10 @@
           required
           class="mt-1 w-full border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
         />
+        @if (passwordError) 
+        {
+           <p class="text-red-500">{{passwordError}}</p>
+        }
       </div>
 
       <!-- Botón -->
