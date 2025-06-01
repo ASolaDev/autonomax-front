@@ -3,21 +3,21 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CrearGastoComponent } from './crear-gasto.component';
 
 describe('CrearGastoComponent', () => {
-  let component: CrearGastoComponent;
-  let fixture: ComponentFixture<CrearGastoComponent>;
+    let component: CrearGastoComponent;
+    let fixture: ComponentFixture<CrearGastoComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CrearGastoComponent]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [CrearGastoComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(CrearGastoComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(CrearGastoComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

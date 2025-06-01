@@ -4,25 +4,24 @@ import { FacturaService } from '../../services/factura.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone: true,
-  selector: 'app-facturas',
-  imports: [CommonModule],
-  templateUrl: './facturas.component.html',
-  styleUrls: ['./facturas.component.css']
+    standalone: true,
+    selector: 'app-facturas',
+    imports: [CommonModule],
+    templateUrl: './facturas.component.html'
 })
+
 export class FacturasComponent implements OnInit {
-  constructor(private router: Router, private facturaService: FacturaService) {}
 
-  facturas: any[] = [];
+    constructor(private router: Router, private facturaService: FacturaService) { }
 
-  ngOnInit() {
-    this.facturas = this.facturaService.getFacturas();
-  }
+    facturas: any[] = [];
 
-  onCrearFactura() {
-    console.log('Redirigiendo a /crear');
-    this.router.navigate(['facturas/crear']);
-  }
+    ngOnInit() {
+        this.facturas = this.facturaService.getFacturas();
+    }
 
-
+    onCrearFactura() {
+        console.log('Redirigiendo a /crear');
+        this.router.navigate(['facturas/crear']);
+    }
 }

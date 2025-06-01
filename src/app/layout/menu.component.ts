@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,18 +10,15 @@ import { AuthService } from '../auth/auth.service';
 })
 export class MenuComponent {
 
-  constructor(private auth:AuthService, private router:Router){}
+  constructor(private auth: AuthService, private router: Router) { }
 
-  logout()
-  {
+  logout() {
     this.auth.logout().subscribe(
 
-      response => 
-      {
+      response => {
         this.router.navigate(['/login'])
       },
-      error => 
-      {
+      error => {
         sessionStorage.clear()
         this.router.navigate(['/login'])
       }

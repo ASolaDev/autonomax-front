@@ -3,21 +3,21 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TesoreriaComponent } from './tesoreria.component';
 
 describe('TesoreriaComponent', () => {
-  let component: TesoreriaComponent;
-  let fixture: ComponentFixture<TesoreriaComponent>;
+    let component: TesoreriaComponent;
+    let fixture: ComponentFixture<TesoreriaComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TesoreriaComponent]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TesoreriaComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(TesoreriaComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(TesoreriaComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

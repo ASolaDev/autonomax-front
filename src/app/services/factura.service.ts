@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
+
 export class FacturaService {
-  private facturas: any[] = [];
+    private facturas: any[] = [];
 
-  getFacturas() {
-    return this.facturas;
-  }
+    getFacturas() {
+        return this.facturas;
+    }
 
-  agregarFactura(factura: any) {
-    this.facturas.push(factura);
-  }
+    agregarFactura(factura: any) {
+        this.facturas.push(factura);
+    }
 }
