@@ -24,7 +24,7 @@ export class AuthService {
     }
 
     logout() {
-        return this.http.post(this.urlBase + "/logout", {}, { withCredentials: true }).pipe(tap(() => { sessionStorage.removeItem("usuarioActual") }))
+        return this.http.post(this.urlBase + "/logout", {}, { withCredentials: true }).pipe(tap(() => { sessionStorage.removeItem("usuarioActual") }));
     }
 
 
