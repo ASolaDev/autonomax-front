@@ -21,8 +21,8 @@ export class LoginComponent {
     nombreUsuarioError: string = "";
     passwordError: string = "";
     generalError: string = "";
-    constructor(private router: Router, private auth: AuthService) { }
 
+    constructor(private router: Router, private auth: AuthService) { }
 
     ngOnInit(): void {
         if (this.auth.estaLogueado()) {
@@ -31,7 +31,6 @@ export class LoginComponent {
     }
 
     onLogin() {
-
         if (this.nombreUsuario.trim().length <= 0 || this.password.trim().length <= 0) {
             this.nombreUsuarioError = "";
             this.passwordError = "";
