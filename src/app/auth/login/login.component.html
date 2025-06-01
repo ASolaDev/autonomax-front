@@ -1,44 +1,45 @@
 <!-- Header -->
 <div class="w-full bg-black text-white p-4 flex items-center justify-center">
-  <h1 class="text-xl font-semibold"><img src="assets/img/autonomax-logo2.jpg" alt=""></h1>
+    <h1 class="text-xl font-semibold"><img src="assets/img/autonomax-logo2.jpg" alt=""></h1>
 </div>
 
 <!-- Contenido principal -->
 <div class="flex flex-col items-center justify-center min-h-screen bg-white">
-  <!-- Formulario -->
-  <div class="w-full max-w-sm bg-white p-6 shadow-md rounded-md border border-gray-300">
+    <!-- Formulario -->
+    <div class="w-full max-w-sm bg-white p-6 shadow-md rounded-md border border-gray-300">
 
-    <form (ngSubmit)="onLogin()">
+        <form (ngSubmit)="onLogin()">
 
-      @if (generalError){
-      <p class="text-red-500">{{generalError}}</p>
-      }
-      <!-- Usuario -->
-      <div class="mb-4">
-        <label for="username" class="block text-gray-700">Usuario</label>
-        <input type="text" id="username" name="username" [(ngModel)]="nombreUsuario" required
-          class="mt-1 w-full border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" />
-        @if (nombreUsuarioError) {
-        <p class="text-red-500">{{nombreUsuarioError}}</p>
-        }
-      </div>
+            @if (generalError){
+            <p class="text-red-500">{{generalError}}</p>
+            }
+            <!-- Usuario -->
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700">Usuario</label>
+                <input type="text" id="username" name="username" [(ngModel)]="nombreUsuario" required
+                    class="mt-1 w-full border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" />
+                @if (nombreUsuarioError) {
+                <p class="text-red-500">{{nombreUsuarioError}}</p>
+                }
+            </div>
 
-      <!-- Contraseña -->
-      <div class="mb-6">
-        <label for="password" class="block text-gray-700">Contraseña</label>
-        <input type="password" id="password" name="password" [(ngModel)]="password" required
-          class="mt-1 w-full border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" />
-        @if (passwordError) {
-        <p class="text-red-500">{{passwordError}}</p>
-        }
-      </div>
+            <!-- Contraseña -->
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700">Contraseña</label>
+                <input type="password" id="password" name="password" [(ngModel)]="password" required
+                    class="mt-1 w-full border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" />
+                @if (passwordError) {
+                <p class="text-red-500">{{passwordError}}</p>
+                }
+            </div>
 
-      <!-- Botón -->
-      <button type="button" class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors"
-        (click)="onLogin()">
-        Iniciar sesión
-      </button>
+            <!-- Botón -->
+            <button type="button"
+                class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors"
+                (click)="onLogin()">
+                Iniciar sesión
+            </button>
 
-    </form>
-  </div>
+        </form>
+    </div>
 </div>

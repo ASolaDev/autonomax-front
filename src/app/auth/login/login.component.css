@@ -1,17 +1,17 @@
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
 li {
-  padding: 10px 0;
+    padding: 10px 0;
 }
 
 a {
-  text-decoration: none;
-  color: white;
+    text-decoration: none;
+    color: white;
 }
 
 a:hover {
-  background-color: #4caf50;
+    background-color: #4caf50;
 }

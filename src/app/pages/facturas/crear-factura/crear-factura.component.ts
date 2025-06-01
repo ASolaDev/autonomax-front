@@ -34,10 +34,7 @@ export class CrearFacturaComponent implements OnInit {
     totalIva = 0;
     totalFactura = 0;
 
-    constructor(
-        private facturaService: FacturaService,
-        private router: Router
-    ) { }
+    constructor(private facturaService: FacturaService, private router: Router) { }
 
     ngOnInit() {
         this.calcularTotales();

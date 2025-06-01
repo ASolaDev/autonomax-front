@@ -14,7 +14,6 @@ export class MenuComponent {
 
     logout() {
         this.auth.logout().subscribe(
-
             response => {
                 this.router.navigate(['/login'])
             },

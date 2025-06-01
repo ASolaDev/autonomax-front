@@ -12,7 +12,6 @@ export class GastosComponent {
     constructor(private router: Router) { }
 
     onCrearGasto() {
-        console.log('Redirigiendo a /crear');
         this.router.navigate(['gastos/crear']);
     }
 }

@@ -13,9 +13,7 @@ export class AuthService {
 
     constructor(private http: HttpClient) { }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() { }
 
     login(nombreUsuario: string, password: string) {
         // Para que SpringBoot reciba bien el nombre de usuario y contraseña
@@ -26,7 +24,6 @@ export class AuthService {
     logout() {
         return this.http.post(this.urlBase + "/logout", {}, { withCredentials: true }).pipe(tap(() => { sessionStorage.removeItem("usuarioActual") }));
     }
-
 
     estaLogueado() {
         return !!sessionStorage.getItem("usuarioActual");
