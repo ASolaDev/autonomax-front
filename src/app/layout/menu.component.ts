@@ -1,12 +1,26 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-menu',
-  imports: [RouterModule],
-  templateUrl: './menu.component.html',
-  styleUrl: './menu.component.css'
+    selector: 'app-menu',
+    imports: [RouterModule],
+    templateUrl: './menu.component.html'
 })
+
 export class MenuComponent {
 
+    constructor(private auth: AuthService, private router: Router) { }
+
+    logout() {
+        this.auth.logout().subscribe(
+            response => {
+                this.router.navigate(['/login'])
+            },
+            error => {
+                sessionStorage.clear()
+                this.router.navigate(['/login'])
+            }
+        )
+    }
 }

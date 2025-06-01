@@ -1,19 +1,21 @@
-/* layout.component.css */
 ul {
     list-style-type: none;
     padding: 0;
-  }
-  
-  li {
+}
+
+li {
     padding: 10px 0;
-  }
-  
-  a {
+}
+
+a {
     text-decoration: none;
     color: white;
-  }
-  
-  a:hover {
-    background-color: #4caf50; 
-  }
-  
+}
+
+a:hover {
+    background-color: #4caf50;
+}
+
+.contenedor {
+    margin-top: 220px;
+}

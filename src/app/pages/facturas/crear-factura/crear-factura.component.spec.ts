@@ -3,21 +3,21 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CrearFacturaComponent } from './crear-factura.component';
 
 describe('CrearFacturaComponent', () => {
-  let component: CrearFacturaComponent;
-  let fixture: ComponentFixture<CrearFacturaComponent>;
+    let component: CrearFacturaComponent;
+    let fixture: ComponentFixture<CrearFacturaComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CrearFacturaComponent]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [CrearFacturaComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(CrearFacturaComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(CrearFacturaComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

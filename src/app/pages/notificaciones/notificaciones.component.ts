@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-notificaciones',
-  imports: [],
-  templateUrl: './notificaciones.component.html',
-  styleUrl: './notificaciones.component.css'
+    selector: 'app-notificaciones',
+    imports: [],
+    templateUrl: './notificaciones.component.html'
 })
+
 export class NotificacionesComponent {
 
 }
