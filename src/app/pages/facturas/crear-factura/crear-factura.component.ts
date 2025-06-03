@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 
 import { DetallesComponent } from './detalles/detalles.component';
 import { FacturaService } from '../../../services/factura.service';
+import { DetalleFactura } from '../../../models/DetalleFactura';
+import { Factura } from '../../../models/Factura';
 
 @Component({
     selector: 'app-crear-factura',
@@ -17,17 +19,17 @@ export class CrearFacturaComponent implements OnInit {
     mostrarModalDetalle = false;
     mostrarModalClientes = false;
 
-    detallesFactura: any[] = [];
-    detalleEditando: any = null;
+    detallesFactura: DetalleFactura[] = [];
+    detalleEditando: DetalleFactura | null = null;
     indiceEditando: number | null = null;
 
-    factura = {
+    factura: Factura = {
         numero: '',
         cliente: '',
-        emision: '',
+        emision: new Date().toISOString().split('T')[0],
         pago: '',
-        total: '',
-        estado: ''
+        total: '0.00',
+        estado: 'Pendiente'
     };
 
     baseImponible = 0;
@@ -36,9 +38,7 @@ export class CrearFacturaComponent implements OnInit {
 
     constructor(private facturaService: FacturaService, private router: Router) { }
 
-    ngOnInit() {
-        this.calcularTotales();
-    }
+    ngOnInit() { }
 
     generarFactura() {
         this.factura.total = this.totalFactura.toFixed(2);
@@ -60,14 +60,12 @@ export class CrearFacturaComponent implements OnInit {
         this.mostrarModalClientes = true;
     }
 
-    agregarDetalle(detalle: any) {
-        const subtotal = detalle.cantidad * detalle.precioUnitario * (1 + detalle.tipoIva / 100);
-        const detalleConSubtotal = { ...detalle, subtotal };
+    agregarDetalle(detalle: DetalleFactura) {
 
         if (this.indiceEditando !== null) {
-            this.detallesFactura[this.indiceEditando] = detalleConSubtotal;
+            this.detallesFactura[this.indiceEditando] = { ...detalle };
         } else {
-            this.detallesFactura.push(detalleConSubtotal);
+            this.detallesFactura.push({ ...detalle });
         }
 
         this.calcularTotales();
@@ -75,7 +73,7 @@ export class CrearFacturaComponent implements OnInit {
     }
 
     editarDetalle(index: number) {
-        this.detalleEditando = { ...this.detallesFactura[index] };
+        this.detalleEditando = JSON.parse(JSON.stringify(this.detallesFactura[index]));
         this.indiceEditando = index;
         this.abrirModalDetalle();
     }
@@ -86,16 +84,23 @@ export class CrearFacturaComponent implements OnInit {
     }
 
     calcularTotales() {
-        this.baseImponible = 0;
-        this.totalIva = 0;
-        this.totalFactura = 0;
+        let baseImp = 0;
+        let tIva = 0;
 
         this.detallesFactura.forEach(detalle => {
-            const precioBase = detalle.cantidad * detalle.precioUnitario;
-            const iva = precioBase * (detalle.tipoIva / 100);
-            this.baseImponible += precioBase;
-            this.totalIva += iva;
-            this.totalFactura += precioBase + iva;
+            const precioBaseItem = detalle.cantidad * detalle.precioUnitario;
+            const ivaItem = precioBaseItem * (detalle.tipoIva / 100);
+
+            detalle.subtotal = precioBaseItem + ivaItem;
+
+            baseImp += precioBaseItem;
+            tIva += ivaItem;
         });
+
+        this.baseImponible = baseImp;
+        this.totalIva = tIva;
+        this.totalFactura = baseImp + tIva;
+
+        this.factura.total = this.totalFactura.toFixed(2);
     }
 }

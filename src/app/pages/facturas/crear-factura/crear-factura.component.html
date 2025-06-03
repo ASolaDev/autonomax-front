@@ -53,8 +53,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let detalle of detallesFactura; let i = index"
-                        class="text-center hover:bg-gray-50 transition">
+                    @for (detalle of detallesFactura; track detalle; let i = $index) {
+                    <tr class="text-center hover:bg-gray-50 transition">
                         <td class="p-4 border border-gray-300">{{ detalle.descripcion }}</td>
                         <td class="p-4 border border-gray-300">{{ detalle.cantidad }}</td>
                         <td class="p-4 border border-gray-300">{{ detalle.precioUnitario }}</td>
@@ -71,6 +71,13 @@
                             </div>
                         </td>
                     </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="6" class="p-4 text-center text-gray-500">
+                            No hay detalles de factura para mostrar.
+                        </td>
+                    </tr>
+                    }
                 </tbody>
             </table>
         </div>

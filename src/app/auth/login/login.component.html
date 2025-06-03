@@ -1,43 +1,49 @@
-<!-- Header -->
-<div class="w-full flex-col text-white p-4 flex items-center justify-center bg-green-600">
-    <img class="w-36 h-36" src="assets/img/autonomax-logo1.jpg" alt="Logo">
+<div class="w-full flex-col text-white p-4 flex items-center justify-center bg-white-600">
+    <img class="w-36 h-36" src="assets/img/autonomax-logo1.svg" alt="Logo">
 </div>
 
-<!-- Contenido principal -->
 <div class="flex items-center justify-center bg-white contenedor">
-    <!-- Formulario -->
     <div class="w-full max-w-sm bg-white p-6 shadow-md rounded-md border border-gray-300">
 
-        <form (ngSubmit)="onLogin()">
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
-            @if (generalError){
-            <p class="text-red-500">{{generalError}}</p>
+            @if (generalError) {
+            <p class="text-red-500 text-center mb-4">{{ generalError }}</p>
             }
-            <!-- Usuario -->
+
             <div class="mb-4">
                 <label for="username" class="block text-gray-700">Usuario</label>
-                <input type="text" id="username" name="username" [(ngModel)]="nombreUsuario" required
-                    class="mt-1 w-full border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" />
-                @if (nombreUsuarioError) {
-                <p class="text-red-500">{{nombreUsuarioError}}</p>
+                <input type="text" id="username" formControlName="nombreUsuario"
+                    class="mt-1 w-full border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    [ngClass]="{'border-red-500': f['nombreUsuario'].invalid && (f['nombreUsuario'].dirty || f['nombreUsuario'].touched)}" />
+
+                @if (f['nombreUsuario'].invalid && (f['nombreUsuario'].dirty || f['nombreUsuario'].touched)) {
+                @if (f['nombreUsuario'].errors?.['required']) {
+                <p class="text-red-500 text-sm mt-1">El usuario es requerido.</p>
+                }
                 }
             </div>
 
-            <!-- Contraseña -->
             <div class="mb-6">
                 <label for="password" class="block text-gray-700">Contraseña</label>
-                <input type="password" id="password" name="password" [(ngModel)]="password" required
-                    class="mt-1 w-full border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" />
-                @if (passwordError) {
-                <p class="text-red-500">{{passwordError}}</p>
+                <input type="password" id="password" formControlName="password"
+                    class="mt-1 w-full border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    [ngClass]="{'border-red-500': f['password'].invalid && (f['password'].dirty || f['password'].touched)}" />
+
+                @if (f['password'].invalid && (f['password'].dirty || f['password'].touched)) {
+                @if (f['password'].errors?.['required']) {
+                <p class="text-red-500 text-sm mt-1">La contraseña es requerida.</p>
+                }
                 }
             </div>
 
-            <!-- Botón -->
-            <button type="button"
-                class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors"
-                (click)="onLogin()">
-                Iniciar sesión
+            <button type="submit" [disabled]="loginForm.invalid || isLoading"
+                class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                @if (isLoading) {
+                <span>Cargando...</span>
+                } @else {
+                <span>Iniciar sesión</span>
+                }
             </button>
 
         </form>
