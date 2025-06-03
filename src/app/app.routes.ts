@@ -24,7 +24,6 @@ export const routes: Routes = [
             { path: '**', component: Page404Component },
             //   { path: 'gastos', component: GastosComponent },
             //   { path: 'estadisticas', component: EstadisticasComponent },
-            //   { path: 'prevision', component: PrevisionComponent },
             //   { path: 'tesoreria', component: TesoreriaComponent },
             //   { path: 'notificaciones', component: NotificacionesComponent },
             //   { path: 'agenda', component: AgendaComponent },
