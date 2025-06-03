@@ -1,61 +1,73 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [FormsModule, CommonModule],
+    imports: [CommonModule, ReactiveFormsModule],
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css']
 })
+export class LoginComponent implements OnInit {
 
-export class LoginComponent {
-
-    nombreUsuario: string = "";
-    password: string = "";
-
-    // Errores de validación
-    nombreUsuarioError: string = "";
-    passwordError: string = "";
+    loginForm: FormGroup;
     generalError: string = "";
+    isLoading: boolean = false;
 
-    constructor(private router: Router, private auth: AuthService) { }
+    constructor(
+        private router: Router,
+        private auth: AuthService,
+        private fb: FormBuilder
+    ) {
+        this.loginForm = this.fb.group({
+            nombreUsuario: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+    }
 
     ngOnInit(): void {
         if (this.auth.estaLogueado()) {
-            this.router.navigate(['/inicio'])
+            this.router.navigate(['/inicio']);
         }
     }
+
+    get f() { return this.loginForm.controls; }
 
     onLogin() {
-        if (this.nombreUsuario.trim().length <= 0 || this.password.trim().length <= 0) {
-            this.nombreUsuarioError = "";
-            this.passwordError = "";
-            this.generalError = "Rellena todos los campos";
-        } else {
-            console.log(this.nombreUsuario + this.password)
-            this.generalError = "";
-            this.auth.login(this.nombreUsuario, this.password).subscribe(
-                response => {
-                    sessionStorage.setItem("usuarioActual", JSON.stringify(response))
-                    this.router.navigate(['/inicio']);
-                }
-                ,
-                error => {
-                    if (error.error == "Contraseña incorrecta.") {
-                        this.nombreUsuarioError = "";
-                        this.passwordError = error.error;
-                    } else {
-                        this.passwordError = "";
-                        this.nombreUsuarioError = error.error;
-                    }
-                }
-            )
+        this.generalError = "";
+        this.isLoading = true;
+
+        this.loginForm.markAllAsTouched();
+
+        if (this.loginForm.invalid) {
+            this.generalError = "Por favor, rellena todos los campos correctamente.";
+            this.isLoading = false;
+            return;
         }
 
-    }
+        const { nombreUsuario, password } = this.loginForm.value;
 
+        this.auth.login(nombreUsuario, password).subscribe({
+            next: (response) => {
+                sessionStorage.setItem("usuarioActual", JSON.stringify(response));
+                this.router.navigate(['/inicio']);
+                this.isLoading = false;
+            },
+            error: (error: HttpErrorResponse) => {
+                this.isLoading = false;
+                if (error.error === "Contraseña incorrecta." || error.error === "Usuario no encontrado.") {
+                    this.generalError = error.error;
+                } else if (error.status === 401) {
+                    this.generalError = "Credenciales incorrectas.";
+                } else {
+                    this.generalError = "Ha ocurrido un error inesperado. Por favor, inténtalo más tarde.";
+                }
+                console.error("Error de autenticación:", error);
+            }
+        });
+    }
 }
