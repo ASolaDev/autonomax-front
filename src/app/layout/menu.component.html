@@ -1,12 +1,14 @@
 <div class="flex h-screen bg-gray-100">
     <!-- Menú lateral -->
-    <div class="w-66 bg-gray-200 text-black p-4 flex flex-col justify-between h-full">
-        <div>
-            <div class="text-xl font-semibold mb-6 flex items-center justify-center">
-                <img class="w-24 h-24" src="assets/img/autonomax-logo1.svg" alt="Logo">
-            </div>
-            <ul class="space-y-4">
-                <li>
+    <div class="w-66 bg-gray-200 text-black p-4 flex flex-col h-full overflow-y-auto">
+        <!-- Logo -->
+        <div class="text-xl font-semibold mb-6 flex items-center justify-center">
+            <img class="w-24 h-24" src="assets/img/logo_1.svg" alt="Logo">
+        </div>
+
+        <!-- Menú principal -->
+        <ul class="space-y-4 mb-6">
+            <li>
                     <a routerLink="/inicio" routerLinkActive="bg-gray-300"
                         class="flex items-center gap-2 py-2 px-2 hover:bg-gray-400 rounded">
                         <img src="assets/img/inicio.svg" alt="Inicio" class="w-5 h-5" />
@@ -23,7 +25,7 @@
                 <li>
                     <a routerLink="/proveedores" routerLinkActive="bg-gray-300"
                         class="flex items-center gap-2 py-2 px-2 hover:bg-gray-400 rounded">
-                        <img src="assets/img/clientes.svg" alt="Proveedores" class="w-5 h-5" />
+                        <img src="assets/img/proveedores.png" alt="Proveedores" class="w-5 h-5" />
                         Proveedores
                     </a>
                 </li>
@@ -76,23 +78,21 @@
                         Alertas y notificaciones
                     </a>
                 </li>
-            </ul>
-        </div>
+        </ul>
 
-        <!-- Cerrar Sesión y Ajustes -->
-        <div class="pt-4 border-t border-gray-400 mt-4">
-            <a routerLink="/ajustes"
-                class="flex items-center gap-2 py-2 justify-center bg-black text-white rounded hover:bg-gray-800">
-                <img src="assets/img/ajustes.svg" alt="Ajustes" class="w-5 h-5" />
-                Ajustes
-            </a>
-            <br>
-            <button type="button" (click)="logout()"
-                class="flex mb-2 items-center gap-2 py-2 px-12 justify-center bg-red-800 text-white rounded hover:bg-red-700 cursor-pointer">
-                <img src="assets/img/cerrar-sesion.png" alt="Icono de cerrar sesión" class="w-5 h-5" />
-                Cerrar Sesión
-            </button>
-        </div>
+        <!-- Ajustes -->
+        <a routerLink="/ajustes"
+            class="flex items-center gap-2 py-2 justify-center bg-black text-white rounded hover:bg-gray-800 mb-2">
+            <img src="assets/img/ajustes.svg" alt="Ajustes" class="w-5 h-5" />
+            Ajustes
+        </a>
+
+        <!-- Botón Cerrar Sesión -->
+        <button type="button" (click)="logout()"
+            class="flex items-center gap-2 py-2 px-12 justify-center bg-red-800 text-white rounded hover:bg-red-700 cursor-pointer">
+            Cerrar Sesión
+            <img src="assets/img/cerrar-sesion.png" alt="Icono de cerrar sesión" class="w-5 h-5" />
+        </button>
     </div>
 
     <!-- Contenido principal -->
