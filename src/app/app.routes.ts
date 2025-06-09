@@ -15,6 +15,7 @@ import { NotificacionesComponent } from './pages/notificaciones/notificaciones.c
 import { Page404Component } from './pages/page404/page404.component';
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
 import { TesoreriaComponent } from './pages/tesoreria/tesoreria.component';
+import { CrearClienteComponent } from './pages/clientes/crear-cliente/crear-cliente.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,6 +27,7 @@ export const routes: Routes = [
         children: [
             { path: 'inicio', component: InicioComponent },
             { path: 'clientes', component: ClientesComponent },
+            { path: 'clientes/crear', component: CrearClienteComponent },
             { path: 'proveedores', component: ProveedoresComponent },
             { path: 'facturas', component: FacturasComponent },
             { path: 'facturas/crear', component: CrearFacturaComponent },
