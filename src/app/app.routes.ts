@@ -16,6 +16,7 @@ import { Page404Component } from './pages/page404/page404.component';
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
 import { TesoreriaComponent } from './pages/tesoreria/tesoreria.component';
 import { CrearClienteComponent } from './pages/clientes/crear-cliente/crear-cliente.component';
+import { CrearProveedorComponent } from './pages/proveedores/crear-proveedor/crear-proveedor.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -29,6 +30,7 @@ export const routes: Routes = [
             { path: 'clientes', component: ClientesComponent },
             { path: 'clientes/crear', component: CrearClienteComponent },
             { path: 'proveedores', component: ProveedoresComponent },
+            { path: 'proveedores/crear', component: CrearProveedorComponent },
             { path: 'facturas', component: FacturasComponent },
             { path: 'facturas/crear', component: CrearFacturaComponent },
             { path: 'gastos', component: GastosComponent },
