@@ -41,27 +41,29 @@ export class CrearFacturaComponent implements OnInit {
     ngOnInit() { }
 
     generarFactura() {
-        this.factura.total = this.totalFactura.toFixed(2);
-        this.facturaService.agregarFactura({ ...this.factura, detalles: this.detallesFactura });
-        this.router.navigate(['/facturas']);
+        try {
+            this.factura.total = this.totalFactura.toFixed(2);
+            this.facturaService.agregarFactura({ ...this.factura, detalles: this.detallesFactura });
+            this.router.navigate(['/facturas']);
+        } catch (error) {
+            console.error('Error al generar la factura:', error);
+        }
+
     }
 
-    abrirModalDetalle() {
-        this.mostrarModalDetalle = true;
+    toggleModalDetalle(estado: boolean) {
+        this.mostrarModalDetalle = estado;
+        if (!estado) {
+            this.detalleEditando = null;
+            this.indiceEditando = null;
+        }
     }
 
-    cerrarModalDetalle() {
-        this.mostrarModalDetalle = false;
-        this.detalleEditando = null;
-        this.indiceEditando = null;
-    }
-
-    abrirModalClientes() {
-        this.mostrarModalClientes = true;
+    toggleModalClientes(estado: boolean) {
+        this.mostrarModalClientes = estado;
     }
 
     agregarDetalle(detalle: DetalleFactura) {
-
         if (this.indiceEditando !== null) {
             this.detallesFactura[this.indiceEditando] = { ...detalle };
         } else {
@@ -69,13 +71,13 @@ export class CrearFacturaComponent implements OnInit {
         }
 
         this.calcularTotales();
-        this.cerrarModalDetalle();
+        this.toggleModalDetalle(false);
     }
 
     editarDetalle(index: number) {
-        this.detalleEditando = JSON.parse(JSON.stringify(this.detallesFactura[index]));
+        this.detalleEditando = { ...this.detallesFactura[index] };
         this.indiceEditando = index;
-        this.abrirModalDetalle();
+        this.toggleModalDetalle(true);
     }
 
     eliminarDetalle(index: number) {
@@ -84,22 +86,24 @@ export class CrearFacturaComponent implements OnInit {
     }
 
     calcularTotales() {
-        let baseImp = 0;
-        let tIva = 0;
+        const { baseImponible, totalIva } = this.detallesFactura.reduce(
+            (totales, detalle) => {
+                const precioBaseItem = detalle.cantidad * detalle.precioUnitario;
+                const ivaItem = precioBaseItem * (detalle.tipoIva / 100);
 
-        this.detallesFactura.forEach(detalle => {
-            const precioBaseItem = detalle.cantidad * detalle.precioUnitario;
-            const ivaItem = precioBaseItem * (detalle.tipoIva / 100);
+                detalle.subtotal = precioBaseItem + ivaItem;
 
-            detalle.subtotal = precioBaseItem + ivaItem;
+                totales.baseImponible += precioBaseItem;
+                totales.totalIva += ivaItem;
 
-            baseImp += precioBaseItem;
-            tIva += ivaItem;
-        });
+                return totales;
+            },
+            { baseImponible: 0, totalIva: 0 }
+        );
 
-        this.baseImponible = baseImp;
-        this.totalIva = tIva;
-        this.totalFactura = baseImp + tIva;
+        this.baseImponible = baseImponible;
+        this.totalIva = totalIva;
+        this.totalFactura = baseImponible + totalIva;
 
         this.factura.total = this.totalFactura.toFixed(2);
     }

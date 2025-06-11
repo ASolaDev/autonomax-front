@@ -6,26 +6,13 @@
             <img src="/assets/img/clientes.svg" alt="Icono cliente" class="w-6 h-6" />
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Bucle para los campos de datos del cliente usando @for -->
+            @for (campo of ['Nombre', 'CIF', 'Correo', 'Dirección', 'Teléfono']; track campo) {
             <div>
-                <label class="block mb-1 font-medium">Nombre</label>
-                <input type="text" class="w-full border p-2 rounded-md" />
+                <label class="block mb-1 font-medium">{{ campo }}</label>
+                <input class="w-full border p-2 rounded-md" [attr.type]="campo === 'Correo' ? 'email' : 'text'" />
             </div>
-            <div>
-                <label class="block mb-1 font-medium">CIF</label>
-                <input type="text" class="w-full border p-2 rounded-md" />
-            </div>
-            <div>
-                <label class="block mb-1 font-medium">Correo</label>
-                <input type="email" class="w-full border p-2 rounded-md" />
-            </div>
-            <div>
-                <label class="block mb-1 font-medium">Dirección</label>
-                <input type="text" class="w-full border p-2 rounded-md" />
-            </div>
-            <div>
-                <label class="block mb-1 font-medium">Teléfono</label>
-                <input type="text" class="w-full border p-2 rounded-md" />
-            </div>
+            }
         </div>
     </div>
 
@@ -35,7 +22,8 @@
     <div class="space-y-4">
         <div class="flex items-center gap-4">
             <h2 class="text-xl font-semibold">Detalles</h2>
-            <button class="bg-green-600 hover:bg-green-700 text-white rounded-full p-1" (click)="abrirModalDetalle()">
+            <button class="bg-green-600 hover:bg-green-700 text-white rounded-full p-1"
+                (click)="toggleModalDetalle(true)">
                 <img src="/assets/img/mas.svg" alt="Agregar detalle" class="w-4 h-4" />
             </button>
         </div>
@@ -53,7 +41,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (detalle of detallesFactura; track detalle; let i = $index) {
+                    <!-- Bucle para las filas de detalles de la factura usando @for -->
+                    <!-- El bloque @empty se muestra si 'detallesFactura' está vacío -->
+                    @for (detalle of detallesFactura; track i; let i = $index) {
                     <tr class="text-center hover:bg-gray-50 transition">
                         <td class="p-4 border border-gray-300">{{ detalle.descripcion }}</td>
                         <td class="p-4 border border-gray-300">{{ detalle.cantidad }}</td>
@@ -62,16 +52,17 @@
                         <td class="p-4 border border-gray-300">{{ detalle.subtotal }}</td>
                         <td class="p-4 border border-gray-300">
                             <div class="flex justify-center gap-3">
-                                <button (click)="editarDetalle(i)">
+                                <button (click)="editarDetalle(i)" aria-label="Editar detalle">
                                     <img src="assets/img/editar.svg" alt="Editar" class="w-8 h-8" />
                                 </button>
-                                <button (click)="eliminarDetalle(i)">
+                                <button (click)="eliminarDetalle(i)" aria-label="Eliminar detalle">
                                     <img src="assets/img/eliminar.svg" alt="Eliminar" class="w-8 h-8" />
                                 </button>
                             </div>
                         </td>
                     </tr>
                     } @empty {
+                    <!-- Contenido a mostrar cuando la lista de detalles está vacía -->
                     <tr>
                         <td colspan="6" class="p-4 text-center text-gray-500">
                             No hay detalles de factura para mostrar.
@@ -83,10 +74,12 @@
         </div>
     </div>
 
-    <!-- Modal de detalles -->
-    <app-detalles *ngIf="mostrarModalDetalle" [detalle]="detalleEditando" (cerrar)="cerrarModalDetalle()"
+    <!-- Modal de detalles, se muestra condicionalmente usando @if -->
+    @if (mostrarModalDetalle) {
+    <app-detalles [detalle]="detalleEditando" (cerrar)="toggleModalDetalle(false)"
         (guardarDetalles)="agregarDetalle($event)">
     </app-detalles>
+    }
 
     <hr class="border-gray-300" />
 
@@ -109,15 +102,15 @@
     </div>
 
     <!-- Botón Generar Factura -->
-    <div class="">
-        <form (ngSubmit)="generarFactura()">
-            <!-- Campos para numero, cliente, etc. -->
-            <input [(ngModel)]="factura.numero" name="numero" required />
-            <input [(ngModel)]="factura.cliente" name="cliente" required />
-
-            <button (click)="generarFactura()"
-                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Generar factura</button>
+    <div class="flex justify-end mt-6">
+        <form (ngSubmit)="generarFactura()" class="flex flex-col md:flex-row items-center gap-4">
+            <input [(ngModel)]="factura.numero" name="numero" required placeholder="Número de factura"
+                class="border p-2 rounded-md w-full md:w-auto" />
+            <input [(ngModel)]="factura.cliente" name="cliente" required placeholder="Cliente"
+                class="border p-2 rounded-md w-full md:w-auto" />
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                Generar factura
+            </button>
         </form>
-
     </div>
 </div>
