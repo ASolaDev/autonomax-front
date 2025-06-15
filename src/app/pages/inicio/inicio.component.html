@@ -1,1 +1,39 @@
-<h1 class="text-2xl font-bold mb-6">Inicio</h1>
+<div class="min-h-screen bg-gray-100">
+    <header class="bg-grey-600 text-black p-4">
+        <h1 class="text-2xl font-bold">Dashboard</h1>
+    </header>
+    <div class="flex">
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+            <h2 class="text-xl font-semibold mb-4">Bienvenido al Dashboard</h2>
+            <!-- Métricas -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="bg-white p-4 shadow rounded">
+                    <h3 class="text-lg font-bold">Clientes</h3>
+                    <p class="text-2xl font-semibold text-blue-600">1,245</p>
+                </div>
+                <div class="bg-white p-4 shadow rounded">
+                    <h3 class="text-lg font-bold">Facturas</h3>
+                    <p class="text-2xl font-semibold text-green-600">345</p>
+                </div>
+                <div class="bg-white p-4 shadow rounded">
+                    <h3 class="text-lg font-bold">Ingresos</h3>
+                    <p class="text-2xl font-semibold text-purple-600">$12,345</p>
+                </div>
+            </div>
+            <!-- Gráficas -->
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Gráfica de quesitos -->
+                <div class="bg-white p-4 shadow rounded">
+                    <h3 class="text-lg font-bold mb-4">Distribución de Clientes</h3>
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <!-- Gráfica lineal -->
+                <div class="bg-white p-4 shadow rounded">
+                    <h3 class="text-lg font-bold mb-4">Ingresos Mensuales</h3>
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
