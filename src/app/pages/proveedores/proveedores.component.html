@@ -29,21 +29,23 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr *ngFor="let factura of facturas">
-                    <td class="px-4 py-2 border-b">{{ factura.estado }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.numero }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.cliente }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.emision }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.total }}</td>
+                @for (proveedor of getProveedores(); track $index) {
+                    <tr>
+                    <td class="px-4 py-2 border-b">{{ proveedor.nombreProveedor }}</td>
+                    <td class="px-4 py-2 border-b">{{ proveedor.emailProveedor }}</td>
+                    <td class="px-4 py-2 border-b">{{ proveedor.telefonoProveedor }}</td>
+                    <td class="px-4 py-2 border-b">{{ proveedor.ciudadProveedor }}</td>
+                    <td class="px-4 py-2 border-b">{{ proveedor.provinciaProveedor }}</td>
                     <div class="flex justify-center gap-3">
                         <button>
-                            <img src="assets/img/editar.svg" alt="Editar" class="w-8 h-8" />
+                            <img src="assets/img/edit.png" alt="Editar" class="w-8 h-8" />
                         </button>
                         <button>
-                            <img src="assets/img/eliminar.svg" alt="Eliminar" class="w-8 h-8" />
+                            <img src="assets/img/eliminar.png" alt="Eliminar" class="w-8 h-8" />
                         </button>
                     </div>
-                </tr> -->
+                </tr>
+                }
             </tbody>
         </table>
     </div>
