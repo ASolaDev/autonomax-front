@@ -46,4 +46,14 @@ export class AuthService {
         console.error(errorMessage);
         return throwError(() => error);
     }
+
+    checkSession() {
+        return this.http.get(this.urlBase + "/check-session", { withCredentials: true }).pipe(
+            tap(() => sessionStorage.setItem("usuarioActual", "true")),
+            catchError(() => {
+                sessionStorage.removeItem("usuarioActual");
+                return throwError(() => new Error("Sesión inválida"));
+            })
+        );
+    }
 }
