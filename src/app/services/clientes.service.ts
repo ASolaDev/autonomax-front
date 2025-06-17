@@ -22,7 +22,7 @@ export class ClientesService {
     }
 
     crearCliente(cliente: any) {
-        return this.http.post(`${this.urlBase}/nuevo_cliente/`, cliente, { responseType: 'text' });
+        return this.http.post(`${this.urlBase}/nuevo_cliente`, cliente, { responseType: 'text' });
     }
 
     actualizarCliente(id: number, cliente: Cliente) {

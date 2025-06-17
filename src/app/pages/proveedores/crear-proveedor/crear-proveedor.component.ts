@@ -34,33 +34,33 @@ export class CrearProveedorComponent {
 
     ngOnInit(): void {
         this.id = Number(this.route.snapshot.paramMap.get('id'));
-        this.proveedorService.getProveedorById(this.id!).subscribe(
-            (proveedor) => {
-                this.CrearProveedor.patchValue({
-                    nombreProveedor: proveedor.nombreProveedor,
-                    cifProveedor: proveedor.cifProveedor,
-                    tipoProveedor: proveedor.tipoProveedor,
-                    emailProveedor: proveedor.emailProveedor,
-                    direccionProveedor: proveedor.direccionProveedor,
-                    ciudadProveedor: proveedor.ciudadProveedor,
-                    provinciaProveedor: proveedor.provinciaProveedor,
-                    telefonoProveedor: proveedor.telefonoProveedor
-                });
-            },
-            error => {
-                console.error('Error al cargar el proveedor:', error);
-            }
-        )
+        if (this.id != 0 && this.id != null) {
+            this.proveedorService.getProveedorById(this.id!).subscribe(
+                (proveedor) => {
+                    this.CrearProveedor.patchValue({
+                        nombreProveedor: proveedor.nombreProveedor,
+                        cifProveedor: proveedor.cifProveedor,
+                        tipoProveedor: proveedor.tipoProveedor,
+                        emailProveedor: proveedor.emailProveedor,
+                        direccionProveedor: proveedor.direccionProveedor,
+                        ciudadProveedor: proveedor.ciudadProveedor,
+                        provinciaProveedor: proveedor.provinciaProveedor,
+                        telefonoProveedor: proveedor.telefonoProveedor
+                    });
+                },
+                error => {
+                    console.error('Error al cargar el proveedor:', error);
+                }
+            )
+        }
     }
 
     onSubmit() {
         if (this.CrearProveedor.valid) {
             // El formulario es válido. ¡Aquí es donde ocurre la magia!
-            console.log('Formulario válido. Datos del proveedor:', this.CrearProveedor.value);
 
             // Aquí deberías:
             this.proveedorService.crearProveedor(this.CrearProveedor.value).subscribe(response => {
-                console.log('Proveedor creado con éxito:', response);
                 return this.router.navigate(['/proveedores']);
             }, error => {
                 console.error('Error al crear el proveedor:', error);

@@ -32,33 +32,33 @@ export class CrearClienteComponent {
 
     ngOnInit(): void {
         this.id = Number(this.route.snapshot.paramMap.get('id'));
-        this.clientesService.getClienteById(this.id!).subscribe(
-            (cliente) => {
-                this.CrearCliente.patchValue({
-                    nombreCliente: cliente.nombreCliente,
-                    cifCliente: cliente.cifCliente,
-                    tipoCliente: cliente.tipoCliente,
-                    emailCliente: cliente.emailCliente,
-                    direccionCliente: cliente.direccionCliente,
-                    ciudadCliente: cliente.ciudadCliente,
-                    provinciaCliente: cliente.provinciaCliente,
-                    telefonoCliente: cliente.telefonoCliente
-                });
-            },
-            error => {
-                console.error('Error al cargar el cliente:', error);
-            }
-        )
+        if (this.id != 0 && this.id != null) {
+            this.clientesService.getClienteById(this.id!).subscribe(
+                (cliente) => {
+                    this.CrearCliente.patchValue({
+                        nombreCliente: cliente.nombreCliente,
+                        cifCliente: cliente.cifCliente,
+                        tipoCliente: cliente.tipoCliente,
+                        emailCliente: cliente.emailCliente,
+                        direccionCliente: cliente.direccionCliente,
+                        ciudadCliente: cliente.ciudadCliente,
+                        provinciaCliente: cliente.provinciaCliente,
+                        telefonoCliente: cliente.telefonoCliente
+                    });
+                },
+                error => {
+                    console.error('Error al cargar el cliente:', error);
+                }
+            )
+        }
     }
 
     onSubmit() {
         if (this.CrearCliente.valid) {
             // El formulario es válido. ¡Aquí es donde ocurre la magia!
-            console.log('Formulario válido. Datos del cliente:', this.CrearCliente.value);
 
             // Aquí deberías:
             this.clientesService.crearCliente(this.CrearCliente.value).subscribe(response => {
-                console.log('Cliente creado con éxito:', response);
                 return this.router.navigate(['/clientes']);
             }, error => {
                 console.error('Error al crear el cliente:', error);

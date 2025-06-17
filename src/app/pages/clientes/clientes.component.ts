@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cliente } from '../../models/Cliente';
 import { ClientesService } from '../../services/clientes.service';
@@ -8,7 +8,7 @@ import { ClientesService } from '../../services/clientes.service';
 
 @Component({
     selector: 'app-clientes',
-    imports: [CommonModule],
+    imports: [CommonModule, ReactiveFormsModule],
     templateUrl: './clientes.component.html'
 })
 
@@ -26,7 +26,7 @@ export class ClientesComponent {
         this.editarClientesForm = this.fb.group({
             nombreCliente: ['', [Validators.required, Validators.minLength(3)]],
             cifCliente: ['', [Validators.required]],
-            tipoClienter: ['', [Validators.required]],
+            tipoCliente: ['', [Validators.required]],
             emailCliente: ['', [Validators.required, Validators.email]],
             direccionCliente: ['', [Validators.required]],
             ciudadCliente: ['', [Validators.required]],

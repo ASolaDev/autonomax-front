@@ -52,3 +52,51 @@
         </table>
     </div>
 </div>
+
+
+<!-- Modal de edición -->
+<div *ngIf="mostrarModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded shadow-lg w-full max-w-lg">
+        <h2 class="text-xl font-bold mb-4">Editar cliente</h2>
+        <form [formGroup]="editarClientesForm" (ngSubmit)="guardarCambios(clienteSeleccionado?.id || 0)">
+            <div class="mb-2">
+                <label>Nombre/Razón social</label>
+                <input formControlName="nombreCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>CIF</label>
+                <input formControlName="cifCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Tipo</label>
+                <input formControlName="tipoCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Email</label>
+                <input formControlName="emailCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Dirección</label>
+                <input formControlName="direccionCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Ciudad</label>
+                <input formControlName="ciudadCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Provincia</label>
+                <input formControlName="provinciaCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Teléfono</label>
+                <input formControlName="telefonoCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" (click)="cerrarModal()"
+                    class="bg-gray-400 text-white px-4 py-2 rounded">Cancelar</button>
+                <button type="submit" [disabled]="!editarClientesForm.valid"
+                    class="bg-green-600 text-white px-4 py-2 rounded">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
