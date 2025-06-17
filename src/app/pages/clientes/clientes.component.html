@@ -1,6 +1,6 @@
 <h1 class="text-2xl font-bold mb-6">Clientes</h1>
 <div class="">
-<div class="flex justify-between items-center mb-4">
+    <div class="flex justify-between items-center mb-4">
         <div class="relative w-full max-w-xs">
             <!-- Icono -->
             <img src="assets/img/lupa.svg" alt="Buscar"
@@ -11,7 +11,8 @@
         </div>
         <!-- Botón crear factura -->
         <button
-            class="ml-4 bg-green-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-green-700 transition" (click)="onCrearCliente()">
+            class="ml-4 bg-green-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-green-700 transition"
+            (click)="onCrearCliente()">
             <img src="assets/img/mas.svg" alt="Crear" class="w-4 h-4 mr-2" />
             Crear cliente
         </button>
@@ -29,21 +30,24 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr *ngFor="let factura of facturas">
-                    <td class="px-4 py-2 border-b">{{ factura.estado }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.numero }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.cliente }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.emision }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.total }}</td>
+                @for (cliente of clientes; track cliente) {
+                <tr>
+                    <td class="px-4 py-2 border-b">{{ cliente.nombreCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ cliente.emailCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ cliente.telefonoCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ cliente.ciudadCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ cliente.provinciaCliente}}</td>
                     <div class="flex justify-center gap-3">
-                        <button>
-                            <img src="assets/img/editar.svg" alt="Editar" class="w-8 h-8" />
+                        <button (click)="abrirModalEditar(cliente)">
+                            <img src="assets/img/edit.png" alt="Editar" class="w-9 h-8 mt-1" />
                         </button>
-                        <button>
-                            <img src="assets/img/eliminar.svg" alt="Eliminar" class="w-8 h-8" />
+                        <button (click)="eliminarCliente(cliente.id)">
+                            <img src="assets/img/eliminar.png" alt="Eliminar" class="w-9 h-8 mt-1" />
                         </button>
                     </div>
-                </tr> -->
+                </tr>
+                }
+
             </tbody>
         </table>
     </div>
