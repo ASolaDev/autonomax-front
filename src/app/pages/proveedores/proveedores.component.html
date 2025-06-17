@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (proveedor of getProveedores(); track $index) {
+                @for (proveedor of proveedores; track $index) {
                     <tr>
                     <td class="px-4 py-2 border-b">{{ proveedor.nombreProveedor }}</td>
                     <td class="px-4 py-2 border-b">{{ proveedor.emailProveedor }}</td>
@@ -37,11 +37,11 @@
                     <td class="px-4 py-2 border-b">{{ proveedor.ciudadProveedor }}</td>
                     <td class="px-4 py-2 border-b">{{ proveedor.provinciaProveedor }}</td>
                     <div class="flex justify-center gap-3">
-                        <button>
-                            <img src="assets/img/edit.png" alt="Editar" class="w-8 h-8" />
+                        <button (click)="abrirModalEditar(proveedor)">
+                            <img src="assets/img/edit.png" alt="Editar" class="w-9 h-8 mt-1" />
                         </button>
-                        <button>
-                            <img src="assets/img/eliminar.png" alt="Eliminar" class="w-8 h-8" />
+                        <button (click)="eliminarProveedor(proveedor.id ?? 0)">
+                            <img src="assets/img/eliminar.png" alt="Eliminar" class="w-9 h-8 mt-1" />
                         </button>
                     </div>
                 </tr>
@@ -49,4 +49,49 @@
             </tbody>
         </table>
     </div>
+</div>
+
+<!-- Modal de edición -->
+<div *ngIf="mostrarModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+  <div class="bg-white p-6 rounded shadow-lg w-full max-w-lg">
+    <h2 class="text-xl font-bold mb-4">Editar proveedor</h2>
+    <form [formGroup]="editarProveedorForm" (ngSubmit)="guardarCambios(proveedorSeleccionado?.id || 0)">
+      <div class="mb-2">
+        <label>Nombre/Razón social</label>
+        <input formControlName="nombreProveedor" class="w-full border p-2 rounded" />
+      </div>
+      <div class="mb-2">
+        <label>CIF</label>
+        <input formControlName="cifProveedor" class="w-full border p-2 rounded" />
+      </div>
+      <div class="mb-2">
+        <label>Tipo</label>
+        <input formControlName="tipoProveedor" class="w-full border p-2 rounded" />
+      </div>
+      <div class="mb-2">
+        <label>Email</label>
+        <input formControlName="emailProveedor" class="w-full border p-2 rounded" />
+      </div>
+      <div class="mb-2">
+        <label>Dirección</label>
+        <input formControlName="direccionProveedor" class="w-full border p-2 rounded" />
+      </div>
+      <div class="mb-2">
+        <label>Ciudad</label>
+        <input formControlName="ciudadProveedor" class="w-full border p-2 rounded" />
+      </div>
+      <div class="mb-2">
+        <label>Provincia</label>
+        <input formControlName="provinciaProveedor" class="w-full border p-2 rounded" />
+      </div>
+      <div class="mb-2">
+        <label>Teléfono</label>
+        <input formControlName="telefonoProveedor" class="w-full border p-2 rounded" />
+      </div>
+      <div class="flex justify-end gap-2 mt-4">
+        <button type="button" (click)="cerrarModal()" class="bg-gray-400 text-white px-4 py-2 rounded">Cancelar</button>
+        <button type="submit" [disabled]="!editarProveedorForm.valid" class="bg-green-600 text-white px-4 py-2 rounded">Guardar</button>
+      </div>
+    </form>
+  </div>
 </div>

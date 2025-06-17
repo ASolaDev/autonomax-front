@@ -1,3 +1,5 @@
+import { TipoProveedores } from "./TipoProveedores";
+
 export interface Proveedores {
   id?: number;  // Opcional porque suele ser generado en backend
   nombreProveedor: string;
@@ -6,6 +8,6 @@ export interface Proveedores {
   emailProveedor: string;
   ciudadProveedor: string;
   provinciaProveedor: string;
-  //tipoProveedor?: TipoProveedor;  // Opcional porque no tiene nullable = false
+  tipoProveedor?: TipoProveedores;  // Opcional porque no tiene nullable = false
   telefonoProveedor: string;
 }

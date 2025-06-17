@@ -1,100 +1,100 @@
 <h1 class="text-2xl font-bold mb-6">Ajustes</h1>
 <div class="w-full p-4">
-<div class="w-full border-b border-gray-300">
-  <div class="flex items-center bg-gray-100 py-4 px-6">
-    <img src="assets/img/usuario.png" alt="Usuario" class="w-6 h-6 mr-4">
-    <span class="text-gray-800 font-medium text-lg">Información de usuario</span>
-  </div>
-  <div class="px-6 py-4 bg-white">
-    <div class="flex flex-wrap gap-4">
-      <div class="flex-1 min-w-[250px]">
-        <label class="block text-gray-700 mb-1 font-medium">Nombre</label>
-        <div class="flex items-center border border-gray-300 rounded-md px-3 py-2">
-          <input type="text" class="flex-1 bg-transparent outline-none text-gray-800" placeholder="Tu nombre">
-          <img src="assets/img/lapiz.png" alt="Editar" class="w-5 h-5 ml-3 cursor-pointer">
+    <div class="w-full border-b border-gray-300">
+        <div class="flex items-center bg-gray-100 py-4 px-6">
+            <img src="assets/img/usuario.png" alt="Usuario" class="w-6 h-6 mr-4">
+            <span class="text-gray-800 font-medium text-lg">Información de usuario</span>
         </div>
-      </div>
-      <div class="flex-1 min-w-[250px]">
-        <label class="block text-gray-700 mb-1 font-medium">Correo electrónico</label>
-        <div class="flex items-center border border-gray-300 rounded-md px-3 py-2">
-          <input type="email" class="flex-1 bg-transparent outline-none text-gray-800" placeholder="correo@ejemplo.com">
-          <img src="assets/img/lapiz.png" alt="Editar" class="w-5 h-5 ml-3 cursor-pointer">
+        <div class="px-6 py-4 bg-white">
+            <div class="flex flex-wrap gap-4">
+                <div class="flex-1 min-w-[250px]">
+                    <label class="block text-gray-700 mb-1 font-medium">Nombre</label>
+                    <div class="flex items-center border border-gray-300 rounded-md px-3 py-2">
+                        <input type="text" class="flex-1 bg-transparent outline-none text-gray-800"
+                            placeholder="Tu nombre">
+                        <img src="assets/img/lapiz.png" alt="Editar" class="w-5 h-5 ml-3 cursor-pointer">
+                    </div>
+                </div>
+                <div class="flex-1 min-w-[250px]">
+                    <label class="block text-gray-700 mb-1 font-medium">Correo electrónico</label>
+                    <div class="flex items-center border border-gray-300 rounded-md px-3 py-2">
+                        <input type="email" class="flex-1 bg-transparent outline-none text-gray-800"
+                            placeholder="correo@ejemplo.com">
+                        <img src="assets/img/lapiz.png" alt="Editar" class="w-5 h-5 ml-3 cursor-pointer">
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
-  <!-- Ajuste de moneda -->
-<div class="w-full border-b border-gray-300">
-  <div class="flex items-center bg-gray-100 py-4 px-6">
-    <img src="assets/img/moneda.png" alt="Moneda" class="w-6 h-6 mr-4">
-    <span class="text-gray-800 font-medium text-lg">Ajuste de moneda</span>
-  </div>
-  <!-- Campo select -->
-  <div class="bg-white px-6 py-4">
-    <label class="block text-gray-700 mb-1 font-medium">Moneda predeterminada</label>
-    <div class="border border-gray-300 rounded-md px-3 py-2 w-full max-w-sm">
-      <select class="w-full bg-transparent outline-none text-gray-800">
-        <option value="EUR">€ Euro</option>
-        <option value="GBP">£ Libra</option>
-        <option value="DOL">$ Dólar</option>
-        <option value="CHF">CHF Franco</option>
-      </select>
+    <!-- Ajuste de moneda -->
+    <div class="w-full border-b border-gray-300">
+        <div class="flex items-center bg-gray-100 py-4 px-6">
+            <img src="assets/img/moneda.png" alt="Moneda" class="w-6 h-6 mr-4">
+            <span class="text-gray-800 font-medium text-lg">Ajuste de moneda</span>
+        </div>
+        <!-- Campo select -->
+        <div class="bg-white px-6 py-4">
+            <label class="block text-gray-700 mb-1 font-medium">Moneda predeterminada</label>
+            <div class="border border-gray-300 rounded-md px-3 py-2 w-full max-w-sm">
+                <select class="w-full bg-transparent outline-none text-gray-800">
+                    <option value="EUR">€ Euro</option>
+                    <option value="GBP">£ Libra</option>
+                    <option value="DOL">$ Dólar</option>
+                    <option value="CHF">CHF Franco</option>
+                </select>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-  <!-- Zona horaria -->
-<div class="w-full border-b border-gray-300">
-  <div class="flex items-center bg-gray-100 py-4 px-6">
-    <img src="assets/img/horario.png" alt="Horario" class="w-6 h-6 mr-4">
-    <span class="text-gray-800 font-medium text-lg">Zona horaria</span>
-  </div>
-  <div class="bg-white px-6 py-4">
-    <label class="block text-gray-700 mb-1 font-medium">Seleccionar zona horaria</label>
-    <div class="border border-gray-300 rounded-md px-3 py-2 w-full max-w-sm">
-      <select class="w-full bg-transparent outline-none text-gray-800">
-        <option value="UTC">UTC (Tiempo Universal Coordinado)</option>
-        <option value="Europe/Paris">Europa/París (UTC+1)</option>
-        <option value="Europe/Madrid">Europa/Madrid (UTC+1)</option>
-        <option value="America/Bogota">América/Bogotá (UTC-5)</option>
-        <option value="America/Mexico_City">América/México DF (UTC-6)</option>
-        <option value="Asia/Tokyo">Asia/Tokio (UTC+9)</option>
-      </select>
+    <!-- Zona horaria -->
+    <div class="w-full border-b border-gray-300">
+        <div class="flex items-center bg-gray-100 py-4 px-6">
+            <img src="assets/img/horario.png" alt="Horario" class="w-6 h-6 mr-4">
+            <span class="text-gray-800 font-medium text-lg">Zona horaria</span>
+        </div>
+        <div class="bg-white px-6 py-4">
+            <label class="block text-gray-700 mb-1 font-medium">Seleccionar zona horaria</label>
+            <div class="border border-gray-300 rounded-md px-3 py-2 w-full max-w-sm">
+                <select class="w-full bg-transparent outline-none text-gray-800">
+                    <option value="UTC">UTC (Tiempo Universal Coordinado)</option>
+                    <option value="Europe/Paris">Europa/París (UTC+1)</option>
+                    <option value="Europe/Madrid">Europa/Madrid (UTC+1)</option>
+                    <option value="America/Bogota">América/Bogotá (UTC-5)</option>
+                    <option value="America/Mexico_City">América/México DF (UTC-6)</option>
+                    <option value="Asia/Tokyo">Asia/Tokio (UTC+9)</option>
+                </select>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-  <!-- Idioma -->
-<div class="w-full border-b border-gray-300">
-  <div class="flex items-center bg-gray-100 py-4 px-6">
-    <img src="assets/img/idioma.png" alt="Idioma" class="w-6 h-6 mr-4">
-    <span class="text-gray-800 font-medium text-lg">Idioma</span>
-  </div>
-  <div class="bg-white px-6 py-4">
-    <label class="block text-gray-700 mb-1 font-medium">Seleccionar idioma</label>
-    <div class="border border-gray-300 rounded-md px-3 py-2 w-full max-w-sm">
-      <select class="w-full bg-transparent outline-none text-gray-800">
-        <option value="es">Español</option>
-        <option value="en">Inglés</option>
-        <option value="fr">Francés</option>
-      </select>
+    <!-- Idioma -->
+    <div class="w-full border-b border-gray-300">
+        <div class="flex items-center bg-gray-100 py-4 px-6">
+            <img src="assets/img/idioma.png" alt="Idioma" class="w-6 h-6 mr-4">
+            <span class="text-gray-800 font-medium text-lg">Idioma</span>
+        </div>
+        <div class="bg-white px-6 py-4">
+            <label class="block text-gray-700 mb-1 font-medium">Seleccionar idioma</label>
+            <div class="border border-gray-300 rounded-md px-3 py-2 w-full max-w-sm">
+                <select class="w-full bg-transparent outline-none text-gray-800">
+                    <option value="es">Español</option>
+                    <option value="en">Inglés</option>
+                    <option value="fr">Francés</option>
+                </select>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-  <!-- Seguridad -->
-  <div class="flex items-center bg-gray-100 w-full py-4 px-6 border-b border-gray-300">
-    <img src="assets/img/candado.png" alt="Seguridad" class="w-6 h-6 mr-4">
-    <span class="text-gray-800 font-medium">Seguridad</span>
-    <div class="bg-white px-6 py-4">
-    <button
-      (click)="abrirModal()"
-      class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
-    >
-      Cambiar contraseña
-    </button>
+    <!-- Seguridad -->
+    <div class="flex items-center bg-gray-100 w-full py-4 px-6 border-b border-gray-300">
+        <img src="assets/img/candado.png" alt="Seguridad" class="w-6 h-6 mr-4">
+        <span class="text-gray-800 font-medium">Seguridad</span>
+        <div class=" px-6 py-4">
+            <button (click)="abrirModal()"
+                class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition">
+                Cambiar contraseña
+            </button>
 
-    <app-cambiar-password (cerrado)="cerrarModal()" #modal></app-cambiar-password>
-  </div>
-  </div>
+            <app-cambiar-password (cerrado)="cerrarModal()" #modal></app-cambiar-password>
+        </div>
+    </div>
 </div>
