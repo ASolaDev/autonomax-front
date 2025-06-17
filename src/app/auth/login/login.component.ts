@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
         private fb: FormBuilder
     ) {
         this.loginForm = this.fb.group({
-            nombreUsuario: ['', Validators.required],
-            password: ['', Validators.required]
+            nombreUsuario: ['', [Validators.required, Validators.minLength(3)]],
+            password: ['', [Validators.required, Validators.minLength(3)]]
         });
     }
 
@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
             },
             error: () => {
                 // No hay sesión activa, se queda en el login
+                // Limpia cualquier posible sesión previa en el frontend
+                sessionStorage.removeItem("usuarioActual");
                 console.log("No hay sesión activa");
             }
         });
