@@ -1,90 +1,96 @@
 import { TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from './auth.service';
-import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { LoginRequest } from '../models/loginRequest';
 
-describe("AuthService", () => {
+describe('AuthService', () => {
     let service: AuthService;
+    let httpMock: HttpTestingController;
+
+    const mockUrlBase = "http://localhost:8082/autonomax";
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
+        TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule],
+            providers: [AuthService]
+        });
+
         service = TestBed.inject(AuthService);
+        httpMock = TestBed.inject(HttpTestingController);
     });
 
-    it("Debería estar creado", () => {
+    afterEach(() => {
+        httpMock.verify();
+    });
+
+    it('debería crearse correctamente', () => {
         expect(service).toBeTruthy();
     });
-});
 
-describe("AuthService", () => {
-    let service: AuthService;
-    let httpClientSpy: jasmine.SpyObj<HttpClient>;
+    it('debería realizar una solicitud POST al iniciar sesión', () => {
+        const mockLoginRequest: LoginRequest = { nombreUsuario: 'usuario', password: 'contraseña' };
+        const mockResponse = { token: 'mockToken' };
 
-    beforeEach(() => {
-        httpClientSpy = jasmine.createSpyObj("HttpClient", ["post"]);
-
-        TestBed.configureTestingModule({
-            providers: [
-                AuthService,
-                { provide: HttpClient, useValue: httpClientSpy }
-            ]
+        service.login(mockLoginRequest.nombreUsuario, mockLoginRequest.password).subscribe(response => {
+            expect(response).toEqual(mockResponse);
         });
 
-        service = TestBed.inject(AuthService);
+        const req = httpMock.expectOne(`${mockUrlBase}/login`);
+        expect(req.request.method).toBe('POST');
+        expect(req.request.body).toEqual(mockLoginRequest);
+        req.flush(mockResponse);
+    });
 
-        spyOn(sessionStorage, "getItem").and.callFake((key: string) => {
-            return (sessionStorage as any)._data ? (sessionStorage as any)._data[key] : null;
-        });
+    it('debería manejar errores al iniciar sesión', () => {
+        const mockLoginRequest: LoginRequest = { nombreUsuario: 'usuario', password: 'contraseña' };
 
-        spyOn(sessionStorage, "setItem").and.callFake((key: string, value: string) => {
-            (sessionStorage as any)._data = (sessionStorage as any)._data || {};
-            (sessionStorage as any)._data[key] = value;
-        });
-
-        spyOn(sessionStorage, "removeItem").and.callFake((key: string) => {
-            if ((sessionStorage as any)._data) {
-                delete (sessionStorage as any)._data[key];
+        service.login(mockLoginRequest.nombreUsuario, mockLoginRequest.password).subscribe({
+            error: (error) => {
+                expect(error.status).toBe(401);
             }
         });
+
+        const req = httpMock.expectOne(`${mockUrlBase}/login`);
+        req.flush({ message: 'Credenciales inválidas' }, { status: 401, statusText: 'Unauthorized' });
     });
 
-    it("Debería llamar a HttpClient.post en el login con los parámetros correctos", () => {
-        const nombreUsuario = "test";
-        const password = "pass";
-        httpClientSpy.post.and.returnValue(of({}));
-
-        service.login(nombreUsuario, password).subscribe();
-
-        expect(httpClientSpy.post).toHaveBeenCalledWith(
-            "http://localhost:8082/autonomax/login",
-            { nombreUsuario, password },
-            { withCredentials: true }
-        );
-    });
-
-    it("Debería llamar a HttpClient.post al desloguear y eliminar usuarioActual del sessionStorage", (done) => {
-        (sessionStorage as any)._data = { usuarioActual: "algo" };
-        httpClientSpy.post.and.returnValue(of({}));
-
+    it('debería realizar una solicitud POST al cerrar sesión', () => {
         service.logout().subscribe(() => {
-            expect(httpClientSpy.post).toHaveBeenCalledWith(
-                "http://localhost:8082/autonomax/logout",
-                {},
-                { withCredentials: true }
-            );
-            expect(sessionStorage.removeItem).toHaveBeenCalledWith("usuarioActual");
-            done();
+            expect(sessionStorage.getItem("usuarioActual")).toBeNull();
         });
+
+        const req = httpMock.expectOne(`${mockUrlBase}/logout`);
+        expect(req.request.method).toBe('POST');
+        req.flush({});
     });
 
-    it("Debería retornar true si usuarioActual existe", () => {
-        (sessionStorage as any)._data = { usuarioActual: "algo" };
+    it('debería verificar si el usuario está logueado', () => {
+        sessionStorage.setItem("usuarioActual", "true");
         expect(service.estaLogueado()).toBeTrue();
+
+        sessionStorage.removeItem("usuarioActual");
+        expect(service.estaLogueado()).toBeFalse();
     });
 
-    it("Debería retornar false si usuarioActual no existe", () => {
-        (sessionStorage as any)._data = {};
-        expect(service.estaLogueado()).toBeFalse();
+    it('debería realizar una solicitud GET para verificar la sesión activa', () => {
+        service.checkSession().subscribe(() => {
+            expect(sessionStorage.getItem("usuarioActual")).toBe("true");
+        });
+
+        const req = httpMock.expectOne(`${mockUrlBase}/check-session`);
+        expect(req.request.method).toBe('GET');
+        req.flush({});
+    });
+
+    it('debería manejar errores al verificar la sesión activa', () => {
+        service.checkSession().subscribe({
+            error: (error) => {
+                expect(error.message).toBe("Sesión inválida");
+                expect(sessionStorage.getItem("usuarioActual")).toBeNull();
+            }
+        });
+
+        const req = httpMock.expectOne(`${mockUrlBase}/check-session`);
+        req.flush({}, { status: 401, statusText: 'Unauthorized' });
     });
 });
