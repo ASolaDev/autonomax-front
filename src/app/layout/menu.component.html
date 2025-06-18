@@ -1,38 +1,30 @@
 <div class="flex h-screen bg-white">
-  <!-- Menú lateral (solo en pantallas medianas en adelante) -->
+  <!-- de medianas adelante -->
   <div class="hidden md:flex w-66 bg-gray-200 text-black p-4 flex-col h-full overflow-y-auto">
     <ng-container *ngTemplateOutlet="menuContent"></ng-container>
   </div>
 
-  <!-- Icono de menú hamburguesa (solo visible en móvil) -->
+  <!--icono hamburguesa solo movil-->
   <div class="md:hidden fixed top-4 left-4 z-50">
     <button (click)="toggleMobileMenu()" class="focus:outline-none">
       <img src="assets/img/menu-hamburguesa.png" alt="Menú" class="w-8 h-8 bg-gray-200 rounded-md">
     </button>
   </div>
 
-  <!-- Menú móvil desplegable -->
+  <!--desplegable-->
   <div *ngIf="isMobileMenuOpen"
        class="fixed inset-0 bg-gray-200 text-black p-4 flex flex-col overflow-y-auto z-40 animate-fade-in">
-    <!-- <button (click)="closeMobileMenu()" class="self-end mb-4 text-xl font-bold">
-      
-    </button> -->
     <ng-container *ngTemplateOutlet="menuContent"></ng-container>
   </div>
 
-  <!-- Contenido principal -->
   <div class="flex-1 p-6 overflow-auto">
     <router-outlet></router-outlet>
   </div>
 
-  <!-- Template reutilizable del menú -->
   <ng-template #menuContent>
-    <!-- Logo -->
     <div class="text-xl font-semibold mb-6 flex items-center justify-center">
       <img class="w-24 h-24" src="assets/img/logo_1.svg" alt="Logo">
     </div>
-
-    <!-- Menú principal -->
     <ul class="space-y-4 mb-6" (click)="closeMobileMenu()">
       <li>
         <a routerLink="/inicio" routerLinkActive="bg-gray-300"
@@ -104,20 +96,18 @@
           Alertas y notificaciones
         </a>
       </li>
+      <a routerLink="/ajustes"
+         class="flex items-center gap-2 py-2 justify-center bg-black text-white rounded hover:bg-gray-800 mb-2">
+        <img src="assets/img/ajustes.svg" alt="Ajustes" class="w-5 h-5" />
+        Ajustes
+      </a>
+      <li>
+        <button type="button" (click)="logout()"
+                class="w-full flex items-center gap-2 py-2 justify-center bg-red-800 text-white rounded hover:bg-red-700 cursor-pointer">
+          <img src="assets/img/cerrar-sesion.png" alt="Cerrar sesión" class="w-5 h-5" />
+          Cerrar Sesión
+        </button>
+      </li>
     </ul>
-
-    <!-- Ajustes -->
-    <a routerLink="/ajustes"
-       class="flex items-center gap-2 py-2 justify-center bg-black text-white rounded hover:bg-gray-800 mb-2">
-      <img src="assets/img/ajustes.svg" alt="Ajustes" class="w-5 h-5" />
-      Ajustes
-    </a>
-
-    <!-- Botón Cerrar Sesión -->
-    <button type="button" (click)="logout()"
-            class="flex items-center gap-2 py-2 justify-center bg-red-800 text-white rounded hover:bg-red-700 cursor-pointer">
-      <img src="assets/img/cerrar-sesion.png" alt="Cerrar sesión" class="w-5 h-5" />
-      Cerrar Sesión
-    </button>
   </ng-template>
 </div>
