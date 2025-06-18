@@ -4,6 +4,7 @@
     <ng-container *ngTemplateOutlet="menuContent"></ng-container>
   </div>
 
+
   <!--icono hamburguesa solo movil-->
   <div class="md:hidden fixed top-4 left-4 z-50">
     <button (click)="toggleMobileMenu()" class="focus:outline-none">
@@ -17,14 +18,15 @@
     <ng-container *ngTemplateOutlet="menuContent"></ng-container>
   </div>
 
+
   <div class="flex-1 p-6 overflow-auto">
     <router-outlet></router-outlet>
   </div>
-
   <ng-template #menuContent>
     <div class="text-xl font-semibold mb-6 flex items-center justify-center">
       <img class="w-24 h-24" src="assets/img/logo_1.svg" alt="Logo">
     </div>
+
     <ul class="space-y-4 mb-6" (click)="closeMobileMenu()">
       <li>
         <a routerLink="/inicio" routerLinkActive="bg-gray-300"

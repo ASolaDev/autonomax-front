@@ -1,1 +1,82 @@
+
 <br/><h1 class="text-2xl font-bold mb-6">Agenda</h1>
+
+<div class="container mx-auto p-4" id="main-calendar-content">
+    <h1 class="text-3xl font-bold mb-8 text-center">Agenda Anual</h1>
+
+    <div class="flex justify-between items-center mb-6">
+        <button (click)="anteriorAnio()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            &lt; Anterior
+        </button>
+        <h2 class="text-2xl font-semibold">{{ anioActual }}</h2>
+        <button (click)="siguienteAnio()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Siguiente &gt;
+        </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        @for (mesData of mesesAnio; track mesData.nombre) {
+        <div class="border border-gray-300 rounded shadow-lg p-4 bg-white">
+            <h3 class="text-xl font-bold mb-4 text-center capitalize">{{ mesData.nombre }} {{ anioActual }}</h3>
+
+            <div class="grid grid-cols-7 gap-1 text-center">
+                <div class="font-semibold text-gray-700 bg-gray-200 p-1 text-sm">Lun</div>
+                <div class="font-semibold text-gray-700 bg-gray-200 p-1 text-sm">Mar</div>
+                <div class="font-semibold text-gray-700 bg-gray-200 p-1 text-sm">Mié</div>
+                <div class="font-semibold text-gray-700 bg-gray-200 p-1 text-sm">Jue</div>
+                <div class="font-semibold text-gray-700 bg-gray-200 p-1 text-sm">Vie</div>
+                <div class="font-semibold text-gray-700 bg-gray-200 p-1 text-sm">Sáb</div>
+                <div class="font-semibold text-gray-700 bg-gray-200 p-1 text-sm">Dom</div>
+
+                @for (empty of [].constructor(mesData.primerDiaOffset); track $index) {
+                <div class="aspect-square border border-gray-100 bg-gray-50 text-gray-300"></div>
+                }
+
+                @for (dia of mesData.dias; track dia) {
+                <div class="aspect-square border border-gray-200 bg-gray-100 hover:bg-blue-200 cursor-pointer
+                            flex items-center justify-center text-sm font-medium"
+                    (click)="abrirModal(dia, mesData.numeroMes, anioActual)">
+                    {{ dia }}
+                </div>
+                }
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+@if (mostrarModal) {
+<div class="fixed inset-0 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 sm:mx-auto relative">
+        <button (click)="cerrarModal()"
+            class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl font-bold" aria-label="Cerrar">
+            &times;
+        </button>
+
+        <h3 class="text-2xl font-bold mb-4 text-gray-800">
+            Agenda para
+            {{ fechaSeleccionada?.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day:
+            'numeric' }) }}
+        </h3>
+
+        <div class="border-t border-gray-200 pt-4">
+            <p class="text-gray-700">Contenido de la agenda del día:</p>
+            <ul class="list-disc list-inside mt-2 text-gray-600">
+                @for (evento of agendaDelDia; track $index) {
+                <li>{{ evento.hora }} - {{ evento.descripcion }}</li>
+                } @empty {
+                <li>No hay eventos programados para este día.</li>
+                }
+            </ul>
+        </div>
+
+        <div class="mt-6 text-right">
+            <button (click)="cerrarModal()"
+                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+}
+
