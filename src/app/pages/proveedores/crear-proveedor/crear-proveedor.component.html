@@ -1,0 +1,143 @@
+<div class="p-6 space-y-10">
+    <!-- Datos del Cliente -->
+    <div class="space-y-4">
+        <div class="flex items-center gap-4">
+            <h2 class="text-2xl font-bold">Crear proveedor</h2>
+        </div><br/>
+        <form  [formGroup]="CrearProveedor" (ngSubmit)="onSubmit()">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <label class="block mb-1 font-medium">Nombre/Razón social</label>
+                <input formControlName="nombreProveedor" type="text" class="w-full border p-2 rounded-md"
+                [ngClass]="{
+                               'border-red-500 border-2': f['nombreProveedor'].invalid && (f['nombreProveedor'].dirty || f['nombreProveedor'].touched),
+                               'border-green-500 border-2': f['nombreProveedor'].valid && (f['nombreProveedor'].dirty || f['nombreProveedor'].touched)
+                           }" />
+                @if (f['nombreProveedor'].invalid && (f['nombreProveedor'].dirty || f['nombreProveedor'].touched)) {
+                    @if (f['nombreProveedor'].errors?.['required']) {
+                    <p class="text-red-500 text-sm mt-1">El nombre es requerido.</p>
+                    } @else if (f['nombreProveedor'].errors?.['minlength']) {
+                    <p class="text-red-500 text-sm mt-1">El nombre debe tener al menos 3 caracteres.</p>
+                    }
+                }
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">CIF</label>
+                <input formControlName="cifProveedor" type="text" class="w-full border p-2 rounded-md"
+                [ngClass]="{
+                               'border-red-500 border-2': f['cifProveedor'].invalid && (f['cifProveedor'].dirty || f['cifProveedor'].touched),
+                               'border-green-500 border-2': f['cifProveedor'].valid && (f['cifProveedor'].dirty || f['cifProveedor'].touched)
+                           }" />
+
+                @if (f['cifProveedor'].invalid && (f['cifProveedor'].dirty || f['cifProveedor'].touched)) {
+                    @if (f['cifProveedor'].errors?.['required']) {
+                        <p class="text-red-500 text-sm mt-1">El CIF es requerido.</p>
+                    } @else if (f['cifProveedor'].errors?.['pattern']) { <p class="text-red-500 text-sm mt-1">El formato del CIF no es válido (Ej: A1234567Z).</p>
+                    }
+                }
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Tipo de cliente</label>
+                <select formControlName="tipoProveedor"  class="w-full border p-2 rounded-md"
+                [ngClass]="{
+                               'border-red-500 border-2': f['tipoProveedor'].invalid && (f['tipoProveedor'].dirty || f['tipoProveedor'].touched),
+                               'border-green-500 border-2': f['tipoProveedor'].valid && (f['tipoProveedor'].dirty || f['tipoProveedor'].touched)
+                           }">
+                    <option value="">Selecciona una opción</option>
+                    <option value="Empresa">Empresa</option>
+                    <option value="Autonomo">Autónomo</option>
+                </select>
+                 @if (f['tipoProveedor'].invalid && (f['tipoProveedor'].dirty || f['tipoProveedor'].touched)) {
+                    @if (f['tipoProveedor'].errors?.['required']) {
+                        <p class="text-red-500 text-sm mt-1">Tienes que seleccionar una opción válida</p>
+                    }
+                }
+            </div>
+
+            <div>
+                <label class="block mb-1 font-medium">Correo electrónico</label>
+                <input type="email" formControlName="emailProveedor" class="w-full border p-2 rounded-md"
+                [ngClass]="{
+                               'border-red-500 border-2': f['emailProveedor'].invalid && (f['emailProveedor'].dirty || f['emailProveedor'].touched),
+                               'border-green-500 border-2': f['emailProveedor'].valid && (f['emailProveedor'].dirty || f['emailProveedor'].touched)
+                           }"/>
+
+                @if (f['emailProveedor'].invalid && (f['emailProveedor'].dirty || f['emailProveedor'].touched)) {
+                    @if (f['emailProveedor'].errors?.['required']) {
+                    <p class="text-red-500 text-sm mt-1">El email es requerido.</p>
+                    } @else if (f['emailProveedor'].errors?.['email']) {
+                    <p class="text-red-500 text-sm mt-1">El formato del email no es correcto.</p>
+                    }
+                }
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Dirección</label>
+                <input type="text" formControlName="direccionProveedor" class="w-full border p-2 rounded-md"
+                 [ngClass]="{
+                               'border-red-500 border-2': f['direccionProveedor'].invalid && (f['direccionProveedor'].dirty || f['direccionProveedor'].touched),
+                               'border-green-500 border-2': f['direccionProveedor'].valid && (f['direccionProveedor'].dirty || f['direccionProveedor'].touched)
+                           }"/>
+                @if (f['direccionProveedor'].invalid && (f['direccionProveedor'].dirty || f['direccionProveedor'].touched)) {
+                    @if (f['direccionProveedor'].errors?.['required']) {
+                    <p class="text-red-500 text-sm mt-1">La dirección es requerida.</p>
+                    } @else if (f['direccionProveedor'].errors?.['minlength']) {
+                    <p class="text-red-500 text-sm mt-1">La dirección debe tener al menos 4 caracteres.</p>
+                    }
+                }
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Ciudad</label>
+                <input type="text" formControlName="ciudadProveedor" class="w-full border p-2 rounded-md"
+                 [ngClass]="{
+                               'border-red-500 border-2': f['ciudadProveedor'].invalid && (f['ciudadProveedor'].dirty || f['ciudadProveedor'].touched),
+                               'border-green-500 border-2': f['ciudadProveedor'].valid && (f['ciudadProveedor'].dirty || f['ciudadProveedor'].touched)
+                           }"/>
+                @if (f['ciudadProveedor'].invalid && (f['ciudadProveedor'].dirty || f['ciudadProveedor'].touched)) {
+                    @if (f['ciudadProveedor'].errors?.['required']) {
+                    <p class="text-red-500 text-sm mt-1">La ciudad es requerida.</p>
+                    } @else if (f['ciudadProveedor'].errors?.['minlength']) {
+                    <p class="text-red-500 text-sm mt-1">La ciudad debe tener al menos 4 caracteres.</p>
+                    }
+                }
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Provincia</label>
+                <input type="text" formControlName="provinciaProveedor" class="w-full border p-2 rounded-md"
+                [ngClass]="{
+                               'border-red-500 border-2': f['provinciaProveedor'].invalid && (f['provinciaProveedor'].dirty || f['provinciaProveedor'].touched),
+                               'border-green-500 border-2': f['provinciaProveedor'].valid && (f['provinciaProveedor'].dirty || f['provinciaProveedor'].touched)
+                           }"/>
+                @if (f['provinciaProveedor'].invalid && (f['provinciaProveedor'].dirty || f['provinciaProveedor'].touched)) {
+                    @if (f['provinciaProveedor'].errors?.['required']) {
+                    <p class="text-red-500 text-sm mt-1">La provincia es requerida.</p>
+                    } @else if (f['provinciaProveedor'].errors?.['minlength']) {
+                    <p class="text-red-500 text-sm mt-1">La provincia debe tener al menos 9 caracteres.</p>
+                    }
+                }
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Teléfono</label>
+                <input type="text" formControlName="telefonoProveedor" class="w-full border p-2 rounded-md"
+                 [ngClass]="{
+                               'border-red-500 border-2': f['telefonoProveedor'].invalid && (f['telefonoProveedor'].dirty || f['telefonoProveedor'].touched),
+                               'border-green-500 border-2': f['telefonoProveedor'].valid && (f['telefonoProveedor'].dirty || f['telefonoProveedor'].touched)
+                           }" />
+                @if (f['telefonoProveedor'].invalid && (f['telefonoProveedor'].dirty || f['telefonoProveedor'].touched)) {
+                    @if (f['telefonoProveedor'].errors?.['required']) {
+                    <p class="text-red-500 text-sm mt-1">El teléfono es requerida.</p>
+                    } @else if (f['telefonoProveedor'].errors?.['pattern']) {
+                    <p class="text-red-500 text-sm mt-1">El formato del teléfono no es válido (Ej: +34600123456).</p>
+                    }
+                }
+            </div>
+
+        </div>
+        <div class="flex justify-center mt-10">
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                Crear proveedor
+            </button>
+        </div>
+        </form>
+    </div>
+
+</div>

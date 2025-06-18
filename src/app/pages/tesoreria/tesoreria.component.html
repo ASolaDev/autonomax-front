@@ -1,1 +1,59 @@
 <h1 class="text-2xl font-bold mb-6">Tesorería</h1>
+<div class="p-6 space-y-10">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-green-100 p-6 rounded-lg shadow text-center">
+      <p class="text-xl font-bold text-green-800">Saldo total</p>
+      <p class="text-2xl font-bold text-green-700">5,000 €</p>
+    </div>
+    <div class="bg-blue-100 p-6 rounded-lg shadow text-center">
+      <p class="text-xl font-bold text-blue-800">Ingresos (mes actual)</p>
+      <p class="text-2xl font-bold text-blue-700">2,300 €</p>
+    </div>
+    <div class="bg-red-100 p-6 rounded-lg shadow text-center">
+      <p class="text-xl font-bold text-red-800">Gastos (mes actual)</p>
+      <p class="text-2xl font-bold text-red-700">1,400 €</p>
+    </div>
+  </div>
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h3 class="text-lg font-semibold mb-4">Flujo de caja (últimos 6 meses)</h3>
+    <div class="h-64 bg-gray-100 rounded flex items-center justify-center text-gray-400">
+      [Aquí gráfico]
+    </div>
+  </div>
+  <div class="bg-white p-6 rounded-lg shadow overflow-x-auto">
+    <h3 class="text-lg font-semibold mb-4">Últimos movimientos</h3>
+    <table class="min-w-full text-sm text-left border border-gray-200">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="p-2 border">Fecha</th>
+          <th class="p-2 border">Tipo</th>
+          <th class="p-2 border">Monto</th>
+          <th class="p-2 border">Categoría</th>
+          <th class="p-2 border">Cuenta</th>
+          <th class="p-2 border">Método</th>
+          <th class="p-2 border">Observaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hover:bg-gray-50">
+          <td class="p-2 border">2025-06-08</td>
+          <td class="p-2 border text-green-700 font-medium">Ingreso</td>
+          <td class="p-2 border">+500 €</td>
+          <td class="p-2 border">Venta</td>
+          <td class="p-2 border">Santander</td>
+          <td class="p-2 border">Transferencia</td>
+          <td class="p-2 border">Pago cliente X</td>
+        </tr>
+        <tr class="hover:bg-gray-50">
+          <td class="p-2 border">2025-06-07</td>
+          <td class="p-2 border text-red-700 font-medium">Gasto</td>
+          <td class="p-2 border">-120 €</td>
+          <td class="p-2 border">Software</td>
+          <td class="p-2 border">BBVA</td>
+          <td class="p-2 border">Tarjeta</td>
+          <td class="p-2 border">Licencia anual</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

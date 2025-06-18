@@ -1,1 +1,102 @@
 <h1 class="text-2xl font-bold mb-6">Clientes</h1>
+<div class="">
+    <div class="flex justify-between items-center mb-4">
+        <div class="relative w-full max-w-xs">
+            <!-- Icono -->
+            <img src="assets/img/lupa.svg" alt="Buscar"
+                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 opacity-60" />
+            <!-- Input -->
+            <input type="text" placeholder="Buscar cliente..."
+                class="pl-10 border border-gray-300 rounded-md p-1 w-full focus:outline-none focus:ring-2 focus:ring-green-500" />
+        </div>
+        <!-- Botón crear factura -->
+        <button
+            class="ml-4 bg-green-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-green-700 transition"
+            (click)="onCrearCliente()">
+            <img src="assets/img/mas.svg" alt="Crear" class="w-4 h-4 mr-2" />
+            Crear cliente
+        </button>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 rounded-md">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="text-left px-4 py-2 border-b">Nombre/Empresa</th>
+                    <th class="text-left px-4 py-2 border-b">Email</th>
+                    <th class="text-left px-4 py-2 border-b">Teléfono</th>
+                    <th class="text-left px-4 py-2 border-b">Ciudad</th>
+                    <th class="text-left px-4 py-2 border-b">Provincia</th>
+                    <th class="text-left px-4 py-2 border-b"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (cliente of clientes; track cliente) {
+                <tr>
+                    <td class="px-4 py-2 border-b">{{ cliente.nombreCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ cliente.emailCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ cliente.telefonoCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ cliente.ciudadCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ cliente.provinciaCliente}}</td>
+                    <div class="flex justify-center gap-3">
+                        <button (click)="abrirModalEditar(cliente)">
+                            <img src="assets/img/edit.png" alt="Editar" class="w-9 h-8 mt-1" />
+                        </button>
+                        <button (click)="eliminarCliente(cliente.id)">
+                            <img src="assets/img/eliminar.png" alt="Eliminar" class="w-9 h-8 mt-1" />
+                        </button>
+                    </div>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- Modal de edición -->
+<div *ngIf="mostrarModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded shadow-lg w-full max-w-lg">
+        <h2 class="text-xl font-bold mb-4">Editar cliente</h2>
+        <form [formGroup]="editarClientesForm" (ngSubmit)="guardarCambios(clienteSeleccionado?.id || 0)">
+            <div class="mb-2">
+                <label>Nombre/Razón social</label>
+                <input formControlName="nombreCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>CIF</label>
+                <input formControlName="cifCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Tipo</label>
+                <input formControlName="tipoCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Email</label>
+                <input formControlName="emailCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Dirección</label>
+                <input formControlName="direccionCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Ciudad</label>
+                <input formControlName="ciudadCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Provincia</label>
+                <input formControlName="provinciaCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Teléfono</label>
+                <input formControlName="telefonoCliente" class="w-full border p-2 rounded" />
+            </div>
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" (click)="cerrarModal()"
+                    class="bg-gray-400 text-white px-4 py-2 rounded">Cancelar</button>
+                <button type="submit" [disabled]="!editarClientesForm.valid"
+                    class="bg-green-600 text-white px-4 py-2 rounded">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
