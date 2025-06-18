@@ -23,6 +23,15 @@ export class FacturasComponent implements OnInit {
         } catch (error) {
             console.error('Error al cargar las facturas:', error);
         }
+        this.cargarFacturasDesdeAPI();
+    }
+
+
+
+    cargarFacturasDesdeAPI() {
+        this.facturaService.getFacturasAPI().subscribe((facturas: Factura[]) => {
+            this.facturas = facturas;
+        });
     }
 
     onCrearFactura() {

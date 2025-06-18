@@ -5,8 +5,10 @@ import { Router } from '@angular/router';
 
 import { DetallesComponent } from './detalles/detalles.component';
 import { FacturaService } from '../../../services/factura.service';
+import { ClientesService } from '../../../services/clientes.service'; // <<-- NUEVO: Importar servicio de clientes
 import { DetalleFactura } from '../../../models/DetalleFactura';
 import { Factura } from '../../../models/Factura';
+import { Cliente } from '../../../models/Cliente';
 
 @Component({
     selector: 'app-crear-factura',
@@ -16,39 +18,79 @@ import { Factura } from '../../../models/Factura';
 })
 
 export class CrearFacturaComponent implements OnInit {
+
     mostrarModalDetalle = false;
     mostrarModalClientes = false;
-
     detallesFactura: DetalleFactura[] = [];
     detalleEditando: DetalleFactura | null = null;
     indiceEditando: number | null = null;
-
-    factura: Factura = {
-        numero: '',
-        cliente: '',
-        emision: new Date().toISOString().split('T')[0],
-        pago: '',
-        total: '0.00',
-        estado: 'Pendiente'
-    };
-
     baseImponible = 0;
     totalIva = 0;
     totalFactura = 0;
 
-    constructor(private facturaService: FacturaService, private router: Router) { }
 
-    ngOnInit() { }
+    clientes: Cliente[] = [];
+    clienteSeleccionado: Cliente | null = null;
+
+    factura: Factura = {
+        numeroFactura: '',
+        idCliente: 0,
+        fechaEmision: new Date().toISOString().split('T')[0],
+        fechaPago: '',
+        total: 0.00,
+        estado: 'Pendiente',
+        idUsuario: 0,
+        idEmpresa: 0,
+        subtotal: 0.00,
+        iva: 0.00,
+        facturasDetalles: [],
+        cliente: {} as Cliente
+    };
+
+
+    constructor(
+        private facturaService: FacturaService,
+        private clientesService: ClientesService,
+        private router: Router
+    ) { }
+
+    ngOnInit() {
+
+        this.cargarClientes();
+    }
+
+
+    cargarClientes() {
+        this.clientesService.getClientes().subscribe({
+            next: (data) => {
+                this.clientes = data;
+                console.log('Clientes cargados:', this.clientes);
+            },
+            error: (error) => console.error('Error al cargar los clientes:', error)
+        });
+    }
+
+
+    seleccionarCliente(cliente: Cliente) {
+        this.clienteSeleccionado = cliente;
+        this.factura.idCliente = cliente.id;
+        this.toggleModalClientes(false);
+        console.log('Cliente seleccionado:', this.clienteSeleccionado);
+    }
 
     generarFactura() {
+        if (!this.factura.idCliente || this.factura.idCliente === 0) {
+            console.error('Error: Debes seleccionar un cliente.');
+
+            return;
+        }
         try {
-            this.factura.total = this.totalFactura.toFixed(2);
-            this.facturaService.agregarFactura({ ...this.factura, detalles: this.detallesFactura });
+            this.factura.total = Number(this.totalFactura.toFixed(2));
+            this.facturaService.agregarFactura({ ...this.factura, facturasDetalles: this.detallesFactura });
             this.router.navigate(['/facturas']);
         } catch (error) {
             console.error('Error al generar la factura:', error);
         }
-
     }
 
     toggleModalDetalle(estado: boolean) {
@@ -69,7 +111,6 @@ export class CrearFacturaComponent implements OnInit {
         } else {
             this.detallesFactura.push({ ...detalle });
         }
-
         this.calcularTotales();
         this.toggleModalDetalle(false);
     }
@@ -90,21 +131,17 @@ export class CrearFacturaComponent implements OnInit {
             (totales, detalle) => {
                 const precioBaseItem = detalle.cantidad * detalle.precioUnitario;
                 const ivaItem = precioBaseItem * (detalle.tipoIva / 100);
-
                 detalle.subtotal = precioBaseItem + ivaItem;
-
                 totales.baseImponible += precioBaseItem;
                 totales.totalIva += ivaItem;
-
                 return totales;
             },
             { baseImponible: 0, totalIva: 0 }
         );
-
         this.baseImponible = baseImponible;
         this.totalIva = totalIva;
         this.totalFactura = baseImponible + totalIva;
-
-        this.factura.total = this.totalFactura.toFixed(2);
+        this.factura.total = Number(this.totalFactura.toFixed(2));
     }
 }
+

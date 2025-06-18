@@ -31,11 +31,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let factura of facturas">
+                @for (factura of facturas; track $index) {
+                <tr>
                     <td class="px-4 py-2 border-b">{{ factura.estado }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.numero }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.cliente }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.emision }}</td>
+                    <td class="px-4 py-2 border-b">{{ factura.numeroFactura }}</td>
+                    <td class="px-4 py-2 border-b">{{ factura.cliente.nombreCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ factura.fechaEmision }}</td>
                     <td class="px-4 py-2 border-b">{{ factura.total }}</td>
                     <div class="flex justify-center gap-3">
                         <button>
@@ -49,6 +50,8 @@
                         </button>
                     </div>
                 </tr>
+                }
+
             </tbody>
 
         </table>
