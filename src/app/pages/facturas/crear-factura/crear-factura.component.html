@@ -103,15 +103,23 @@
     </div>
 
     <!-- Botón Generar Factura -->
-    <div class="flex justify-end mt-6">
-        <form (ngSubmit)="generarFactura()" class="flex flex-col md:flex-row items-center gap-4">
+    <div class="mt-6">
+        <form (ngSubmit)="generarFactura()" class="flex flex-col md:flex-row items-center gap-4 mb-4 justify-end">
             <input [(ngModel)]="factura.numero" name="numero" required placeholder="Número de factura"
-                class="border p-2 rounded-md w-full md:w-auto" />
+                class="border p-2 rounded-md w-full md:w-auto max-w-xs" />
             <input [(ngModel)]="factura.cliente" name="cliente" required placeholder="Cliente"
-                class="border p-2 rounded-md w-full md:w-auto" />
-            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                class="border p-2 rounded-md w-full md:w-auto max-w-xs" />
+        </form>
+        <br/>
+        <div class="flex justify-center gap-4">
+            <button class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700" (click)="onVolver()">
+                Cancelar
+            </button>
+            <button type="submit" form="formFactura" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
                 Generar factura
             </button>
-        </form>
+        </div>
+
     </div>
+
 </div>

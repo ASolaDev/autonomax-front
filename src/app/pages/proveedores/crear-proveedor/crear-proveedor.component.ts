@@ -78,4 +78,9 @@ export class CrearProveedorComponent {
             this.CrearProveedor.markAllAsTouched();
         }
     }
+
+    onVolver() {
+        console.log('Redirigiendo a /proveedores');
+        this.router.navigate(['proveedores']);
+    }
 }

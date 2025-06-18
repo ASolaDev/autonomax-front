@@ -76,4 +76,9 @@ export class CrearClienteComponent {
             this.CrearCliente.markAllAsTouched();
         }
     }
+
+    onVolver() {
+        console.log('Redirigiendo a /clientes');
+        this.router.navigate(['clientes']);
+    }
 }

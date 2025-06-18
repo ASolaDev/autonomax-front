@@ -18,36 +18,37 @@
         </button>
     </div>
     <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-300 rounded-md">
+        <table class="min-w-full bg-white border border-gray-300 rounded-md shadow-sm">
             <thead class="bg-gray-100">
                 <tr>
-                    <th class="text-left px-4 py-2 border-b">Nombre/Empresa</th>
-                    <th class="text-left px-4 py-2 border-b">Email</th>
-                    <th class="text-left px-4 py-2 border-b">Teléfono</th>
-                    <th class="text-left px-4 py-2 border-b">Ciudad</th>
-                    <th class="text-left px-4 py-2 border-b">Provincia</th>
-                    <th class="text-left px-4 py-2 border-b"></th>
+                    <th class="text-left px-4 py-2 border-b border-gray-300">Nombre/Empresa</th>
+                    <th class="text-left px-4 py-2 border-b border-gray-300">Email</th>
+                    <th class="text-left px-4 py-2 border-b border-gray-300">Teléfono</th>
+                    <th class="text-left px-4 py-2 border-b border-gray-300">Ciudad</th>
+                    <th class="text-left px-4 py-2 border-b border-gray-300">Provincia</th>
+                    <th class="text-left px-4 py-2 border-b border-gray-300"></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-gray-200">
                 @for (cliente of clientes; track cliente) {
                 <tr>
-                    <td class="px-4 py-2 border-b">{{ cliente.nombreCliente }}</td>
-                    <td class="px-4 py-2 border-b">{{ cliente.emailCliente }}</td>
-                    <td class="px-4 py-2 border-b">{{ cliente.telefonoCliente }}</td>
-                    <td class="px-4 py-2 border-b">{{ cliente.ciudadCliente }}</td>
-                    <td class="px-4 py-2 border-b">{{ cliente.provinciaCliente}}</td>
-                    <div class="flex justify-center gap-3">
-                        <button (click)="abrirModalEditar(cliente)">
-                            <img src="assets/img/edit.png" alt="Editar" class="w-9 h-8 mt-1" />
-                        </button>
-                        <button (click)="eliminarCliente(cliente.id)">
-                            <img src="assets/img/eliminar.png" alt="Eliminar" class="w-9 h-8 mt-1" />
-                        </button>
-                    </div>
+                    <td class="px-4 py-2">{{ cliente.nombreCliente }}</td>
+                    <td class="px-4 py-2">{{ cliente.emailCliente }}</td>
+                    <td class="px-4 py-2">{{ cliente.telefonoCliente }}</td>
+                    <td class="px-4 py-2">{{ cliente.ciudadCliente }}</td>
+                    <td class="px-4 py-2">{{ cliente.provinciaCliente }}</td>
+                    <td class="px-4 py-2">
+                        <div class="flex justify-center gap-3">
+                            <button (click)="abrirModalEditar(cliente)">
+                                <img src="assets/img/edit.png" alt="Editar" class="w-10 h-8 mt-1" />
+                            </button>
+                            <button (click)="eliminarCliente(cliente.id)">
+                                <img src="assets/img/eliminar.png" alt="Eliminar" class="w-10 h-8 mt-1" />
+                            </button>
+                        </div>
+                    </td>
                 </tr>
                 }
-
             </tbody>
         </table>
     </div>

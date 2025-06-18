@@ -107,4 +107,9 @@ export class CrearFacturaComponent implements OnInit {
 
         this.factura.total = this.totalFactura.toFixed(2);
     }
+
+    onVolver() {
+        console.log('Redirigiendo a /facturas');
+        this.router.navigate(['facturas']);
+    }
 }
