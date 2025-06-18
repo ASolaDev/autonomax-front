@@ -16,39 +16,43 @@
             Crear proveedor
         </button>
     </div>
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-300 rounded-md shadow-sm">
-            <thead class="bg-gray-100">
+    <!-- Tabla de proveedores -->
+    <div class="overflow-x-auto rounded-md border border-gray-400">
+        <table class="min-w-full bg-white">
+            <thead class="bg-gray-200">
                 <tr>
-                  <th class="text-left px-4 py-2 border-b border-gray-300">Nombre/Empresa</th>
-                  <th class="text-left px-4 py-2 border-b border-gray-300">CIF</th>
-                  <th class="text-left px-4 py-2 border-b border-gray-300">Email</th>
-                    <th class="text-left px-4 py-2 border-b border-gray-300">Teléfono</th>
-                    <th class="text-left px-4 py-2 border-b border-gray-300">Provincia</th>
-                    <th class="text-left px-4 py-2 border-b border-gray-300"></th>
+                    <th class="text-left px-4 py-2">Nombre/Empresa</th>
+                    <th class="text-left px-4 py-2">CIF</th>
+                    <th class="text-left px-4 py-2">Email</th>
+                    <th class="text-left px-4 py-2">Teléfono</th>
+                    <th class="text-left px-4 py-2">Provincia</th>
+                    <th class="text-left px-4 py-2">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @for (proveedor of proveedores; track $index) {
-                    <tr>
-                    <td class="px-4 py-2 border-b">{{ proveedor.nombreProveedor }}</td>
-                    <td class="px-4 py-2 border-b">{{ proveedor.cifProveedor }}</td>
-                    <td class="px-4 py-2 border-b">{{ proveedor.emailProveedor }}</td>
-                    <td class="px-4 py-2 border-b">{{ proveedor.telefonoProveedor }}</td>
-                    <td class="px-4 py-2 border-b">{{ proveedor.provinciaProveedor }}</td>
-                    <div class="flex justify-center gap-3">
-                        <button (click)="abrirModalEditar(proveedor)">
-                            <img src="assets/img/edit.png" alt="Editar" class="w-9 h-8 mt-1" />
-                        </button>
-                        <button (click)="eliminarProveedor(proveedor.id ?? 0)">
-                            <img src="assets/img/eliminar.png" alt="Eliminar" class="w-9 h-8 mt-1" />
-                        </button>
-                    </div>
-                </tr>
+                    <tr class="border-t border-gray-400">
+                        <td class="px-4 py-2">{{ proveedor.nombreProveedor }}</td>
+                        <td class="px-4 py-2">{{ proveedor.cifProveedor }}</td>
+                        <td class="px-4 py-2">{{ proveedor.emailProveedor }}</td>
+                        <td class="px-4 py-2">{{ proveedor.telefonoProveedor }}</td>
+                        <td class="px-4 py-2">{{ proveedor.provinciaProveedor }}</td>
+                        <td class="px-4 py-2">
+                            <div class="flex justify-center gap-3">
+                                <button (click)="abrirModalEditar(proveedor)">
+                                    <img src="assets/img/edit.png" alt="Editar" class="w-10 h-8" />
+                                </button>
+                                <button (click)="eliminarProveedor(proveedor.id ?? 0)">
+                                    <img src="assets/img/eliminar.png" alt="Eliminar" class="w-10 h-8" />
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
+
 </div>
 
 <!-- Modal de edición -->

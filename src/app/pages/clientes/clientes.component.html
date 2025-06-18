@@ -18,19 +18,20 @@
             Crear cliente
         </button>
     </div>
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-300 rounded-md shadow-sm">
-            <thead class="bg-gray-100">
+    <!-- Tabla de clientes -->
+    <div class="overflow-x-auto rounded-md border border-gray-400">
+        <table class="min-w-full bg-white">
+            <thead class="bg-gray-200">
                 <tr>
-                    <th class="text-left px-4 py-2 border-b border-gray-300">Nombre/Empresa</th>
-                    <th class="text-left px-4 py-2 border-b border-gray-300">CIF</th>
-                    <th class="text-left px-4 py-2 border-b border-gray-300">Email</th>
-                    <th class="text-left px-4 py-2 border-b border-gray-300">Teléfono</th>
-                    <th class="text-left px-4 py-2 border-b border-gray-300">Provincia</th>
-                    <th class="text-left px-4 py-2 border-b border-gray-300"></th>
+                    <th class="text-left px-4 py-2">Nombre/Empresa</th>
+                    <th class="text-left px-4 py-2">CIF</th>
+                    <th class="text-left px-4 py-2">Email</th>
+                    <th class="text-left px-4 py-2">Teléfono</th>
+                    <th class="text-left px-4 py-2">Provincia</th>
+                    <th class="text-left px-4 py-2">Acciones</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200">
+            <tbody class="divide-y divide-gray-400">
                 @for (cliente of clientes; track cliente) {
                 <tr>
                     <td class="px-4 py-2">{{ cliente.nombreCliente }}</td>
@@ -41,10 +42,10 @@
                     <td class="px-4 py-2">
                         <div class="flex justify-center gap-3">
                             <button (click)="abrirModalEditar(cliente)">
-                                <img src="assets/img/edit.png" alt="Editar" class="w-10 h-8 mt-1" />
+                                <img src="assets/img/edit.png" alt="Editar" class="w-10 h-8" />
                             </button>
                             <button (click)="eliminarCliente(cliente.id)">
-                                <img src="assets/img/eliminar.png" alt="Eliminar" class="w-10 h-8 mt-1" />
+                                <img src="assets/img/eliminar.png" alt="Eliminar" class="w-10 h-8" />
                             </button>
                         </div>
                     </td>
@@ -53,6 +54,7 @@
             </tbody>
         </table>
     </div>
+
 </div>
 
 
