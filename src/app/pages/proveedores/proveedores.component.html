@@ -21,10 +21,9 @@
             <thead class="bg-gray-100">
                 <tr>
                   <th class="text-left px-4 py-2 border-b border-gray-300">Nombre/Empresa</th>
-                  <th class="text-left px-4 py-2 border-b border-gray-300">Email</th>
+                  <th class="text-left px-4 py-2 border-b border-gray-300">CIF</th>
                   <th class="text-left px-4 py-2 border-b border-gray-300">Email</th>
                     <th class="text-left px-4 py-2 border-b border-gray-300">Teléfono</th>
-                    <th class="text-left px-4 py-2 border-b border-gray-300">Ciudad</th>
                     <th class="text-left px-4 py-2 border-b border-gray-300">Provincia</th>
                     <th class="text-left px-4 py-2 border-b border-gray-300"></th>
                 </tr>
@@ -33,9 +32,9 @@
                 @for (proveedor of proveedores; track $index) {
                     <tr>
                     <td class="px-4 py-2 border-b">{{ proveedor.nombreProveedor }}</td>
+                    <td class="px-4 py-2 border-b">{{ proveedor.cifProveedor }}</td>
                     <td class="px-4 py-2 border-b">{{ proveedor.emailProveedor }}</td>
                     <td class="px-4 py-2 border-b">{{ proveedor.telefonoProveedor }}</td>
-                    <td class="px-4 py-2 border-b">{{ proveedor.ciudadProveedor }}</td>
                     <td class="px-4 py-2 border-b">{{ proveedor.provinciaProveedor }}</td>
                     <div class="flex justify-center gap-3">
                         <button (click)="abrirModalEditar(proveedor)">

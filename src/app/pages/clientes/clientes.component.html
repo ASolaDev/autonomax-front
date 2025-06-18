@@ -23,9 +23,9 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th class="text-left px-4 py-2 border-b border-gray-300">Nombre/Empresa</th>
+                    <th class="text-left px-4 py-2 border-b border-gray-300">CIF</th>
                     <th class="text-left px-4 py-2 border-b border-gray-300">Email</th>
                     <th class="text-left px-4 py-2 border-b border-gray-300">Teléfono</th>
-                    <th class="text-left px-4 py-2 border-b border-gray-300">Ciudad</th>
                     <th class="text-left px-4 py-2 border-b border-gray-300">Provincia</th>
                     <th class="text-left px-4 py-2 border-b border-gray-300"></th>
                 </tr>
@@ -34,9 +34,9 @@
                 @for (cliente of clientes; track cliente) {
                 <tr>
                     <td class="px-4 py-2">{{ cliente.nombreCliente }}</td>
+                    <td class="px-4 py-2">{{ cliente.cifCliente }}</td>
                     <td class="px-4 py-2">{{ cliente.emailCliente }}</td>
                     <td class="px-4 py-2">{{ cliente.telefonoCliente }}</td>
-                    <td class="px-4 py-2">{{ cliente.ciudadCliente }}</td>
                     <td class="px-4 py-2">{{ cliente.provinciaCliente }}</td>
                     <td class="px-4 py-2">
                         <div class="flex justify-center gap-3">
