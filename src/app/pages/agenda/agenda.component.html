@@ -2,11 +2,11 @@
     <h1 class="text-3xl font-bold mb-8 text-center">Agenda Anual</h1>
 
     <div class="flex justify-between items-center mb-6">
-        <button (click)="anteriorAnio()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button (click)="anteriorAnio()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
             &lt; Anterior
         </button>
         <h2 class="text-2xl font-semibold">{{ anioActual }}</h2>
-        <button (click)="siguienteAnio()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button (click)="siguienteAnio()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
             Siguiente &gt;
         </button>
     </div>
@@ -30,7 +30,7 @@
                 }
 
                 @for (dia of mesData.dias; track dia) {
-                <div class="aspect-square border border-gray-200 bg-gray-100 hover:bg-blue-200 cursor-pointer
+                <div class="aspect-square border border-gray-200 bg-gray-100 hover:bg-green-200 cursor-pointer
                             flex items-center justify-center text-sm font-medium"
                     (click)="abrirModal(dia, mesData.numeroMes, anioActual)">
                     {{ dia }}
