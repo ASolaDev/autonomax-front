@@ -1,2 +1,63 @@
-<br />
-<h1 class="text-2xl font-bold mb-6 text-center">Exportar datos</h1>
+<div class="min-h-screen bg-gray-50 flex flex-col items-center justify-center py-8">
+    <div class="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-3xl font-extrabold mb-8 text-center text-green-700">Exportar datos</h1>
+        <div class="flex flex-col items-center justify-center py-8">
+            <p class="text-gray-600 text-center mb-8">
+                Descarga todos tus <span class="font-semibold">clientes</span>, <span
+                    class="font-semibold">proveedores</span> y <span class="font-semibold">facturas</span> en un solo
+                archivo CSV para llevar un respaldo o migrar tus datos.
+            </p>
+
+            <div class="flex flex-col md:flex-row justify-around items-center gap-6 mb-8">
+                <div class="flex flex-col items-center">
+                    <div
+                        class="bg-green-100 text-green-700 rounded-full w-14 h-14 flex items-center justify-center mb-2">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M16 21v-2a4 4 0 00-8 0v2M12 11a4 4 0 100-8 4 4 0 000 8z" />
+                        </svg>
+                    </div>
+                    <span class="font-medium text-gray-700">Clientes</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-blue-100 text-blue-700 rounded-full w-14 h-14 flex items-center justify-center mb-2">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M3 7v4a1 1 0 001 1h3v9a1 1 0 001 1h6a1 1 0 001-1v-9h3a1 1 0 001-1V7" />
+                            <path d="M16 3H8a1 1 0 00-1 1v2h10V4a1 1 0 00-1-1z" />
+                        </svg>
+                    </div>
+                    <span class="font-medium text-gray-700">Proveedores</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div
+                        class="bg-yellow-100 text-yellow-700 rounded-full w-14 h-14 flex items-center justify-center mb-2">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path
+                                d="M9 14l2-2 4 4M7 10h.01M7 6h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V8a2 2 0 012-2z" />
+                        </svg>
+                    </div>
+                    <span class="font-medium text-gray-700">Facturas</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <button
+                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow transition mb-4 flex items-center gap-2"
+                    (click)="exportarDatos()" [disabled]="exportando">
+                    <svg *ngIf="!exportando" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path d="M12 4v16m8-8H4" />
+                    </svg>
+                    <svg *ngIf="exportando" class="w-5 h-5 animate-spin" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke-opacity="0.3" />
+                        <path d="M12 2a10 10 0 0110 10" />
+                    </svg>
+                    {{ exportando ? 'Exportando...' : 'Exportar todo a CSV' }}
+                </button>
+                @if (mensaje) {
+                <div class="text-gray-700 mt-2 text-center">{{ mensaje }}</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
