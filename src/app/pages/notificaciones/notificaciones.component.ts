@@ -10,7 +10,6 @@ interface Notificacion {
 @Component({
     selector: 'app-notificaciones',
     templateUrl: './notificaciones.component.html',
-    styleUrls: ['./notificaciones.component.css'],
     standalone: true,
     imports: [CommonModule]
 })
@@ -32,12 +31,5 @@ export class NotificacionesComponent {
             this.historial.unshift(noti); // Agrega al inicio del historial
         }
         this.notificaciones = this.notificaciones.filter(n => n.id !== id);
-    }
-
-    mostrarEjemplo() {
-        this.agregarNotificacion('success', 'Operación exitosa');
-        this.agregarNotificacion('error', 'Ha ocurrido un error');
-        this.agregarNotificacion('info', 'Información importante');
-        this.agregarNotificacion('warning', 'Advertencia');
     }
 }

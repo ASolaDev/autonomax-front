@@ -11,15 +11,10 @@
         </div>
         <div class="bg-red-100 p-6 rounded-lg shadow text-center">
             <p class="text-xl font-bold text-red-800">Gastos (mes actual)</p>
-            <p class="text-2xl font-bold text-red-700">1,400 €</p>
+            <p class="text-2xl font-bold text-red-700">0 €</p>
         </div>
     </div>
-    <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="text-lg font-semibold mb-4">Flujo de caja (últimos 6 meses)</h3>
-        <div class="h-64 bg-gray-100 rounded flex items-center justify-center text-gray-400">
 
-        </div>
-    </div>
     <div class="bg-white p-6 rounded-lg shadow overflow-x-auto">
         <h3 class="text-lg font-semibold mb-4">Últimos movimientos</h3>
         <table class="min-w-full text-sm text-left border border-gray-200 rounded-md">
@@ -27,32 +22,22 @@
                 <tr>
                     <th class="p-2 border">Fecha</th>
                     <th class="p-2 border">Tipo</th>
-                    <th class="p-2 border">Monto</th>
+                    <th class="p-2 border">Cantidad</th>
                     <th class="p-2 border">Categoría</th>
-                    <th class="p-2 border">Cuenta</th>
-                    <th class="p-2 border">Método</th>
                     <th class="p-2 border">Observaciones</th>
                 </tr>
             </thead>
             <tbody>
+                @for (factura of facturas; track factura.id) {
                 <tr class="hover:bg-gray-50">
-                    <td class="p-2 border">2025-06-08</td>
+                    <td class="p-2 border">{{ factura.fechaEmision | date:'yyyy-MM-dd' }}</td>
                     <td class="p-2 border text-green-700 font-medium">Ingreso</td>
-                    <td class="p-2 border">+500 €</td>
-                    <td class="p-2 border">Venta</td>
-                    <td class="p-2 border">Santander</td>
-                    <td class="p-2 border">Transferencia</td>
-                    <td class="p-2 border">Pago cliente X</td>
+                    <td class="p-2 border">+{{ factura.total }} €</td>
+                    <td class="p-2 border">Factura</td>
+
+                    <td class="p-2 border">Cliente: {{ factura.cliente.nombreCliente || '-' }}</td>
                 </tr>
-                <tr class="hover:bg-gray-50">
-                    <td class="p-2 border">2025-06-07</td>
-                    <td class="p-2 border text-red-700 font-medium">Gasto</td>
-                    <td class="p-2 border">-120 €</td>
-                    <td class="p-2 border">Software</td>
-                    <td class="p-2 border">BBVA</td>
-                    <td class="p-2 border">Tarjeta</td>
-                    <td class="p-2 border">Licencia anual</td>
-                </tr>
+                }
             </tbody>
         </table>
     </div>
