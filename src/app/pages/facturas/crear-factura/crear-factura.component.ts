@@ -45,7 +45,6 @@ export class CrearFacturaComponent implements OnInit {
         iva: 0.00,
         cliente: {} as Cliente,
         facturasDetalles: [],
-
     };
 
 
@@ -94,7 +93,7 @@ export class CrearFacturaComponent implements OnInit {
             this.facturaService.agregarFactura(this.factura).subscribe({
                 next: (respuesta) => {
                     console.log('Factura generada correctamente:', respuesta);
-                    // this.router.navigate(['/facturas']);
+                    this.router.navigate(['/facturas']);
                 },
                 error: (error) => {
                     console.error('Error al generar la factura:', error);

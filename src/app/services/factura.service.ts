@@ -17,7 +17,7 @@ export class FacturaService {
         return this.facturas;
     }
 
-    getFactura(id:number){
+    getFactura(id: number) {
         return this.http.get<Factura>(this.urlBase + "/factura/" + id);
     }
 
@@ -38,7 +38,7 @@ export class FacturaService {
     }
 
     actualizarFactura(id: number, facturaActualizada: Factura) {
-       return this.http.put<Factura>(this.urlBase + "/actualizar_factura/" + id, facturaActualizada);
+        return this.http.put<Factura>(this.urlBase + "/actualizar_factura/" + id, facturaActualizada);
     }
 
     borrarFactura(idFactura: number) {

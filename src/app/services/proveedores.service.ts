@@ -11,7 +11,6 @@ export class ProveedoresService {
 
     constructor(private http: HttpClient) { }
 
-
     getProveedores(): Observable<Proveedores[]> {
         return this.http.get<Proveedores[]>(this.urlBase + "/proveedores");
     }
