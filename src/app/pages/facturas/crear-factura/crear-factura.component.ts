@@ -21,7 +21,7 @@ export class CrearFacturaComponent implements OnInit {
 
     mostrarModalDetalle = false;
     mostrarModalClientes = false;
-    detallesFactura: DetalleFactura[] = [];
+    facturaDetalles: DetalleFactura[] = [];
     detalleEditando: DetalleFactura | null = null;
     indiceEditando: number | null = null;
     baseImponible = 0;
@@ -33,18 +33,19 @@ export class CrearFacturaComponent implements OnInit {
     clienteSeleccionado: Cliente | null = null;
 
     factura: Factura = {
-        numeroFactura: '',
+        numeroFactura: 'F-' + Date.now(),
         idCliente: 0,
         fechaEmision: new Date().toISOString().split('T')[0],
         fechaPago: '',
         total: 0.00,
         estado: 'Pendiente',
-        idUsuario: 0,
-        idEmpresa: 0,
+        idUsuario: JSON.parse(sessionStorage.getItem('usuarioActual') || '{}').id || 0,
+        idEmpresa: 1, // Autonomax va a ser 1 siempre (o se puede ver mejor como manejar esto)
         subtotal: 0.00,
         iva: 0.00,
+        cliente: {} as Cliente,
         facturasDetalles: [],
-        cliente: {} as Cliente
+
     };
 
 
@@ -81,13 +82,24 @@ export class CrearFacturaComponent implements OnInit {
     generarFactura() {
         if (!this.factura.idCliente || this.factura.idCliente === 0) {
             console.error('Error: Debes seleccionar un cliente.');
-
             return;
         }
         try {
+            this.factura.iva = this.totalIva;
+            this.factura.subtotal = this.baseImponible;
             this.factura.total = Number(this.totalFactura.toFixed(2));
-            this.facturaService.agregarFactura({ ...this.factura, facturasDetalles: this.detallesFactura });
-            this.router.navigate(['/facturas']);
+            this.factura.facturasDetalles = this.facturaDetalles;
+            console.log("Detalles de la factura:", this.facturaDetalles);
+            console.log('Factura a generar:', this.factura);
+            this.facturaService.agregarFactura(this.factura).subscribe({
+                next: (respuesta) => {
+                    console.log('Factura generada correctamente:', respuesta);
+                    // this.router.navigate(['/facturas']);
+                },
+                error: (error) => {
+                    console.error('Error al generar la factura:', error);
+                }
+            });
         } catch (error) {
             console.error('Error al generar la factura:', error);
         }
@@ -107,27 +119,27 @@ export class CrearFacturaComponent implements OnInit {
 
     agregarDetalle(detalle: DetalleFactura) {
         if (this.indiceEditando !== null) {
-            this.detallesFactura[this.indiceEditando] = { ...detalle };
+            this.facturaDetalles[this.indiceEditando] = { ...detalle };
         } else {
-            this.detallesFactura.push({ ...detalle });
+            this.facturaDetalles.push({ ...detalle });
         }
         this.calcularTotales();
         this.toggleModalDetalle(false);
     }
 
     editarDetalle(index: number) {
-        this.detalleEditando = { ...this.detallesFactura[index] };
+        this.detalleEditando = { ...this.facturaDetalles[index] };
         this.indiceEditando = index;
         this.toggleModalDetalle(true);
     }
 
     eliminarDetalle(index: number) {
-        this.detallesFactura.splice(index, 1);
+        this.facturaDetalles.splice(index, 1);
         this.calcularTotales();
     }
 
     calcularTotales() {
-        const { baseImponible, totalIva } = this.detallesFactura.reduce(
+        const { baseImponible, totalIva } = this.facturaDetalles.reduce(
             (totales, detalle) => {
                 const precioBaseItem = detalle.cantidad * detalle.precioUnitario;
                 const ivaItem = precioBaseItem * (detalle.tipoIva / 100);

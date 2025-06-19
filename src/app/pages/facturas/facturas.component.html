@@ -1,16 +1,12 @@
-<br />
 <h1 class="text-2xl font-bold mb-6 text-center">Facturas</h1>
 <div class="">
     <div class="flex justify-between items-center mb-4">
         <div class="relative w-full max-w-xs">
-            <!-- Icono -->
             <img src="assets/img/lupa.svg" alt="Buscar"
                 class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 opacity-60" />
-            <!-- Input -->
             <input type="text" placeholder="Buscar factura..."
                 class="pl-10 border border-gray-300 rounded-md p-1 w-full focus:outline-none focus:ring-2 focus:ring-green-500" />
         </div>
-        <!-- Botón crear factura -->
         <button
             class="ml-4 bg-green-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-green-700 transition"
             (click)="onCrearFactura()">
@@ -18,7 +14,6 @@
             Crear factura
         </button>
     </div>
-    <!-- Tabla de facturas -->
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-300 rounded-md">
             <thead class="bg-gray-100">
@@ -40,10 +35,10 @@
                     <td class="px-4 py-2 border-b">{{ factura.fechaEmision }}</td>
                     <td class="px-4 py-2 border-b">{{ factura.total }}</td>
                     <div class="flex justify-center gap-3">
-                        <button>
+                        <button (click)="abrirModalEditar(factura.id ?? 0)">
                             <img src="assets/img/edit.png" alt="Editar" class="w-8 h-7 mt-1" />
                         </button>
-                        <button>
+                        <button (click)="eliminarFactura(factura.id ?? 0)">
                             <img src="assets/img/eliminar.png" alt="Eliminar" class="w-8 h-7 mt-1" />
                         </button>
                         <button>
@@ -52,9 +47,37 @@
                     </div>
                 </tr>
                 }
-
             </tbody>
-
         </table>
+    </div>
+</div>
+
+<div *ngIf="mostrarModalEditar" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded shadow-lg w-full max-w-lg">
+        <h2 class="text-xl font-bold mb-4">Editar Factura</h2>
+        <form [formGroup]="editarFacturaForm" (ngSubmit)="guardarCambiosFactura(facturaEditando?.id || 0)">
+            <div class="mb-2">
+                <label>Nº Factura</label>
+                <input formControlName="numeroFactura" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Estado</label>
+                <input formControlName="estado" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Fecha de Emisión</label>
+                <input formControlName="fechaEmision" type="date" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Total</label>
+                <input formControlName="total" type="number" step="0.01" class="w-full border p-2 rounded" />
+            </div>
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" (click)="cerrarModalEditar()"
+                    class="bg-gray-400 text-white px-4 py-2 rounded">Cancelar</button>
+                <button type="submit" [disabled]="!editarFacturaForm.valid"
+                    class="bg-green-600 text-white px-4 py-2 rounded">Guardar</button>
+            </div>
+        </form>
     </div>
 </div>
