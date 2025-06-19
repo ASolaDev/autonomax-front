@@ -9,7 +9,8 @@ import { ClientesService } from '../../services/clientes.service';
 @Component({
     selector: 'app-clientes',
     imports: [CommonModule, ReactiveFormsModule],
-    templateUrl: './clientes.component.html'
+    templateUrl: './clientes.component.html',
+    styleUrls: ['./clientes.component.css']
 })
 
 export class ClientesComponent {

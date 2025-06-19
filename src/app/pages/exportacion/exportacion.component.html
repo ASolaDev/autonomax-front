@@ -1,1 +1,52 @@
-<h1 class="text-2xl font-bold mb-6">Exportar datos</h1>
+<h1 class="text-2xl font-bold mb-6 text-center">Exportar datos</h1>
+<div class="min-h-screen flex flex-col items-center justify-center py-8">
+    <div class="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8">
+        <div class="flex flex-col items-center justify-center py-8">
+            <p class="text-center mb-8">
+                Descarga todos tus <span class="font-semibold">clientes</span>, <span
+                    class="font-semibold">proveedores</span> y <span class="font-semibold">facturas</span> en un solo
+                archivo CSV para llevar un respaldo o migrar tus datos.
+            </p>
+
+            <div class="flex flex-col md:flex-row justify-around items-center gap-6 mb-8">
+                <div class="flex flex-col items-center">
+                    <div class="bg-gray-100  rounded-full w-14 h-14 flex items-center justify-center mb-2">
+                        <img src="assets/img/clientes.svg" alt="Clientes" class="w-5 h-5" />
+                    </div>
+                    <span class="font-medium text-gray-700">Clientes</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-gray-100 rounded-full w-14 h-14 flex items-center justify-center mb-2">
+                        <img src="assets/img/proveedores.png" alt="Proveedores" class="w-5 h-5" />
+                    </div>
+                    <span class="font-medium text-gray-700">Proveedores</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div
+                        class="bg-gray-100 text-yellow-700 rounded-full w-14 h-14 flex items-center justify-center mb-2">
+                        <img src="assets/img/facturas.svg" alt="Facturas" class="w-5 h-5" />
+                    </div>
+                    <span class="font-medium text-gray-700">Facturas</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <button
+                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow transition mb-4 flex items-center gap-2"
+                    (click)="exportarDatos()" [disabled]="exportando">
+                    @if (exportando) {
+                    <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke-opacity="0.3" />
+                        <path d="M12 2a10 10 0 0110 10" />
+                    </svg>
+                    }
+                    {{ exportando ? 'Exportando...' : 'Exportar todo a CSV' }}
+                </button>
+                @if (mensaje) {
+                <div class="mt-2 text-center">{{ mensaje }}</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

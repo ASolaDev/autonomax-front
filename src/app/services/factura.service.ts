@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class FacturaService {
+
     private urlBase = "http://localhost:8082/autonomax";
 
     private facturas: Factura[] = [];
@@ -14,6 +15,10 @@ export class FacturaService {
 
     getFacturas() {
         return this.facturas;
+    }
+
+    getFactura(id: number) {
+        return this.http.get<Factura>(this.urlBase + "/factura/" + id);
     }
 
     getFacturasAPI() {
@@ -29,7 +34,16 @@ export class FacturaService {
 
 
     agregarFactura(factura: Factura) {
-        this.facturas.push(factura);
+        return this.http.post<Factura>(this.urlBase + "/nueva_factura", factura);
+    }
+
+    actualizarFactura(id: number, facturaActualizada: Factura) {
+        return this.http.put<Factura>(this.urlBase + "/actualizar_factura/" + id, facturaActualizada);
+    }
+
+    borrarFactura(idFactura: number) {
+        console.log("Borrando factura con ID: " + idFactura);
+        return this.http.delete(this.urlBase + "/borrar_factura/" + idFactura);
     }
 }
 
