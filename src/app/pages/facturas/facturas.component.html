@@ -41,8 +41,8 @@
                         <button (click)="eliminarFactura(factura.id ?? 0)">
                             <img src="assets/img/eliminar.png" alt="Eliminar" class="w-8 h-7 mt-1" />
                         </button>
-                        <button>
-                            <img src="assets/img/descargar.png" alt="Descargar" class="w-8 h-7 mt-1" />
+                        <button (click)="descargarFacturaPDF(factura)" aria-label="Descargar factura en PDF">
+                            <img src="assets/img/descargar.png" alt="Eliminar" class="w-8 h-7 mt-1" />
                         </button>
                     </div>
                 </tr>
