@@ -8,8 +8,8 @@ import { Chart } from 'chart.js';
 })
 export class InicioComponent implements AfterViewInit {
     ngAfterViewInit() {
-        this.renderPieChart();
-        this.renderLineChart();
+        //this.renderPieChart();
+        //this.renderLineChart();
     }
 
     renderPieChart() {

@@ -9,7 +9,7 @@ import { ProveedoresService } from '../../services/proveedores.service';
     selector: 'app-proveedores',
     imports: [CommonModule, ReactiveFormsModule],
     templateUrl: './proveedores.component.html',
-    styleUrl: './proveedores.component.css'
+    styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent {
     proveedores: Proveedores[] = [];

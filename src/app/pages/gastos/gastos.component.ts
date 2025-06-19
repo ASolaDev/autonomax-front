@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-gastos',
     imports: [CommonModule],
-    templateUrl: './gastos.component.html'
+    templateUrl: './gastos.component.html',
+    styleUrls: ['./gastos.component.css'],
 })
 
 export class GastosComponent {

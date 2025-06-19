@@ -8,7 +8,8 @@ import { Factura } from '../../models/Factura';
     standalone: true,
     selector: 'app-facturas',
     imports: [CommonModule],
-    templateUrl: './facturas.component.html'
+    templateUrl: './facturas.component.html',
+    styleUrls: ['./facturas.component.css'],
 })
 
 export class FacturasComponent implements OnInit {
