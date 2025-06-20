@@ -12,26 +12,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (true) {
+                    @if (historial.length > 0) {
+                    @for (noti of historial; track noti.id) {
                     <tr>
-                        <td class="px-4 py-2">Cliente "Juan Pérez" creado correctamente.</td>
-                        <td class="px-4 py-2 text-xs text-gray-400">101</td>
+                        <td class="px-4 py-2">{{ noti.mensaje }}</td>
+                        <td class="px-4 py-2 text-xs text-gray-400">{{ noti.id }}</td>
                     </tr>
-                    <tr>
-                        <td class="px-4 py-2">Cliente "María López" actualizado.</td>
-                        <td class="px-4 py-2 text-xs text-gray-400">102</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2">No se pudo eliminar el cliente "Pedro Ruiz".</td>
-                        <td class="px-4 py-2 text-xs text-gray-400">103</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2">El cliente "Ana Torres" tiene datos incompletos.</td>
-                        <td class="px-4 py-2 text-xs text-gray-400">104</td>
-                    </tr>
+                    }
                     } @else {
                     <tr>
-                        <td colspan="3" class="px-4 py-2 text-center text-gray-400">Sin notificaciones pasadas</td>
+                        <td colspan="2" class="px-4 py-2 text-center text-gray-400">Sin notificaciones pasadas</td>
                     </tr>
                     }
                 </tbody>

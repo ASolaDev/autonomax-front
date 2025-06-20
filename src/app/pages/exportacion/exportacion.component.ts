@@ -7,8 +7,8 @@ import { forkJoin } from 'rxjs';
 @Component({
     selector: 'app-exportacion',
     templateUrl: './exportacion.component.html',
-    styleUrls: []
 })
+
 export class ExportacionComponent {
     exportando = false;
     mensaje = '';
@@ -17,7 +17,7 @@ export class ExportacionComponent {
         private clientesService: ClientesService,
         private proveedoresService: ProveedoresService,
         private facturaService: FacturaService
-    ) {}
+    ) { }
 
     exportarDatos() {
         this.exportando = true;
@@ -30,7 +30,7 @@ export class ExportacionComponent {
         }).subscribe({
             next: ({ clientes, proveedores, facturas }) => {
                 const csv = this.generarCSV(clientes, proveedores, facturas);
-                this.descargarCSV(csv, 'autonomax_exportacion.csv');
+                this.descargarCSV(csv, 'autonomax_datos.csv');
                 this.exportando = false;
                 this.mensaje = 'Exportación completada.';
             },
@@ -44,7 +44,6 @@ export class ExportacionComponent {
     generarCSV(clientes: any[], proveedores: any[], facturas: any[]): string {
         let csv = '';
 
-        // Clientes
         if (clientes.length) {
             csv += 'Clientes\n';
             csv += Object.keys(clientes[0]).join(',') + '\n';
@@ -54,7 +53,6 @@ export class ExportacionComponent {
             csv += '\n';
         }
 
-        // Proveedores
         if (proveedores.length) {
             csv += 'Proveedores\n';
             csv += Object.keys(proveedores[0]).join(',') + '\n';
@@ -64,7 +62,6 @@ export class ExportacionComponent {
             csv += '\n';
         }
 
-        // Facturas
         if (facturas.length) {
             csv += 'Facturas\n';
             csv += Object.keys(facturas[0]).join(',') + '\n';

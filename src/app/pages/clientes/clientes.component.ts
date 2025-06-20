@@ -41,7 +41,6 @@ export class ClientesComponent {
     }
 
     onCrearCliente() {
-        console.log('Redirigiendo a /crear');
         this.router.navigate(['clientes/crear']);
     }
 
@@ -60,8 +59,6 @@ export class ClientesComponent {
     eliminarCliente(id: number) {
         this.clientesService.eliminarCliente(id).subscribe(
             () => {
-                console.log("FUNCIONA")
-                // Recarga la lista después de eliminar
                 this.getClientesAPI();
             },
             error => {
@@ -83,7 +80,6 @@ export class ClientesComponent {
     }
 
     guardarCambios(id: number) {
-        console.log('Guardando cambios para el cliente con ID:', id);
         if (this.editarClientesForm.valid && this.clienteSeleccionado) {
             const clienteActualizado = {
                 ...this.clienteSeleccionado,
@@ -91,7 +87,6 @@ export class ClientesComponent {
             };
             this.clientesService.actualizarCliente(id, clienteActualizado).subscribe(
                 response => {
-                    console.log('Cliente actualizado:', response);
                     this.cerrarModal();
                     this.getClientesAPI();
                 },

@@ -62,8 +62,6 @@
             <ul class="list-disc list-inside mt-2 text-gray-600">
                 @for (evento of agendaDelDia; track $index) {
                 <li>{{ evento.hora }} {{ evento.descripcion }}</li>
-                } @empty {
-                <li>No hay eventos programados para este día.</li>
                 }
             </ul>
         </div>

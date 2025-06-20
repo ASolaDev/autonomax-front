@@ -7,12 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AgendaComponent {
 
-    fechaActual: Date = new Date();
-    anioActual: number = this.fechaActual.getFullYear();
+    anioActual: number = new Date().getFullYear();
     mesesAnio: any[] = [];
 
     mostrarModal: boolean = false;
     fechaSeleccionada: Date | null = null;
+
+    agendaDelDia: any[] = [];
 
     constructor() {
         this.generarCalendarioAnual();
@@ -62,6 +63,7 @@ export class AgendaComponent {
             mainContent.classList.add('blur-background');
             mainContent.classList.add('blur-target');
         }
+
         document.body.style.overflow = 'hidden';
     }
 
@@ -75,10 +77,11 @@ export class AgendaComponent {
             mainContent.classList.remove('blur-background');
             mainContent.classList.remove('blur-target');
         }
+
         document.body.style.overflow = 'auto';
     }
 
-    agendaDelDia: any[] = [];
+
     cargarAgenda(fecha: Date) {
 
         if (fecha.getDate() === 20 && fecha.getMonth() === 6 && fecha.getFullYear() === 2025) {

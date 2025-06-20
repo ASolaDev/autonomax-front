@@ -39,7 +39,6 @@ export class ProveedoresComponent {
     }
 
     onCrearProveedor() {
-        console.log('Redirigiendo a /crear');
         this.router.navigate(['proveedores/crear']);
     }
 

@@ -13,6 +13,7 @@ interface Notificacion {
     standalone: true,
     imports: [CommonModule]
 })
+
 export class NotificacionesComponent {
     notificaciones: Notificacion[] = [];
     historial: Notificacion[] = [];
