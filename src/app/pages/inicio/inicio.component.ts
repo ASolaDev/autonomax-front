@@ -9,8 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'app-inicio',
     imports: [CommonModule],
-    templateUrl: './inicio.component.html',
-    styleUrls: ['./inicio.component.css']
+    templateUrl: './inicio.component.html'
 })
 export class InicioComponent implements AfterViewInit {
     clientes: Cliente[] = [];

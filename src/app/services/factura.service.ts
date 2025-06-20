@@ -42,7 +42,6 @@ export class FacturaService {
     }
 
     borrarFactura(idFactura: number) {
-        console.log("Borrando factura con ID: " + idFactura);
         return this.http.delete(this.urlBase + "/borrar_factura/" + idFactura);
     }
 }

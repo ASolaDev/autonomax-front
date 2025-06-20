@@ -64,16 +64,10 @@ export class FacturasComponent implements OnInit {
             (factura: Factura) => {
                 this.facturaEditando = factura;
 
-                let fechaEmisionFormateada = '';
-                if (factura.fechaEmision) {
-                    const fecha = new Date(factura.fechaEmision);
-                    fechaEmisionFormateada = fecha.toISOString().slice(0, 10);
-                }
-
                 this.editarFacturaForm.patchValue({
                     numeroFactura: factura.numeroFactura,
                     estado: factura.estado,
-                    fechaEmision: fechaEmisionFormateada,
+                    fechaEmision: factura.fechaEmision,
                     total: factura.total,
                 });
 
@@ -83,28 +77,12 @@ export class FacturasComponent implements OnInit {
                 console.error('Error al obtener factura para edición:', error);
             }
         );
-
-        const mainContent = document.querySelector('.contenido-principal');
-        if (mainContent) {
-            mainContent.classList.add('blur-background');
-            mainContent.classList.add('blur-target');
-        }
-
-        document.body.style.overflow = 'auto';
     }
 
     cerrarModalEditar() {
         this.mostrarModalEditar = false;
         this.facturaEditando = null;
         this.editarFacturaForm.reset();
-
-        const mainContent = document.querySelector('.contenido-principal');
-        if (mainContent) {
-            mainContent.classList.remove('blur-background');
-            mainContent.classList.remove('blur-target');
-        }
-
-        document.body.style.overflow = 'auto';
     }
 
     guardarCambiosFactura(id: number) {
@@ -148,6 +126,7 @@ export class FacturasComponent implements OnInit {
     }
 
     onCrearFactura() {
-        this.router.navigate(["facturas/crear"]);
+        const rutaCrearFactura = 'facturas/crear';
+        this.router.navigate([rutaCrearFactura]);
     }
 }

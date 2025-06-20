@@ -23,13 +23,14 @@ export class CrearProveedorComponent {
     CrearProveedor = new FormGroup({
         nombreProveedor: new FormControl('', [Validators.required, Validators.minLength(3)]),
         cifProveedor: new FormControl('', [Validators.required, Validators.pattern(/^[ABCDEFGHJKLMNPQRSUVW]{1}[0-9]{7}([A-Z]|[0-9]){1}$/)]),
-        tipoProveedor: new FormControl('', [Validators.required]), // sin validadores, opcional
+        tipoProveedor: new FormControl('', [Validators.required]),
         emailProveedor: new FormControl('', [Validators.required, Validators.email]),
         direccionProveedor: new FormControl('', [Validators.required, Validators.minLength(10)]),
         ciudadProveedor: new FormControl('', [Validators.required, Validators.minLength(4)]),
         provinciaProveedor: new FormControl('', [Validators.required, Validators.minLength(4)]),
         telefonoProveedor: new FormControl('', [Validators.required, Validators.minLength(9), Validators.pattern(/^\+[0-9]{1,3}[ -]?([0-9]{2,3}[ -]?){2}[0-9]{2,3}$/)])
     });
+
     get f() { return this.CrearProveedor.controls; }
 
     ngOnInit(): void {
@@ -57,24 +58,14 @@ export class CrearProveedorComponent {
 
     onSubmit() {
         if (this.CrearProveedor.valid) {
-            // El formulario es válido. ¡Aquí es donde ocurre la magia!
 
-            // Aquí deberías:
             this.proveedorService.crearProveedor(this.CrearProveedor.value).subscribe(response => {
                 return this.router.navigate(['/proveedores']);
             }, error => {
                 console.error('Error al crear el proveedor:', error);
-                // Mostrar mensaje de error al usuario
             });
 
-            // 2. Opcional: Resetear el formulario después de un envío exitoso
-            // this.CrearProveedor.reset();
-
         } else {
-            // El formulario no es válido.
-            console.log('Formulario inválido. Por favor, revisa los campos con errores.');
-            // Marca todos los controles como 'touched' para que se muestren todos los mensajes de error
-            // Esto es útil si el usuario intenta enviar el formulario sin tocar todos los campos
             this.CrearProveedor.markAllAsTouched();
         }
     }

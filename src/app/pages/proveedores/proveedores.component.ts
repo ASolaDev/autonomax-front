@@ -57,8 +57,6 @@ export class ProveedoresComponent {
     eliminarProveedor(id: number) {
         this.proveedoresService.eliminarProveedor(id).subscribe(
             () => {
-                console.log("FUNCIONA")
-                // Recarga la lista después de eliminar
                 this.getProveedoresAPI();
             },
             error => {
@@ -96,7 +94,6 @@ export class ProveedoresComponent {
     }
 
     guardarCambios(id: number) {
-        console.log('Guardando cambios para el proveedor con ID:', id);
         if (this.editarProveedorForm.valid && this.proveedorSeleccionado) {
             const proveedorActualizado = {
                 ...this.proveedorSeleccionado,
@@ -104,7 +101,6 @@ export class ProveedoresComponent {
             };
             this.proveedoresService.actualizarProveedor(id, proveedorActualizado).subscribe(
                 response => {
-                    console.log('Proveedor actualizado:', response);
                     this.cerrarModal();
                     this.getProveedoresAPI();
                 },
