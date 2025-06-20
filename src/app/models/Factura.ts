@@ -12,7 +12,7 @@ export interface Factura {
     total: number;
     estado: string; // O puedes usar un enum si tienes los mismos valores que en Java
     facturasDetalles: DetalleFactura[];
-    idUsuario: number;
-    idEmpresa: number;
-    idCliente: number;
+    idUsuario?: number;
+    idEmpresa?: number;
+    idCliente?: number;
 }
