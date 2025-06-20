@@ -31,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (cliente of clientesFiltrados; track cliente.id) { <!-- 4. Usar lista filtrada -->
+                @for (cliente of filtrarClientes(); track cliente.id) {
                 <tr>
                     <td class="px-4 py-2 border-b">{{ cliente.nombreCliente }}</td>
                     <td class="px-4 py-2 border-b">{{ cliente.emailCliente }}</td>

@@ -53,7 +53,7 @@ export class ProveedoresComponent {
         );
     }
 
-    get proveedoresFiltrados(): Proveedores[] {
+    proveedoresFiltrados(): Proveedores[] {
         if (!this.patron.trim()) {
             return this.proveedores;
         }

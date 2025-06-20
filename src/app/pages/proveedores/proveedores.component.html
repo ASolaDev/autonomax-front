@@ -31,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (proveedor of proveedoresFiltrados; track proveedor.id) {
+                @for (proveedor of proveedoresFiltrados(); track proveedor.id) {
                 <tr>
                     <td class="px-4 py-2 border-b">{{ proveedor.nombreProveedor }}</td>
                     <td class="px-4 py-2 border-b">{{ proveedor.emailProveedor }}</td>

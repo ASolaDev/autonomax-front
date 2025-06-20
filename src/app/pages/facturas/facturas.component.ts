@@ -5,14 +5,16 @@ import { Router } from '@angular/router';
 import { jsPDF } from 'jspdf';
 import { Factura } from '../../models/Factura';
 import { FacturaService } from '../../services/factura.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     standalone: true,
     selector: 'app-facturas',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule],
     templateUrl: './facturas.component.html',
     styleUrls: ['./facturas.component.css'],
 })
+
 export class FacturasComponent implements OnInit {
     constructor(
         private router: Router,
@@ -33,8 +35,22 @@ export class FacturasComponent implements OnInit {
     facturaEditando: Factura | null = null;
     editarFacturaForm: FormGroup;
 
+    terminoBusqueda: string = '';
+
     ngOnInit() {
         this.cargarFacturasDesdeAPI();
+    }
+
+    facturasFiltradas(): Factura[] {
+        if (!this.terminoBusqueda.trim()) {
+            return this.facturas;
+        }
+        const termino = this.terminoBusqueda.toLowerCase();
+        return this.facturas.filter(factura => {
+            const numero = factura.numeroFactura?.toLowerCase() || '';
+            const cliente = factura.cliente?.nombreCliente?.toLowerCase() || '';
+            return numero.includes(termino) || cliente.includes(termino);
+        });
     }
 
     cargarFacturasDesdeAPI() {
@@ -77,12 +93,28 @@ export class FacturasComponent implements OnInit {
                 console.error('Error al obtener factura para edición:', error);
             }
         );
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.add('blur-background');
+            mainContent.classList.add('blur-target');
+        }
+
+        document.body.style.overflow = 'hidden';
     }
 
     cerrarModalEditar() {
         this.mostrarModalEditar = false;
         this.facturaEditando = null;
         this.editarFacturaForm.reset();
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.remove('blur-background');
+            mainContent.classList.remove('blur-target');
+        }
+
+        document.body.style.overflow = 'hidden';
     }
 
     guardarCambiosFactura(id: number) {
@@ -129,4 +161,5 @@ export class FacturasComponent implements OnInit {
         const rutaCrearFactura = 'facturas/crear';
         this.router.navigate([rutaCrearFactura]);
     }
+
 }

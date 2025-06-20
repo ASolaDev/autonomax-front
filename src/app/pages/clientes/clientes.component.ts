@@ -55,12 +55,13 @@ export class ClientesComponent {
         );
     }
 
-    get clientesFiltrados(): Cliente[] {
-        if (!this.terminoBusqueda.trim()) {
+    filtrarClientes(): Cliente[] {
+        const termino = this.terminoBusqueda.trim().toLowerCase();
+        if (!termino) {
             return this.clientes;
         }
         return this.clientes.filter(cliente =>
-            cliente.nombreCliente.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+            cliente.nombreCliente.toLowerCase().includes(termino)
         );
     }
 

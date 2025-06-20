@@ -5,7 +5,8 @@
             <img src="assets/img/lupa.svg" alt="Buscar"
                 class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 opacity-60" />
             <input type="text" placeholder="Buscar factura..."
-                class="pl-10 border border-gray-300 rounded-md p-1 w-full focus:outline-none focus:ring-2 focus:ring-green-500" />
+                class="pl-10 border border-gray-300 rounded-md p-1 w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+                [(ngModel)]="terminoBusqueda" name="busquedaFactura" />
         </div>
         <button
             class="ml-4 bg-green-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-green-700 transition"
@@ -27,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (factura of facturas; track $index) {
+                @for (factura of facturasFiltradas(); track $index) {
                 <tr>
                     <td class="px-4 py-2 border-b">{{ factura.estado }}</td>
                     <td class="px-4 py-2 border-b">{{ factura.numeroFactura }}</td>
