@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { DetallesComponent } from './detalles/detalles.component';
-import { FacturaService } from '../../../services/factura.service';
-import { ClientesService } from '../../../services/clientes.service'; // <<-- NUEVO: Importar servicio de clientes
+import { Cliente } from '../../../models/Cliente';
 import { DetalleFactura } from '../../../models/DetalleFactura';
 import { Factura } from '../../../models/Factura';
-import { Cliente } from '../../../models/Cliente';
+import { ClientesService } from '../../../services/clientes.service';
+import { FacturaService } from '../../../services/factura.service';
+import { DetallesComponent } from './detalles/detalles.component';
 
 @Component({
     selector: 'app-crear-factura',
@@ -40,7 +40,7 @@ export class CrearFacturaComponent implements OnInit {
         total: 0.00,
         estado: 'Pendiente',
         idUsuario: JSON.parse(sessionStorage.getItem('usuarioActual') || '{}').id || 0,
-        idEmpresa: 1, // Autonomax va a ser 1 siempre (o se puede ver mejor como manejar esto)
+        idEmpresa: 1,
         subtotal: 0.00,
         iva: 0.00,
         cliente: {} as Cliente,
@@ -55,44 +55,41 @@ export class CrearFacturaComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-
         this.cargarClientes();
     }
-
 
     cargarClientes() {
         this.clientesService.getClientes().subscribe({
             next: (data) => {
                 this.clientes = data;
-                console.log('Clientes cargados:', this.clientes);
             },
-            error: (error) => console.error('Error al cargar los clientes:', error)
+            error: (error) => {
+                console.error('Error al cargar los clientes:', error);
+            }
         });
     }
-
 
     seleccionarCliente(cliente: Cliente) {
         this.clienteSeleccionado = cliente;
         this.factura.idCliente = cliente.id;
         this.toggleModalClientes(false);
-        console.log('Cliente seleccionado:', this.clienteSeleccionado);
     }
 
     generarFactura() {
+
         if (!this.factura.idCliente || this.factura.idCliente === 0) {
-            console.error('Error: Debes seleccionar un cliente.');
             return;
         }
+
         try {
             this.factura.iva = this.totalIva;
             this.factura.subtotal = this.baseImponible;
             this.factura.total = Number(this.totalFactura.toFixed(2));
             this.factura.facturasDetalles = this.facturaDetalles;
-            console.log("Detalles de la factura:", this.facturaDetalles);
-            console.log('Factura a generar:', this.factura);
+
             this.facturaService.agregarFactura(this.factura).subscribe({
-                next: (respuesta) => {
-                    console.log('Factura generada correctamente:', respuesta);
+                next: (response) => {
+
                     this.router.navigate(['/facturas']);
                 },
                 error: (error) => {
@@ -102,6 +99,7 @@ export class CrearFacturaComponent implements OnInit {
         } catch (error) {
             console.error('Error al generar la factura:', error);
         }
+        this.router.navigate(["/facturas"]);
     }
 
     toggleModalDetalle(estado: boolean) {
@@ -149,6 +147,7 @@ export class CrearFacturaComponent implements OnInit {
             },
             { baseImponible: 0, totalIva: 0 }
         );
+
         this.baseImponible = baseImponible;
         this.totalIva = totalIva;
         this.totalFactura = baseImponible + totalIva;

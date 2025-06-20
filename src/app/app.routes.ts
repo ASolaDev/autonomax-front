@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { MenuComponent } from './layout/menu.component';
@@ -23,7 +22,6 @@ import { TesoreriaComponent } from './pages/tesoreria/tesoreria.component';
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-
     {
         path: '',
         component: MenuComponent,

@@ -64,10 +64,16 @@ export class FacturasComponent implements OnInit {
             (factura: Factura) => {
                 this.facturaEditando = factura;
 
+                let fechaEmisionFormateada = '';
+                if (factura.fechaEmision) {
+                    const fecha = new Date(factura.fechaEmision);
+                    fechaEmisionFormateada = fecha.toISOString().slice(0, 10);
+                }
+
                 this.editarFacturaForm.patchValue({
                     numeroFactura: factura.numeroFactura,
                     estado: factura.estado,
-                    fechaEmision: factura.fechaEmision,
+                    fechaEmision: fechaEmisionFormateada,
                     total: factura.total,
                 });
 
@@ -95,7 +101,6 @@ export class FacturasComponent implements OnInit {
 
             this.facturaService.actualizarFactura(id, facturaActualizada).subscribe(
                 () => {
-                    console.log('Factura actualizada con éxito');
                     this.cargarFacturasDesdeAPI();
                     this.cerrarModalEditar();
                 },
@@ -127,7 +132,6 @@ export class FacturasComponent implements OnInit {
     }
 
     onCrearFactura() {
-        const rutaCrearFactura = 'facturas/crear';
-        this.router.navigate([rutaCrearFactura]);
+        this.router.navigate(["facturas/crear"]);
     }
 }
