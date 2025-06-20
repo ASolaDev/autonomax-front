@@ -7,7 +7,8 @@
                 class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 opacity-60" />
             <!-- Input -->
             <input type="text" placeholder="Buscar proveedor..."
-                class="pl-10 border border-gray-300 rounded-md p-1 w-full focus:outline-none focus:ring-2 focus:ring-green-500" />
+                class="pl-10 border border-gray-300 rounded-md p-1 w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+                [(ngModel)]="patron" name="busquedaProveedor" />
         </div>
         <!-- Botón crear factura -->
         <button
@@ -30,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (proveedor of proveedores; track $index) {
+                @for (proveedor of proveedoresFiltrados; track proveedor.id) {
                 <tr>
                     <td class="px-4 py-2 border-b">{{ proveedor.nombreProveedor }}</td>
                     <td class="px-4 py-2 border-b">{{ proveedor.emailProveedor }}</td>

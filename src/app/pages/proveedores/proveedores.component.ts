@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,12 +8,14 @@ import { ProveedoresService } from '../../services/proveedores.service';
 
 @Component({
     selector: 'app-proveedores',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule],
     templateUrl: './proveedores.component.html',
     styleUrls: ['./proveedores.component.css']
 })
+
 export class ProveedoresComponent {
     proveedores: Proveedores[] = [];
+    patron: string = '';
     proveedorSeleccionado: Proveedores | null = null;
     mostrarModal: boolean = false;
     editarProveedorForm: FormGroup;
@@ -50,8 +53,18 @@ export class ProveedoresComponent {
         );
     }
 
-    getProveedores() {
-        return this.proveedores;
+    get proveedoresFiltrados(): Proveedores[] {
+        if (!this.patron.trim()) {
+            return this.proveedores;
+        }
+        const term = this.patron.toLowerCase();
+        return this.proveedores.filter(p =>
+            p.nombreProveedor?.toLowerCase().includes(term) ||
+            p.emailProveedor?.toLowerCase().includes(term) ||
+            p.telefonoProveedor?.toLowerCase().includes(term) ||
+            p.ciudadProveedor?.toLowerCase().includes(term) ||
+            p.provinciaProveedor?.toLowerCase().includes(term)
+        );
     }
 
     eliminarProveedor(id: number) {
