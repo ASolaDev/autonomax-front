@@ -80,10 +80,15 @@ export class FacturasComponent implements OnInit {
             (factura: Factura) => {
                 this.facturaEditando = factura;
 
+                let fechaEmision = factura.fechaEmision;
+                if (fechaEmision) {
+                    fechaEmision = fechaEmision.split('T')[0];
+                }
+
                 this.editarFacturaForm.patchValue({
                     numeroFactura: factura.numeroFactura,
                     estado: factura.estado,
-                    fechaEmision: factura.fechaEmision,
+                    fechaEmision: fechaEmision,
                     total: factura.total,
                 });
 

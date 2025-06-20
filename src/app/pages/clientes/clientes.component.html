@@ -23,6 +23,8 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th class="text-left px-4 py-2 border-b">Nombre/Empresa</th>
+                    <th class="text-left px-4 py-2 border-b">CIF</th>
+                    <th class="text-left px-4 py-2 border-b">Tipo cliente</th>
                     <th class="text-left px-4 py-2 border-b">Email</th>
                     <th class="text-left px-4 py-2 border-b">Teléfono</th>
                     <th class="text-left px-4 py-2 border-b">Ciudad</th>
@@ -34,6 +36,8 @@
                 @for (cliente of filtrarClientes(); track cliente.id) {
                 <tr>
                     <td class="px-4 py-2 border-b">{{ cliente.nombreCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ cliente.cifCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ cliente.tipoCliente }}</td>
                     <td class="px-4 py-2 border-b">{{ cliente.emailCliente }}</td>
                     <td class="px-4 py-2 border-b">{{ cliente.telefonoCliente }}</td>
                     <td class="px-4 py-2 border-b">{{ cliente.ciudadCliente }}</td>

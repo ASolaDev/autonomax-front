@@ -19,9 +19,9 @@
         <table class="min-w-full bg-white border border-gray-300 rounded-md">
             <thead class="bg-gray-100">
                 <tr>
-                    <th class="text-left px-4 py-2 border-b">Estado</th>
-                    <th class="text-left px-4 py-2 border-b">Nº Factura</th>
                     <th class="text-left px-4 py-2 border-b">Cliente</th>
+                    <th class="text-left px-4 py-2 border-b">Nº Factura</th>
+                    <th class="text-left px-4 py-2 border-b">Estado</th>
                     <th class="text-left px-4 py-2 border-b">Emisión</th>
                     <th class="text-left px-4 py-2 border-b">Total</th>
                     <th class="text-left px-4 py-2 border-b">Acciones</th>
@@ -30,9 +30,9 @@
             <tbody>
                 @for (factura of facturasFiltradas(); track $index) {
                 <tr>
-                    <td class="px-4 py-2 border-b">{{ factura.estado }}</td>
-                    <td class="px-4 py-2 border-b">{{ factura.numeroFactura }}</td>
                     <td class="px-4 py-2 border-b">{{ factura.cliente.nombreCliente }}</td>
+                    <td class="px-4 py-2 border-b">{{ factura.numeroFactura }}</td>
+                    <td class="px-4 py-2 border-b">{{ factura.estado }}</td>
                     <td class="px-4 py-2 border-b">{{ factura.fechaEmision | date:'yyyy-MM-dd' }}</td>
                     <td class="px-4 py-2 border-b">{{ factura.total }} €</td>
                     <td class="px-4 py-2 border-b">
