@@ -71,12 +71,28 @@ export class ClientesComponent {
         this.clienteSeleccionado = cliente;
         this.editarClientesForm.patchValue(cliente);
         this.mostrarModal = true;
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.add('blur-background');
+            mainContent.classList.add('blur-target');
+        }
+
+        document.body.style.overflow = 'hidden';
     }
 
     cerrarModal() {
         this.mostrarModal = false;
         this.clienteSeleccionado = null;
         this.editarClientesForm.reset();
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.remove('blur-background');
+            mainContent.classList.remove('blur-target');
+        }
+
+        document.body.style.overflow = 'auto';
     }
 
     guardarCambios(id: number) {

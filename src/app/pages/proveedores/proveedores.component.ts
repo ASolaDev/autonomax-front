@@ -71,12 +71,28 @@ export class ProveedoresComponent {
         this.proveedorSeleccionado = proveedor;
         this.editarProveedorForm.patchValue(proveedor);
         this.mostrarModal = true;
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.add('blur-background');
+            mainContent.classList.add('blur-target');
+        }
+
+        document.body.style.overflow = 'auto';
     }
 
     cerrarModal() {
         this.mostrarModal = false;
         this.proveedorSeleccionado = null;
         this.editarProveedorForm.reset();
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.remove('blur-background');
+            mainContent.classList.remove('blur-target');
+        }
+
+        document.body.style.overflow = 'auto';
     }
 
     guardarCambios(id: number) {
