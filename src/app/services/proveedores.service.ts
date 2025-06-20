@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class ProveedoresService {
+
     private urlBase = "http://localhost:8082/autonomax";
 
     constructor(private http: HttpClient) { }
@@ -22,6 +23,7 @@ export class ProveedoresService {
     eliminarProveedor(id: number) {
         return this.http.delete(`${this.urlBase}/borrar_proveedor/${id}`, { responseType: 'text' });
     }
+
     getProveedorById(id: number): Observable<Proveedores> {
         return this.http.get<Proveedores>(`${this.urlBase}/proveedor/${id}`);
     }
