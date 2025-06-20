@@ -4,20 +4,23 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { Cliente } from '../../models/Cliente';
 import { ClientesService } from '../../services/clientes.service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
     selector: 'app-clientes',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule],
     templateUrl: './clientes.component.html',
     styleUrls: ['./clientes.component.css']
 })
 
 export class ClientesComponent {
+
     clientes: Cliente[] = [];
     clienteSeleccionado: Cliente | null = null;
     mostrarModal: boolean = false;
     editarClientesForm: FormGroup;
+    terminoBusqueda: string = '';
 
     constructor(
         private router: Router,
@@ -49,6 +52,15 @@ export class ClientesComponent {
             (clientes: Cliente[]) => {
                 this.clientes = clientes;
             }
+        );
+    }
+
+    get clientesFiltrados(): Cliente[] {
+        if (!this.terminoBusqueda.trim()) {
+            return this.clientes;
+        }
+        return this.clientes.filter(cliente =>
+            cliente.nombreCliente.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
         );
     }
 

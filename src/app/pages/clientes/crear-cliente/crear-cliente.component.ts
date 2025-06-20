@@ -21,7 +21,7 @@ export class CrearClienteComponent {
     CrearCliente = new FormGroup({
         nombreCliente: new FormControl('', [Validators.required, Validators.minLength(3)]),
         cifCliente: new FormControl('', [Validators.required, Validators.pattern(/^[ABCDEFGHJKLMNPQRSUVW]{1}[0-9]{7}([A-Z]|[0-9]){1}$/)]),
-        tipoCliente: new FormControl('', [Validators.required]), // sin validadores, opcional
+        tipoCliente: new FormControl('', [Validators.required]),
         emailCliente: new FormControl('', [Validators.required, Validators.email]),
         direccionCliente: new FormControl('', [Validators.required, Validators.minLength(10)]),
         ciudadCliente: new FormControl('', [Validators.required, Validators.minLength(4)]),
