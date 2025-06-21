@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Gastos } from '../models/Gastos';
+import { GastosDTO } from '../models/GastosDTO';
 
 @Injectable({ providedIn: 'root' })
 export class GastosService {
-    private urlBase = 'http://localhost:8080/autonomax';
+    private urlBase = 'http://localhost:8082/autonomax';
 
     constructor(private http: HttpClient) { }
 
-    getGastos(): Observable<any[]> {
-        return this.http.get<any[]>(this.urlBase + '/gastos');
+    getGastosPorUsuario(): Observable<Gastos[]> {
+        const usuarioActualString = sessionStorage.getItem('usuarioActual');
+        let idUsuario = '';
+        if (usuarioActualString) {
+            const usuarioActual = JSON.parse(usuarioActualString);
+            idUsuario = usuarioActual.id;
+        }
+        const params = { params: { idUsuario: idUsuario } };
+        return this.http.get<Gastos[]>(this.urlBase + "/gastos", params);
     }
 
-    crearGasto(gasto: any) {
+
+    crearGasto(gasto: GastosDTO) {
         return this.http.post(this.urlBase + '/crear_gasto', gasto, { responseType: 'text' });
     }
 

@@ -28,21 +28,23 @@
                     <th class="text-left px-4 py-2 border-b">Categoría</th>
                     <th class="text-left px-4 py-2 border-b">Proveedor</th>
                     <th class="text-left px-4 py-2 border-b">Mét. de pago</th>
-                    <th class="text-left px-4 py-2 border-b"></th>
+                    <th class="text-left px-4 py-2 border-b">Acciones</th>
                 </tr>
             </thead>
             <tbody>
+                @for (gasto of gastos; track $index)
+                {
                 <tr>
-                    <td class="px-4 py-2 border-b"></td>
-                    <td class="px-4 py-2 border-b"></td>
-                    <td class="px-4 py-2 border-b"></td>
-                    <td class="px-4 py-2 border-b"></td>
-                    <td class="px-4 py-2 border-b"></td>
+                    <td class="px-4 py-2 border-b">{{gasto.fecha | date:'yyyy-MM-dd' }}</td>
+                    <td class="px-4 py-2 border-b">{{gasto.monto}} €</td>
+                    <td class="px-4 py-2 border-b">{{gasto.categoria?.categoria}}</td>
+                    <td class="px-4 py-2 border-b">{{gasto.proveedor?.nombreProveedor}}</td>
+                    <td class="px-4 py-2 border-b">{{gasto.metodoPago}}</td>
                     <div class="flex justify-center gap-3"><br />
                         <button>
                             <img src="assets/img/edit.png" alt="Editar" class="w-8 h-6" />
                         </button>
-                        <button>
+                        <button (click)="eliminarGasto(gasto.idGasto ?? 0)">
                             <img src="assets/img/eliminar.png" alt="Eliminar" class="w-8 h-6" />
                         </button>
                         <button>
@@ -50,6 +52,7 @@
                         </button>
                     </div>
                 </tr>
+                }
             </tbody>
 
         </table>

@@ -32,6 +32,16 @@ export class FacturaService {
         return this.http.get<Factura[]>(this.urlBase + "/facturas", params);
     }
 
+    getFacturasLibresAPI() {
+        const usuarioActualString = sessionStorage.getItem('usuarioActual');
+        let idUsuario = '';
+        if (usuarioActualString) {
+            const usuarioActual = JSON.parse(usuarioActualString);
+            idUsuario = usuarioActual.id;
+        }
+        const params = { params: { idUsuario: idUsuario } };
+        return this.http.get<Factura[]>(this.urlBase + "/facturas/libres", params);
+    }
 
     agregarFactura(factura: Factura) {
         return this.http.post(this.urlBase + "/nueva_factura", factura, { responseType: 'text' });
