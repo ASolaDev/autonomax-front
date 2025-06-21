@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,12 +8,14 @@ import { ProveedoresService } from '../../services/proveedores.service';
 
 @Component({
     selector: 'app-proveedores',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule],
     templateUrl: './proveedores.component.html',
     styleUrls: ['./proveedores.component.css']
 })
+
 export class ProveedoresComponent {
     proveedores: Proveedores[] = [];
+    patron: string = '';
     proveedorSeleccionado: Proveedores | null = null;
     mostrarModal: boolean = false;
     editarProveedorForm: FormGroup;
@@ -39,7 +42,6 @@ export class ProveedoresComponent {
     }
 
     onCrearProveedor() {
-        console.log('Redirigiendo a /crear');
         this.router.navigate(['proveedores/crear']);
     }
 
@@ -51,15 +53,23 @@ export class ProveedoresComponent {
         );
     }
 
-    getProveedores() {
-        return this.proveedores;
+    proveedoresFiltrados(): Proveedores[] {
+        if (!this.patron.trim()) {
+            return this.proveedores;
+        }
+        const term = this.patron.toLowerCase();
+        return this.proveedores.filter(p =>
+            p.nombreProveedor?.toLowerCase().includes(term) ||
+            p.emailProveedor?.toLowerCase().includes(term) ||
+            p.telefonoProveedor?.toLowerCase().includes(term) ||
+            p.ciudadProveedor?.toLowerCase().includes(term) ||
+            p.provinciaProveedor?.toLowerCase().includes(term)
+        );
     }
 
     eliminarProveedor(id: number) {
         this.proveedoresService.eliminarProveedor(id).subscribe(
             () => {
-                console.log("FUNCIONA")
-                // Recarga la lista después de eliminar
                 this.getProveedoresAPI();
             },
             error => {
@@ -72,16 +82,31 @@ export class ProveedoresComponent {
         this.proveedorSeleccionado = proveedor;
         this.editarProveedorForm.patchValue(proveedor);
         this.mostrarModal = true;
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.add('blur-background');
+            mainContent.classList.add('blur-target');
+        }
+
+        document.body.style.overflow = 'auto';
     }
 
     cerrarModal() {
         this.mostrarModal = false;
         this.proveedorSeleccionado = null;
         this.editarProveedorForm.reset();
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.remove('blur-background');
+            mainContent.classList.remove('blur-target');
+        }
+
+        document.body.style.overflow = 'auto';
     }
 
     guardarCambios(id: number) {
-        console.log('Guardando cambios para el proveedor con ID:', id);
         if (this.editarProveedorForm.valid && this.proveedorSeleccionado) {
             const proveedorActualizado = {
                 ...this.proveedorSeleccionado,
@@ -89,7 +114,6 @@ export class ProveedoresComponent {
             };
             this.proveedoresService.actualizarProveedor(id, proveedorActualizado).subscribe(
                 response => {
-                    console.log('Proveedor actualizado:', response);
                     this.cerrarModal();
                     this.getProveedoresAPI();
                 },

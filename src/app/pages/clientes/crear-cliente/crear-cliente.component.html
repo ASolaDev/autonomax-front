@@ -9,8 +9,8 @@
                 <div>
                     <label class="block mb-1 font-medium">Nombre/Razón social</label>
                     <input formControlName="nombreCliente" type="text" class="w-full border p-2 rounded-md" [ngClass]="{
-                               'border-red-500 border-2': f['nombreCliente'].invalid && (f['nombreCliente'].dirty || f['nombreCliente'].touched),
-                               'border-green-500 border-2': f['nombreCliente'].valid && (f['nombreCliente'].dirty || f['nombreCliente'].touched)
+                               'border-red-500 border-2': f['nombreCliente'].invalid && f['nombreCliente'].dirty ,
+                               'border-green-500 border-2': f['nombreCliente'].valid && f['nombreCliente'].dirty
                            }" />
                     @if (f['nombreCliente'].invalid && (f['nombreCliente'].dirty || f['nombreCliente'].touched)) {
                     @if (f['nombreCliente'].errors?.['required']) {
@@ -23,11 +23,11 @@
                 <div>
                     <label class="block mb-1 font-medium">CIF</label>
                     <input formControlName="cifCliente" type="text" class="w-full border p-2 rounded-md" [ngClass]="{
-                               'border-red-500 border-2': f['cifCliente'].invalid && (f['cifCliente'].dirty || f['cifCliente'].touched),
-                               'border-green-500 border-2': f['cifCliente'].valid && (f['cifCliente'].dirty || f['cifCliente'].touched)
+                               'border-red-500 border-2': f['cifCliente'].invalid && f['cifCliente'].dirty,
+                               'border-green-500 border-2': f['cifCliente'].valid && f['cifCliente'].dirty
                            }" />
 
-                    @if (f['cifCliente'].invalid && (f['cifCliente'].dirty || f['cifCliente'].touched)) {
+                    @if (f['cifCliente'].invalid && (f['cifCliente'].dirty)) {
                     @if (f['cifCliente'].errors?.['required']) {
                     <p class="text-red-500 text-sm mt-1">El CIF es requerido.</p>
                     } @else if (f['cifCliente'].errors?.['pattern']) { <p class="text-red-500 text-sm mt-1">El formato
@@ -38,14 +38,14 @@
                 <div>
                     <label class="block mb-1 font-medium">Tipo de cliente</label>
                     <select formControlName="tipoCliente" class="w-full border p-2 rounded-md" [ngClass]="{
-                               'border-red-500 border-2': f['tipoCliente'].invalid && (f['tipoCliente'].dirty || f['tipoCliente'].touched),
-                               'border-green-500 border-2': f['tipoCliente'].valid && (f['tipoCliente'].dirty || f['tipoCliente'].touched)
+                               'border-red-500 border-2': f['tipoCliente'].invalid && f['tipoCliente'].dirty,
+                               'border-green-500 border-2': f['tipoCliente'].valid && f['tipoCliente'].dirty
                            }">
                         <option value="">Selecciona una opción</option>
                         <option value="Empresa">Empresa</option>
                         <option value="Autonomo">Autónomo</option>
                     </select>
-                    @if (f['tipoCliente'].invalid && (f['tipoCliente'].dirty || f['tipoCliente'].touched)) {
+                    @if (f['tipoCliente'].invalid && (f['tipoCliente'].dirty)) {
                     @if (f['tipoCliente'].errors?.['required']) {
                     <p class="text-red-500 text-sm mt-1">Tienes que seleccionar una opción válida</p>
                     }
@@ -55,11 +55,11 @@
                 <div>
                     <label class="block mb-1 font-medium">Correo electrónico</label>
                     <input type="email" formControlName="emailCliente" class="w-full border p-2 rounded-md" [ngClass]="{
-                               'border-red-500 border-2': f['emailCliente'].invalid && (f['emailCliente'].dirty || f['emailCliente'].touched),
-                               'border-green-500 border-2': f['emailCliente'].valid && (f['emailCliente'].dirty || f['emailCliente'].touched)
+                               'border-red-500 border-2': f['emailCliente'].invalid && f['emailCliente'].dirty,
+                               'border-green-500 border-2': f['emailCliente'].valid && f['emailCliente'].dirty
                            }" />
 
-                    @if (f['emailCliente'].invalid && (f['emailCliente'].dirty || f['emailCliente'].touched)) {
+                    @if (f['emailCliente'].invalid && (f['emailCliente'].dirty)) {
                     @if (f['emailCliente'].errors?.['required']) {
                     <p class="text-red-500 text-sm mt-1">El email es requerido.</p>
                     } @else if (f['emailCliente'].errors?.['email']) {
@@ -71,11 +71,10 @@
                     <label class="block mb-1 font-medium">Dirección</label>
                     <input type="text" formControlName="direccionCliente" class="w-full border p-2 rounded-md"
                         [ngClass]="{
-                               'border-red-500 border-2': f['direccionCliente'].invalid && (f['direccionCliente'].dirty || f['direccionCliente'].touched),
-                               'border-green-500 border-2': f['direccionCliente'].valid && (f['direccionCliente'].dirty || f['direccionCliente'].touched)
+                               'border-red-500 border-2': f['direccionCliente'].invalid && f['direccionCliente'].dirty,
+                               'border-green-500 border-2': f['direccionCliente'].valid && f['direccionCliente'].dirty
                            }" />
-                    @if (f['direccionCliente'].invalid && (f['direccionCliente'].dirty ||
-                    f['direccionCliente'].touched)) {
+                    @if (f['direccionCliente'].invalid && (f['direccionCliente'].dirty)) {
                     @if (f['direccionCliente'].errors?.['required']) {
                     <p class="text-red-500 text-sm mt-1">La dirección es requerida.</p>
                     } @else if (f['direccionCliente'].errors?.['minlength']) {
@@ -86,10 +85,10 @@
                 <div>
                     <label class="block mb-1 font-medium">Ciudad</label>
                     <input type="text" formControlName="ciudadCliente" class="w-full border p-2 rounded-md" [ngClass]="{
-                               'border-red-500 border-2': f['ciudadCliente'].invalid && (f['ciudadCliente'].dirty || f['ciudadCliente'].touched),
-                               'border-green-500 border-2': f['ciudadCliente'].valid && (f['ciudadCliente'].dirty || f['ciudadCliente'].touched)
+                               'border-red-500 border-2': f['ciudadCliente'].invalid && f['ciudadCliente'].dirty,
+                               'border-green-500 border-2': f['ciudadCliente'].valid && f['ciudadCliente'].dirty
                            }" />
-                    @if (f['ciudadCliente'].invalid && (f['ciudadCliente'].dirty || f['ciudadCliente'].touched)) {
+                    @if (f['ciudadCliente'].invalid && (f['ciudadCliente'].dirty)) {
                     @if (f['ciudadCliente'].errors?.['required']) {
                     <p class="text-red-500 text-sm mt-1">La ciudad es requerida.</p>
                     } @else if (f['ciudadCliente'].errors?.['minlength']) {
@@ -101,11 +100,10 @@
                     <label class="block mb-1 font-medium">Provincia</label>
                     <input type="text" formControlName="provinciaCliente" class="w-full border p-2 rounded-md"
                         [ngClass]="{
-                               'border-red-500 border-2': f['provinciaCliente'].invalid && (f['provinciaCliente'].dirty || f['provinciaCliente'].touched),
-                               'border-green-500 border-2': f['provinciaCliente'].valid && (f['provinciaCliente'].dirty || f['provinciaCliente'].touched)
+                               'border-red-500 border-2': f['provinciaCliente'].invalid && f['provinciaCliente'].dirty,
+                               'border-green-500 border-2': f['provinciaCliente'].valid && f['provinciaCliente'].dirty
                            }" />
-                    @if (f['provinciaCliente'].invalid && (f['provinciaCliente'].dirty ||
-                    f['provinciaCliente'].touched)) {
+                    @if (f['provinciaCliente'].invalid && (f['provinciaCliente'].dirty)) {
                     @if (f['provinciaCliente'].errors?.['required']) {
                     <p class="text-red-500 text-sm mt-1">La provincia es requerida.</p>
                     } @else if (f['provinciaCliente'].errors?.['minlength']) {
@@ -116,11 +114,10 @@
                 <div>
                     <label class="block mb-1 font-medium">Teléfono</label>
                     <input type="text" formControlName="telefonoCliente" class="w-full border p-2 rounded-md" [ngClass]="{
-                               'border-red-500 border-2': f['telefonoCliente'].invalid && (f['telefonoCliente'].dirty || f['telefonoCliente'].touched),
-                               'border-green-500 border-2': f['telefonoCliente'].valid && (f['telefonoCliente'].dirty || f['telefonoCliente'].touched)
+                               'border-red-500 border-2': f['telefonoCliente'].invalid && f['telefonoCliente'].dirty,
+                               'border-green-500 border-2': f['telefonoCliente'].valid && f['telefonoCliente'].dirty
                            }" />
-                    @if (f['telefonoCliente'].invalid && (f['telefonoCliente'].dirty ||
-                    f['telefonoCliente'].touched)) {
+                    @if (f['telefonoCliente'].invalid && (f['telefonoCliente'].dirty)) {
                     @if (f['telefonoCliente'].errors?.['required']) {
                     <p class="text-red-500 text-sm mt-1">El teléfono es requerida.</p>
                     } @else if (f['telefonoCliente'].errors?.['pattern']) {

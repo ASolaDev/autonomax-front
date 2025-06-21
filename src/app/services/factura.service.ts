@@ -34,16 +34,15 @@ export class FacturaService {
 
 
     agregarFactura(factura: Factura) {
-        return this.http.post<Factura>(this.urlBase + "/nueva_factura", factura);
+        return this.http.post(this.urlBase + "/nueva_factura", factura, { responseType: 'text' });
     }
 
     actualizarFactura(id: number, facturaActualizada: Factura) {
-        return this.http.put<Factura>(this.urlBase + "/actualizar_factura/" + id, facturaActualizada);
+        return this.http.put(this.urlBase + "/editar_factura/" + id, facturaActualizada, { responseType: 'text' });
     }
 
     borrarFactura(idFactura: number) {
-        console.log("Borrando factura con ID: " + idFactura);
-        return this.http.delete(this.urlBase + "/borrar_factura/" + idFactura);
+        return this.http.delete(this.urlBase + "/borrar_factura/" + idFactura, { responseType: 'text' });
     }
 }
 

@@ -1,56 +1,31 @@
 <h1 class="text-2xl font-bold mb-6 text-center">Notificaciones</h1>
 
-<div class="flex flex-col items-center space-y-2">
-    <button class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition" (click)="mostrarEjemplo()">
-        Mostrar notificaciones de ejemplo
-    </button>
-
-    <div *ngFor="let noti of notificaciones" class="w-full max-w-md">
-        <div class="flex items-center justify-between px-4 py-3 rounded shadow-md mb-2 animate-fade-in" [ngClass]="{
-        'bg-green-100 border-l-4 border-green-500 text-green-700': noti.tipo === 'success',
-        'bg-red-100 border-l-4 border-red-500 text-red-700': noti.tipo === 'error',
-        'bg-blue-100 border-l-4 border-blue-500 text-blue-700': noti.tipo === 'info',
-        'bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700': noti.tipo === 'warning'
-      }">
-            <span class="flex-1">{{ noti.mensaje }}</span>
-            <button class="ml-4 text-xl font-bold focus:outline-none" (click)="cerrarNotificacion(noti.id)"
-                aria-label="Cerrar">
-                &times;
-            </button>
+<div class="flex items-center justify-center min-h-[60vh]">
+    <div class="mt-8 w-full max-w-2xl">
+        <h2 class="text-lg font-semibold mb-2 text-center">Historial</h2>
+        <div class="overflow-x-auto rounded shadow">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 text-left">Mensaje</th>
+                        <th class="px-4 py-2 text-left">ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (historial.length > 0) {
+                    @for (noti of historial; track noti.id) {
+                    <tr>
+                        <td class="px-4 py-2">{{ noti.mensaje }}</td>
+                        <td class="px-4 py-2 text-xs text-gray-400">{{ noti.id }}</td>
+                    </tr>
+                    }
+                    } @else {
+                    <tr>
+                        <td colspan="2" class="px-4 py-2 text-center text-gray-400">Sin notificaciones pasadas</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-    </div>
-</div>
-
-<div class="mt-8 w-full max-w-2xl mx-auto">
-    <h2 class="text-lg font-semibold mb-2">Historial de notificaciones</h2>
-    <div class="overflow-x-auto rounded shadow">
-        <table class="min-w-full bg-white">
-            <thead>
-                <tr>
-                    <th class="px-4 py-2 text-left">Tipo</th>
-                    <th class="px-4 py-2 text-left">Mensaje</th>
-                    <th class="px-4 py-2 text-left">ID</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let noti of historial">
-                    <td class="px-4 py-2">
-                        <span [ngClass]="{
-              'text-green-700': noti.tipo === 'success',
-              'text-red-700': noti.tipo === 'error',
-              'text-blue-700': noti.tipo === 'info',
-              'text-yellow-700': noti.tipo === 'warning'
-            }">
-                            {{ noti.tipo | titlecase }}
-                        </span>
-                    </td>
-                    <td class="px-4 py-2">{{ noti.mensaje }}</td>
-                    <td class="px-4 py-2 text-xs text-gray-400">{{ noti.id }}</td>
-                </tr>
-                <tr *ngIf="historial.length === 0">
-                    <td colspan="3" class="px-4 py-2 text-center text-gray-400">Sin notificaciones pasadas</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </div>

@@ -1,28 +1,33 @@
 <div class="min-h-screen">
+    <h1 class="text-2xl font-bold text-center">Inicio</h1>
     <div class=" text-black p-4">
-        <h1 class="text-2xl font-bold text-center">Inicio</h1>
+        <p class="text-lg text-center">Bienvenido al panel de administración. Aquí puedes ver tus clientes,
+            facturas e ingresos.
+        </p>
     </div>
     <div class="flex">
-        <!-- Main Content -->
+        <!-- Contenido principal -->
         <main class="flex-1 p-6">
             <!-- Métricas -->
             <div class="grid grid-cols-3 gap-4 mb-6">
-                <div class="bg-gray-200 p-4 shadow rounded">
+                <div class="bg-blue-200 p-4 shadow rounded">
                     <h3 class="text-lg font-bold">Clientes</h3>
-                    <p class="text-2xl font-semibold text-blue-600">1,245</p>
+                    <p class="text-2xl font-semibold text-blue-600">{{ clientes.length }}</p>
                 </div>
-                <div class="bg-gray-200 p-4 shadow rounded">
+                <div class="bg-orange-50 p-4 shadow rounded">
                     <h3 class="text-lg font-bold">Facturas</h3>
-                    <p class="text-2xl font-semibold text-green-600">345</p>
+                    <p class="text-2xl font-semibold text-red-400">{{ facturas.length }}</p>
                 </div>
                 <div class="bg-green-100 p-4 shadow rounded">
                     <h3 class="text-lg font-bold">Ingresos</h3>
-                    <p class="text-2xl font-semibold text-purple-600">$12,345</p>
+                    <p class="text-2xl font-semibold text-green-800">
+                        {{ ingresosTotales | currency:'EUR':'symbol':'1.2-2' }}
+                    </p>
                 </div>
             </div>
             <!-- Gráficas -->
             <div class="grid grid-cols-2 gap-4">
-                <!-- Gráfica de quesitos -->
+                <!-- Gráfica de pastel -->
                 <div class="bg-gray-200 p-4 shadow rounded">
                     <h3 class="text-lg font-bold mb-4">Distribución de Clientes</h3>
                     <canvas id="pieChart"></canvas>

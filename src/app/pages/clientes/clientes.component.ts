@@ -4,20 +4,23 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { Cliente } from '../../models/Cliente';
 import { ClientesService } from '../../services/clientes.service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
     selector: 'app-clientes',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule],
     templateUrl: './clientes.component.html',
     styleUrls: ['./clientes.component.css']
 })
 
 export class ClientesComponent {
+
     clientes: Cliente[] = [];
     clienteSeleccionado: Cliente | null = null;
     mostrarModal: boolean = false;
     editarClientesForm: FormGroup;
+    terminoBusqueda: string = '';
 
     constructor(
         private router: Router,
@@ -41,7 +44,6 @@ export class ClientesComponent {
     }
 
     onCrearCliente() {
-        console.log('Redirigiendo a /crear');
         this.router.navigate(['clientes/crear']);
     }
 
@@ -53,6 +55,16 @@ export class ClientesComponent {
         );
     }
 
+    filtrarClientes(): Cliente[] {
+        const termino = this.terminoBusqueda.trim().toLowerCase();
+        if (!termino) {
+            return this.clientes;
+        }
+        return this.clientes.filter(cliente =>
+            cliente.nombreCliente.toLowerCase().includes(termino)
+        );
+    }
+
     getClientes() {
         return this.clientes;
     }
@@ -60,8 +72,6 @@ export class ClientesComponent {
     eliminarCliente(id: number) {
         this.clientesService.eliminarCliente(id).subscribe(
             () => {
-                console.log("FUNCIONA")
-                // Recarga la lista después de eliminar
                 this.getClientesAPI();
             },
             error => {
@@ -74,16 +84,31 @@ export class ClientesComponent {
         this.clienteSeleccionado = cliente;
         this.editarClientesForm.patchValue(cliente);
         this.mostrarModal = true;
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.add('blur-background');
+            mainContent.classList.add('blur-target');
+        }
+
+        document.body.style.overflow = 'hidden';
     }
 
     cerrarModal() {
         this.mostrarModal = false;
         this.clienteSeleccionado = null;
         this.editarClientesForm.reset();
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.remove('blur-background');
+            mainContent.classList.remove('blur-target');
+        }
+
+        document.body.style.overflow = 'auto';
     }
 
     guardarCambios(id: number) {
-        console.log('Guardando cambios para el cliente con ID:', id);
         if (this.editarClientesForm.valid && this.clienteSeleccionado) {
             const clienteActualizado = {
                 ...this.clienteSeleccionado,
@@ -91,7 +116,6 @@ export class ClientesComponent {
             };
             this.clientesService.actualizarCliente(id, clienteActualizado).subscribe(
                 response => {
-                    console.log('Cliente actualizado:', response);
                     this.cerrarModal();
                     this.getClientesAPI();
                 },
