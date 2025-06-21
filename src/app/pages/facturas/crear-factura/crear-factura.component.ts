@@ -89,7 +89,6 @@ export class CrearFacturaComponent implements OnInit {
 
             this.facturaService.agregarFactura(this.factura).subscribe({
                 next: (response) => {
-
                     this.router.navigate(['/facturas']);
                 },
                 error: (error) => {
@@ -99,11 +98,11 @@ export class CrearFacturaComponent implements OnInit {
         } catch (error) {
             console.error('Error al generar la factura:', error);
         }
-        this.router.navigate(["/facturas"]);
     }
 
     toggleModalDetalle(estado: boolean) {
         this.mostrarModalDetalle = estado;
+
         if (!estado) {
             this.detalleEditando = null;
             this.indiceEditando = null;
