@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FacturaService } from '../../services/factura.service';
-import { GastosService } from '../../services/gastos.service'; // NUEVO
+import { GastosService } from '../../services/gastos.service';
 import { Factura } from '../../models/Factura';
-import { Gastos } from '../../models/Gastos'; // NUEVO
+import { Gastos } from '../../models/Gastos';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,14 +13,14 @@ import { CommonModule } from '@angular/common';
 })
 export class TesoreriaComponent implements OnInit {
     facturas: Factura[] = [];
-    gastos: Gastos[] = []; // NUEVO
+    gastos: Gastos[] = [];
     saldoTotal: number = 0;
     ingresosMesActual: number = 0;
-    gastosMesActual: number = 0; // NUEVO
+    gastosMesActual: number = 0;
 
     constructor(
         private facturaService: FacturaService,
-        private gastosService: GastosService // NUEVO
+        private gastosService: GastosService
     ) { }
 
     ngOnInit() {

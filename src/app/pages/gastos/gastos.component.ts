@@ -1,10 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GastosService } from '../../services/gastos.service';
-import { Gastos } from '../../models/Gastos';
 import { jsPDF } from 'jspdf';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CategoriaGastos } from '../../models/CategoriaGastos';
+import { Gastos } from '../../models/Gastos';
+import { Proveedores } from '../../models/Proveedores';
+import { CategoriaGastosService } from '../../services/categoria-gastos.service';
+import { GastosService } from '../../services/gastos.service';
+import { ProveedoresService } from '../../services/proveedores.service';
 
 @Component({
     selector: 'app-gastos',
@@ -15,6 +19,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
 
 export class GastosComponent {
     gastos: Gastos[] = [];
+    proveedores: Proveedores[] = [];
+    categorias: CategoriaGastos[] = []
     mostrarModalEditar = false;
     gastoEditando: Gastos | null = null;
     editarGastoForm: FormGroup;
@@ -22,6 +28,8 @@ export class GastosComponent {
     constructor(
         private router: Router,
         private gastosService: GastosService,
+        private proveedoresService: ProveedoresService,
+        private categoriasService: CategoriaGastosService,
         private fb: FormBuilder
     ) {
         this.editarGastoForm = this.fb.group({
@@ -109,6 +117,8 @@ export class GastosComponent {
 
     abrirModalEditar(gasto: Gastos) {
         this.gastoEditando = gasto;
+        this.getProveedoresAPI();
+        this.getCategoriasAPI();
         this.editarGastoForm.patchValue({
             fecha: gasto.fecha
                 ? (typeof gasto.fecha === 'string'
@@ -116,11 +126,18 @@ export class GastosComponent {
                     : (gasto.fecha as Date).toISOString().split('T')[0])
                 : '',
             monto: gasto.monto,
-            categoria: gasto.categoria?.categoria || '',
-            proveedor: gasto.proveedor?.nombreProveedor || '',
+            categoria: gasto.categoria?.idCategoria || '',
+            proveedor: gasto.proveedor?.id || '',
             metodoPago: gasto.metodoPago || ''
         });
         this.mostrarModalEditar = true;
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.add('blur-background');
+            mainContent.classList.add('blur-target');
+        }
+
         document.body.style.overflow = 'hidden';
     }
 
@@ -128,20 +145,35 @@ export class GastosComponent {
         this.mostrarModalEditar = false;
         this.gastoEditando = null;
         this.editarGastoForm.reset();
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.remove('blur-background');
+            mainContent.classList.remove('blur-target');
+        }
+
         document.body.style.overflow = '';
     }
 
     guardarCambiosGasto(id: number) {
         if (this.editarGastoForm.valid && this.gastoEditando) {
             const formValue = this.editarGastoForm.value;
+
+            let proveedorId = formValue.proveedor ? Number(formValue.proveedor) : null;
+            let categoriaId = formValue.categoria ? Number(formValue.categoria) : null;
+
+            const { idGasto, ...restoGasto } = this.gastoEditando;
+
             const gastoActualizado = {
-                ...this.gastoEditando,
+                ...restoGasto,
                 fecha: formValue.fecha,
                 monto: formValue.monto,
-                categoria: { categoria: formValue.categoria },
-                proveedor: { nombreProveedor: formValue.proveedor },
+                categoria: categoriaId,
+                proveedor: proveedorId,
+                factura: this.gastoEditando.factura.id,
                 metodoPago: formValue.metodoPago
             };
+
             console.log('Enviando al backend:', gastoActualizado);
             this.gastosService.actualizarGasto(id, gastoActualizado).subscribe(
                 () => {
@@ -153,5 +185,27 @@ export class GastosComponent {
                 }
             );
         }
+    }
+
+    getProveedoresAPI() {
+        this.proveedoresService.getProveedores().subscribe({
+            next: (proveedores: Proveedores[]) => {
+                this.proveedores = proveedores;
+            },
+            error: (error: any) => {
+                console.error('Error al obtener los proveedores:', error);
+            }
+        });
+    }
+
+    getCategoriasAPI() {
+        this.categoriasService.getCategoriasGastos().subscribe({
+            next: (categorias: CategoriaGastos[]) => {
+                this.categorias = categorias;
+            },
+            error: (error: any) => {
+                console.error('Error al obtener las categorías de gastos:', error);
+            }
+        });
     }
 }

@@ -74,15 +74,27 @@
             </div>
             <div class="mb-2">
                 <label>Categoría</label>
-                <input formControlName="categoria" class="w-full border p-2 rounded" placeholder="Categoría" />
+                <select formControlName="categoria" class="w-full border p-2 rounded">
+                    @for (categoria of categorias; track categoria.idCategoria) {
+                    <option [value]="categoria.idCategoria">{{ categoria.categoria }}</option>
+                    }
+                </select>
             </div>
             <div class="mb-2">
                 <label>Proveedor</label>
-                <input formControlName="proveedor" class="w-full border p-2 rounded" placeholder="Proveedor" />
+                <select formControlName="proveedor" class="w-full border p-2 rounded">
+                    @for (proveedor of proveedores; track proveedor.id) {
+                    <option [value]="proveedor.id">{{ proveedor.nombreProveedor }}</option>
+                    }
+                </select>
             </div>
             <div class="mb-2">
                 <label>Método de pago</label>
-                <input formControlName="metodoPago" class="w-full border p-2 rounded" placeholder="Método de pago" />
+                <select class="w-full border p-2 rounded-md bg-gray-100" formControlName="metodoPago">
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta">Tarjeta</option>
+                    <option value="Acuenta">A cuenta</option>
+                </select>
             </div>
             <div class="flex justify-end gap-2 mt-4">
                 <button type="button" (click)="cerrarModalEditar()"

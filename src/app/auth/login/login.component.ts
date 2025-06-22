@@ -30,16 +30,12 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // Llamada al backend para comprobar si hay sesión activa
         this.auth.checkSession().subscribe({
             next: () => {
-                // Si hay sesión en el backend, simulamos que el usuario ya está logueado
                 sessionStorage.setItem("usuarioActual", "true");
                 this.router.navigate(['/inicio']);
             },
             error: () => {
-                // No hay sesión activa, se queda en el login
-                // Limpia cualquier posible sesión previa en el frontend
                 sessionStorage.removeItem("usuarioActual");
                 console.log("No hay sesión activa");
             }

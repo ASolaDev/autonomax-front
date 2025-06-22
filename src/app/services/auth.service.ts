@@ -12,6 +12,12 @@ export class AuthService {
 
     constructor(private http: HttpClient) { }
 
+    /**
+     * Realiza el login del usuario
+     * @param nombreUsuario Nombre de usuario
+     * @param password Contraseña del usuario
+     * @returns Observable con la respuesta del servidor
+     */
     login(nombreUsuario: string, password: string) {
         const body: LoginRequest = { nombreUsuario: nombreUsuario, password };
         return this.http.post(this.urlBase + "/login", body, { withCredentials: true }).pipe(
@@ -19,6 +25,12 @@ export class AuthService {
         );
     }
 
+    /**
+     * Registra un nuevo usuario
+     * @param nombreUsuario Nombre de usuario
+     * @param password Contraseña del usuario
+     * @returns Observable con la respuesta del servidor
+     */
     logout() {
         return this.http.post(this.urlBase + "/logout", {}, { withCredentials: true }).pipe(
             tap(() => { sessionStorage.removeItem("usuarioActual") }),
@@ -26,10 +38,18 @@ export class AuthService {
         );
     }
 
+    /**
+     * Verifica si el usuario está logueado
+     * @returns true si el usuario está logueado, false en caso contrario
+     */
     estaLogueado() {
         return !!sessionStorage.getItem("usuarioActual");
     }
 
+    /**
+     * Obtiene el nombre de usuario del usuario logueado
+     * @returns Nombre de usuario si está logueado, null en caso contrario
+     */
     private handleError(error: HttpErrorResponse) {
         let errorMessage = 'Error desconocido!';
         if (error.error instanceof ErrorEvent) {
@@ -47,6 +67,10 @@ export class AuthService {
         return throwError(() => error);
     }
 
+    /**
+     * Verifica si la sesión del usuario es válida
+     * @returns Observable que emite true si la sesión es válida, false en caso contrario
+     */
     checkSession() {
         return this.http.get(this.urlBase + "/check-session", { withCredentials: true }).pipe(
             tap(() => sessionStorage.setItem("usuarioActual", "true")),

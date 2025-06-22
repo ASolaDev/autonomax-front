@@ -29,7 +29,7 @@ export class NotificacionesComponent {
     cerrarNotificacion(id: number) {
         const noti = this.notificaciones.find(n => n.id === id);
         if (noti) {
-            this.historial.unshift(noti); // Agrega al inicio del historial
+            this.historial.unshift(noti);
         }
         this.notificaciones = this.notificaciones.filter(n => n.id !== id);
     }

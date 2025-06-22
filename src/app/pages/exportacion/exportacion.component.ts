@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ClientesService } from '../../services/clientes.service';
-import { ProveedoresService } from '../../services/proveedores.service';
-import { FacturaService } from '../../services/factura.service';
-import { GastosService } from '../../services/gastos.service'; // <-- Agrega esto
 import { forkJoin } from 'rxjs';
+import { ClientesService } from '../../services/clientes.service';
+import { FacturaService } from '../../services/factura.service';
+import { GastosService } from '../../services/gastos.service';
+import { ProveedoresService } from '../../services/proveedores.service';
 
 @Component({
     selector: 'app-exportacion',
@@ -18,7 +18,7 @@ export class ExportacionComponent {
         private clientesService: ClientesService,
         private proveedoresService: ProveedoresService,
         private facturaService: FacturaService,
-        private gastosService: GastosService // <-- Agrega esto
+        private gastosService: GastosService
     ) { }
 
     exportarDatos() {
@@ -29,7 +29,7 @@ export class ExportacionComponent {
             clientes: this.clientesService.getClientes(),
             proveedores: this.proveedoresService.getProveedores(),
             facturas: this.facturaService.getFacturasAPI(),
-            gastos: this.gastosService.getGastosPorUsuario() // <-- Agrega esto
+            gastos: this.gastosService.getGastosPorUsuario()
         }).subscribe({
             next: ({ clientes, proveedores, facturas, gastos }) => {
                 const csv = this.generarCSV(clientes, proveedores, facturas, gastos);
