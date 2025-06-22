@@ -41,13 +41,13 @@
                     <td class="px-4 py-2 border-b">{{gasto.proveedor?.nombreProveedor}}</td>
                     <td class="px-4 py-2 border-b">{{gasto.metodoPago}}</td>
                     <div class="flex justify-center gap-3"><br />
-                        <button>
+                        <button (click)="abrirModalEditar(gasto)">
                             <img src="assets/img/edit.png" alt="Editar" class="w-8 h-6" />
                         </button>
                         <button (click)="eliminarGasto(gasto.idGasto ?? 0)">
                             <img src="assets/img/eliminar.png" alt="Eliminar" class="w-8 h-6" />
                         </button>
-                        <button>
+                        <button (click)="descargarGastoPDF(gasto)">
                             <img src="assets/img/descargar.png" alt="Descargar" class="w-8 h-6" />
                         </button>
                     </div>
@@ -58,3 +58,39 @@
         </table>
     </div>
 </div>
+
+@if (mostrarModalEditar) {
+<div class="fixed inset-0 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded shadow-lg w-full max-w-lg">
+        <h2 class="text-xl font-bold mb-4">Editar Gasto</h2>
+        <form [formGroup]="editarGastoForm" (ngSubmit)="guardarCambiosGasto(gastoEditando?.idGasto ?? 0)">
+            <div class="mb-2">
+                <label>Fecha</label>
+                <input formControlName="fecha" type="date" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Cantidad</label>
+                <input formControlName="monto" type="number" step="0.01" class="w-full border p-2 rounded" />
+            </div>
+            <div class="mb-2">
+                <label>Categoría</label>
+                <input formControlName="categoria" class="w-full border p-2 rounded" placeholder="Categoría" />
+            </div>
+            <div class="mb-2">
+                <label>Proveedor</label>
+                <input formControlName="proveedor" class="w-full border p-2 rounded" placeholder="Proveedor" />
+            </div>
+            <div class="mb-2">
+                <label>Método de pago</label>
+                <input formControlName="metodoPago" class="w-full border p-2 rounded" placeholder="Método de pago" />
+            </div>
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" (click)="cerrarModalEditar()"
+                    class="bg-gray-400 text-white px-4 py-2 rounded">Cancelar</button>
+                <button type="submit" [disabled]="!editarGastoForm.valid"
+                    class="bg-green-600 text-white px-4 py-2 rounded">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+}
