@@ -11,7 +11,7 @@
         </div>
         <div class="bg-red-100 p-6 rounded-lg shadow text-center">
             <p class="text-xl font-bold text-red-800">Gastos (mes actual)</p>
-            <p class="text-2xl font-bold text-red-700">0 €</p>
+            <p class="text-2xl font-bold text-red-700">{{ gastosMesActual | number:'1.2-2' }} €</p>
         </div>
     </div>
 
@@ -36,6 +36,15 @@
                     <td class="p-2 border">Factura</td>
 
                     <td class="p-2 border">Cliente: {{ factura.cliente.nombreCliente || '-' }}</td>
+                </tr>
+                }
+                @for (gasto of gastos; track gasto.idGasto) {
+                <tr class="hover:bg-gray-50">
+                    <td class="p-2 border">{{ gasto.fecha | date:'yyyy-MM-dd' }}</td>
+                    <td class="p-2 border text-red-700 font-medium">Gasto</td>
+                    <td class="p-2 border">-{{ gasto.monto }} €</td>
+                    <td class="p-2 border">{{ gasto.categoria?.categoria || '-' }}</td>
+                    <td class="p-2 border">Proveedor: {{ gasto.proveedor?.nombreProveedor || '-' }}</td>
                 </tr>
                 }
             </tbody>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ClientesService } from '../../services/clientes.service';
 import { ProveedoresService } from '../../services/proveedores.service';
 import { FacturaService } from '../../services/factura.service';
+import { GastosService } from '../../services/gastos.service'; // <-- Agrega esto
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -16,7 +17,8 @@ export class ExportacionComponent {
     constructor(
         private clientesService: ClientesService,
         private proveedoresService: ProveedoresService,
-        private facturaService: FacturaService
+        private facturaService: FacturaService,
+        private gastosService: GastosService // <-- Agrega esto
     ) { }
 
     exportarDatos() {
@@ -26,10 +28,11 @@ export class ExportacionComponent {
         forkJoin({
             clientes: this.clientesService.getClientes(),
             proveedores: this.proveedoresService.getProveedores(),
-            facturas: this.facturaService.getFacturasAPI()
+            facturas: this.facturaService.getFacturasAPI(),
+            gastos: this.gastosService.getGastosPorUsuario() // <-- Agrega esto
         }).subscribe({
-            next: ({ clientes, proveedores, facturas }) => {
-                const csv = this.generarCSV(clientes, proveedores, facturas);
+            next: ({ clientes, proveedores, facturas, gastos }) => {
+                const csv = this.generarCSV(clientes, proveedores, facturas, gastos);
                 this.descargarCSV(csv, 'autonomax_datos.csv');
                 this.exportando = false;
                 this.mensaje = 'Exportación completada.';
@@ -41,7 +44,7 @@ export class ExportacionComponent {
         });
     }
 
-    generarCSV(clientes: any[], proveedores: any[], facturas: any[]): string {
+    generarCSV(clientes: any[], proveedores: any[], facturas: any[], gastos: any[]): string {
         let csv = '';
 
         if (clientes.length) {
@@ -67,6 +70,15 @@ export class ExportacionComponent {
             csv += Object.keys(facturas[0]).join(',') + '\n';
             facturas.forEach(f => {
                 csv += Object.values(f).map(v => `"${v}"`).join(',') + '\n';
+            });
+            csv += '\n';
+        }
+
+        if (gastos.length) { // <-- Agrega esto
+            csv += 'Gastos\n';
+            csv += Object.keys(gastos[0]).join(',') + '\n';
+            gastos.forEach(g => {
+                csv += Object.values(g).map(v => `"${v}"`).join(',') + '\n';
             });
             csv += '\n';
         }
