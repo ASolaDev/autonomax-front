@@ -35,6 +35,13 @@ export class GastosService {
     }
 
     actualizarGasto(id: number, gasto: any) {
+        const usuarioActualString = sessionStorage.getItem('usuarioActual');
+        let idUsuario = '';
+        if (usuarioActualString) {
+            const usuarioActual = JSON.parse(usuarioActualString);
+            idUsuario = usuarioActual.id;
+        }
+        gasto.usuario = idUsuario; // Asignar el ID del usuario actual al gasto
         return this.http.put(this.urlBase + '/editar_gasto/' + id, gasto, { responseType: 'text' });
     }
 }
