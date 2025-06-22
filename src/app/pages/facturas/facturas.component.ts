@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { jsPDF } from 'jspdf';
 import { Factura } from '../../models/Factura';
 import { FacturaService } from '../../services/factura.service';
-import { FormsModule } from '@angular/forms';
 
 @Component({
     standalone: true,
@@ -127,14 +126,12 @@ export class FacturasComponent implements OnInit {
         if (this.editarFacturaForm.valid && this.facturaEditando) {
             const formValue = this.editarFacturaForm.value;
 
-            // Formatear fechaEmision
             let fechaEmisionISO = formValue.fechaEmision;
             if (fechaEmisionISO) {
                 fechaEmisionISO = new Date(fechaEmisionISO + 'T00:00:00.000+00:00').toISOString();
                 fechaEmisionISO = fechaEmisionISO.replace('Z', '+00:00');
             }
 
-            // Formatear fechaPago si existe
             let fechaPagoISO = this.facturaEditando.fechaPago;
             if (fechaPagoISO && fechaPagoISO.length === 10) {
                 fechaPagoISO = new Date(fechaPagoISO + 'T00:00:00.000+00:00').toISOString().replace('Z', '+00:00');
@@ -144,15 +141,14 @@ export class FacturasComponent implements OnInit {
                 fechaPagoISO = undefined;
             }
 
-            // Construir el objeto compatible con EditarFacturaDetallesDTO
             const facturaActualizada = {
                 numeroFactura: formValue.numeroFactura,
                 fechaEmision: fechaEmisionISO,
                 fechaPago: fechaPagoISO,
-                subtotal: this.facturaEditando.subtotal, // Si quieres editar, agrega al form
-                iva: this.facturaEditando.iva,           // Si quieres editar, agrega al form
+                subtotal: this.facturaEditando.subtotal,
+                iva: this.facturaEditando.iva,
                 total: formValue.total,
-                estado: formValue.estado,     // Si quieres editar, usa formValue.estado y asegúrate que sea objeto
+                estado: formValue.estado,
                 facturasDetalles: this.facturaEditando.facturasDetalles,
                 cliente: this.facturaEditando.cliente
             };

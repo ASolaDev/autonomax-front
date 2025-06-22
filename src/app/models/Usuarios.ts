@@ -9,5 +9,4 @@ export interface Usuarios {
     email: string;
     password: string;
     rol?: Rol;
-    // Puedes agregar facturas si lo necesitas: facturas?: Facturas[];
 }

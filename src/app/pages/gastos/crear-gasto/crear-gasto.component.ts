@@ -1,16 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { Factura } from '../../../models/Factura';
+import { GastosDTO } from '../../../models/GastosDTO';
+import { Proveedores } from '../../../models/Proveedores';
 import { FacturaService } from '../../../services/factura.service';
 import { GastosService } from '../../../services/gastos.service';
-import { Gastos, MetodoPago } from '../../../models/Gastos';
-import { CommonModule } from '@angular/common';
-import { Proveedores } from '../../../models/Proveedores';
 import { ProveedoresService } from '../../../services/proveedores.service';
-import { GastosDTO } from '../../../models/GastosDTO';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-crear-gasto',
@@ -99,8 +97,7 @@ export class CrearGastoComponent implements OnInit {
         this.gastoForm.patchValue({
             proveedor: proveedor.id
         });
-        // Si quieres rellenar los campos extra automáticamente:
-        // (esto asume que tienes los controles en el form)
+
         this.gastoForm.patchValue({
             proveedor: proveedor.id,
             cif: proveedor.cifProveedor,
@@ -120,7 +117,6 @@ export class CrearGastoComponent implements OnInit {
             return;
         }
 
-        // Obtener el usuario actual (ajusta según tu app)
         const usuarioActualString = sessionStorage.getItem('usuarioActual');
         const usuarioId = usuarioActualString ? JSON.parse(usuarioActualString).id : null;
 

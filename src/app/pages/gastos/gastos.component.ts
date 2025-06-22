@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GastosService } from '../../services/gastos.service';
-import { Gastos } from '../../models/Gastos';
 import { jsPDF } from 'jspdf';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { Proveedores } from '../../models/Proveedores';
 import { CategoriaGastos } from '../../models/CategoriaGastos';
-import { ProveedoresService } from '../../services/proveedores.service';
+import { Gastos } from '../../models/Gastos';
+import { Proveedores } from '../../models/Proveedores';
 import { CategoriaGastosService } from '../../services/categoria-gastos.service';
+import { GastosService } from '../../services/gastos.service';
+import { ProveedoresService } from '../../services/proveedores.service';
 
 @Component({
     selector: 'app-gastos',
@@ -19,8 +19,8 @@ import { CategoriaGastosService } from '../../services/categoria-gastos.service'
 
 export class GastosComponent {
     gastos: Gastos[] = [];
-    proveedores: Proveedores[] = []; // Para el editar gasto
-    categorias: CategoriaGastos[] = [] // Para el editar gasto
+    proveedores: Proveedores[] = [];
+    categorias: CategoriaGastos[] = []
     mostrarModalEditar = false;
     gastoEditando: Gastos | null = null;
     editarGastoForm: FormGroup;
@@ -131,6 +131,13 @@ export class GastosComponent {
             metodoPago: gasto.metodoPago || ''
         });
         this.mostrarModalEditar = true;
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.add('blur-background');
+            mainContent.classList.add('blur-target');
+        }
+
         document.body.style.overflow = 'hidden';
     }
 
@@ -138,6 +145,13 @@ export class GastosComponent {
         this.mostrarModalEditar = false;
         this.gastoEditando = null;
         this.editarGastoForm.reset();
+
+        const mainContent = document.querySelector('.contenido-principal');
+        if (mainContent) {
+            mainContent.classList.remove('blur-background');
+            mainContent.classList.remove('blur-target');
+        }
+
         document.body.style.overflow = '';
     }
 
@@ -145,12 +159,9 @@ export class GastosComponent {
         if (this.editarGastoForm.valid && this.gastoEditando) {
             const formValue = this.editarGastoForm.value;
 
-            // Al ser proveedor un objeto solo vamos a guardar su ID
             let proveedorId = formValue.proveedor ? Number(formValue.proveedor) : null;
-
             let categoriaId = formValue.categoria ? Number(formValue.categoria) : null;
 
-            // Clonamos el objeto y eliminamos idGasto para no enviarlo al backend
             const { idGasto, ...restoGasto } = this.gastoEditando;
 
             const gastoActualizado = {
